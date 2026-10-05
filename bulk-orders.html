@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>Bulk & Event Orders – Custom T-Shirt Printing | PRINTCRAFT Studio</title>
+  <meta name="description" content="Custom bulk t-shirt printing for events, sports teams, companies and brands. Volume discounts up to 60%. Fast turnaround. Get a free quote today." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .event-cat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    @media(max-width:1024px){ .event-cat-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:640px){ .event-cat-grid{grid-template-columns:1fr;} }
+    .event-cat-card { border-radius:var(--radius-xl); overflow:hidden; position:relative; min-height:320px; cursor:pointer; transition:transform var(--transition-base); }
+    .event-cat-card:hover { transform:scale(1.02); }
+    .event-cat-card img { width:100%;height:100%;object-fit:cover;position:absolute;inset:0; }
+    .event-cat-overlay { position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 60%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px; }
+    .event-cat-tag { display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:11px;font-weight:700;color:white;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;align-self:flex-start; }
+    .event-cat-title { font-family:var(--font-heading);font-size:22px;font-weight:800;color:white;margin-bottom:6px; }
+    .event-cat-desc { font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:14px; }
+    .bulk-tier-table { width:100%;min-width:680px;border-collapse:collapse;background:var(--bg-card);border-radius:var(--radius-xl);overflow:hidden; }
+    .bulk-tier-table th { padding:18px 20px;background:var(--pc-black);color:white;font-family:var(--font-heading);font-size:13px;font-weight:700;text-align:left;white-space:nowrap; }
+    .bulk-tier-table td { padding:16px 20px;border-bottom:1px solid var(--border-color);font-size:14px;color:var(--text-secondary);white-space:nowrap; }
+    .bulk-tier-table td .btn { white-space:nowrap; }
+    .bulk-tier-table tr:last-child td { border-bottom:none; }
+    .bulk-tier-table tr:hover td { background:var(--bg-secondary); }
+    .bulk-tier-table .highlight { font-family:var(--font-heading);font-weight:700;color:var(--pc-primary); }
+    .bulk-tier-table .popular-row td { background:rgba(255,59,48,0.04); }
+    .bulk-tier-table .popular-row td:first-child { border-left:3px solid var(--pc-primary); }
+    .enquiry-form { background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:48px; }
+    @media(max-width:640px){ .enquiry-form{padding:24px;} }
+    .form-row { display:grid;grid-template-columns:1fr 1fr;gap:20px; }
+    @media(max-width:640px){ .form-row{grid-template-columns:1fr;} }
+    .process-horizontal { display:flex;gap:0;overflow:hidden;border-radius:var(--radius-xl); }
+    .process-h-step { flex:1;padding:40px 28px;background:var(--bg-card);border-right:1px solid var(--border-color);transition:background var(--transition-base);text-align:center; }
+    .process-h-step:last-child { border-right:none; }
+    .process-h-step:hover { background:var(--bg-secondary); }
+    .process-h-num { font-family:var(--font-display);font-size:48px;color:var(--pc-primary);line-height:1;margin-bottom:12px; }
+    .process-h-title { font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:8px; }
+    .process-h-desc { font-size:13px;color:var(--text-muted);line-height:1.6; }
+    @media(max-width:768px){ .process-horizontal{flex-direction:column;} .process-h-step{border-right:none;border-bottom:1px solid var(--border-color);} }
+    .bulk-guarantee { display:grid;grid-template-columns:repeat(4,1fr);gap:20px; }
+    @media(max-width:1024px){ .bulk-guarantee{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:480px){ .bulk-guarantee{grid-template-columns:1fr;} }
+    @media(max-width:1024px){ .bulk-stats{grid-template-columns:repeat(2,1fr) !important;} }
+    @media(max-width:640px){ .bulk-stats{grid-template-columns:1fr !important;padding:32px 24px !important;gap:32px !important;} }
+    @media(max-width:360px){
+      .event-cat-card{ min-height:260px; }
+      .event-cat-overlay{ padding:20px; }
+      .event-cat-title{ font-size:19px; }
+      .event-cat-desc{ font-size:12px; }
+      .process-h-step{ padding:28px 16px; }
+      .process-h-num{ font-size:40px; }
+      .bulk-tier-table th{ padding:12px 10px; font-size:12px; white-space:nowrap; }
+      .bulk-tier-table td{ padding:12px 10px; font-size:12px; }
+      .bulk-stats{ padding:24px 16px !important; gap:20px !important; }
+      .bulk-stats [style*="font-size:56px"]{ font-size:36px !important; }
+      .guarantee-item{ padding:20px 16px; }
+      .enquiry-form{ padding:20px !important; }
+      div[style*="padding:32px"]{ padding:20px !important; }
+    }
+    @media(max-width:320px){
+      .event-cat-card{ min-height:240px; }
+      .event-cat-overlay{ padding:16px; }
+      .event-cat-title{ font-size:18px; }
+      .process-h-step{ padding:24px 12px; }
+      .process-h-num{ font-size:36px; }
+      .process-h-title{ font-size:15px; }
+      .bulk-tier-table th{ padding:10px 8px; font-size:11px; }
+      .bulk-tier-table td{ padding:10px 8px; font-size:11px; }
+      .bulk-stats{ padding:20px 12px !important; gap:16px !important; }
+      .bulk-stats [style*="font-size:56px"]{ font-size:32px !important; }
+      .guarantee-item{ padding:16px 12px; }
+      .guarantee-icon{ font-size:30px; }
+      .enquiry-form{ padding:16px !important; }
+      div[style*="padding:32px"]{ padding:16px !important; }
+    }
+    .guarantee-item { text-align:center;padding:28px 20px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);transition:all var(--transition-base); }
+    .guarantee-item:hover { box-shadow:var(--shadow-lg);transform:translateY(-4px);border-color:var(--pc-primary); }
+    .guarantee-icon { font-size:36px;margin-bottom:12px; }
+    .guarantee-title { font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:8px; }
+    .guarantee-desc { font-size:13px;color:var(--text-muted);line-height:1.6; }
+  </style>
+</head>
+<body>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+      <div class="profile-dropdown">
+        <button class="profile-btn" aria-label="Account menu" aria-expanded="false" aria-haspopup="true"><i class="fa-regular fa-circle-user"></i></button>
+        <div class="profile-menu" role="menu">
+          <a href="login.html" role="menuitem"><i class="fa-solid fa-right-to-bracket"></i><span>Login / Sign Up<small>Access your account</small></span></a>
+          <div class="profile-menu-divider"></div>
+          <a href="dashboard.html" role="menuitem"><i class="fa-solid fa-gauge"></i><span>User Dashboard<small>Orders, designs &amp; tracking</small></span></a>
+          <a href="admin.html" role="menuitem"><i class="fa-solid fa-user-shield"></i><span>Admin Dashboard<small>Manage store &amp; orders</small></span></a>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li><li><a href="design-studio.html">Design Studio</a></li>
+    <li><a href="bulk-orders.html">Bulk Orders</a></li><li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero" aria-labelledby="bulk-hero-heading" style="--page-hero-bg: url('https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=1600&q=80');">
+  <div class="page-hero-bg-text" aria-hidden="true">BULK</div>
+  <div class="container-pc page-hero-content">
+    <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+      <span class="badge badge-primary">Up to 60% Off</span>
+      <span class="badge badge-accent" style="color:#000;">48-Hour Rush Available</span>
+      <span class="badge" style="background:var(--pc-green);color:white;">Free Setup</span>
+    </div>
+    <h1 class="page-hero-title" id="bulk-hero-heading">BULK &amp;<br><span style="color:var(--pc-primary);">EVENT</span><br>ORDERS</h1>
+    <p class="page-hero-desc">From 12 to 100,000 pieces — we power custom apparel for events, teams, corporations, and launches at unbeatable volume pricing.</p>
+  </div>
+</section>
+
+<!-- ====== SECTION 1: EVENT CATEGORIES ====== -->
+<section class="section-py" aria-labelledby="event-cats-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-calendar-star"></i> Event Types</div>
+      <h2 class="section-title reveal" id="event-cats-heading">We Print for<br><span class="text-gradient">Every Occasion</span></h2>
+      <p class="section-desc reveal">Whatever the gathering — we have the printing expertise, production speed, and quality guarantees to make your event unforgettable.</p>
+    </div>
+    <div class="event-cat-grid">
+      <div class="event-cat-card reveal" data-delay="0">
+        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=80" alt="Concert and music festival custom t-shirt printing" loading="lazy" />
+        <div class="event-cat-overlay">
+          <div class="event-cat-tag" style="background:var(--pc-primary);"><i class="fa-solid fa-music"></i> Music &amp; Festivals</div>
+          <div class="event-cat-title">Concerts &amp; Festivals</div>
+          <div class="event-cat-desc">Official merch, staff shirts, VIP packages. We've supplied some of the world's biggest music events.</div>
+          <a href="#enquiry" class="btn btn-white btn-sm" id="event-music-btn">Get Quote</a>
+        </div>
+      </div>
+      <div class="event-cat-card reveal" data-delay="100">
+        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600&q=80" alt="Sports team and tournament custom jersey printing" loading="lazy" />
+        <div class="event-cat-overlay">
+          <div class="event-cat-tag" style="background:var(--pc-orange);"><i class="fa-solid fa-futbol"></i> Sports &amp; Tournaments</div>
+          <div class="event-cat-title">Sports Events</div>
+          <div class="event-cat-desc">Team jerseys, coach kits, fan gear, tournament brackets, charity runs — all printed to professional grade.</div>
+          <a href="#enquiry" class="btn btn-white btn-sm" id="event-sports-btn">Get Quote</a>
+        </div>
+      </div>
+      <div class="event-cat-card reveal" data-delay="200">
+        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=80" alt="Corporate conference and business event apparel" loading="lazy" />
+        <div class="event-cat-overlay">
+          <div class="event-cat-tag" style="background:#0891B2;"><i class="fa-solid fa-briefcase"></i> Corporate Events</div>
+          <div class="event-cat-title">Corporate &amp; Trade Shows</div>
+          <div class="event-cat-desc">Company retreats, conferences, trade shows, and product launches with branded apparel that impresses.</div>
+          <a href="#enquiry" class="btn btn-white btn-sm" id="event-corporate-btn">Get Quote</a>
+        </div>
+      </div>
+      <div class="event-cat-card reveal" data-delay="300">
+        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=80" alt="College university orientation spirit wear" loading="lazy" />
+        <div class="event-cat-overlay">
+          <div class="event-cat-tag" style="background:var(--pc-purple);"><i class="fa-solid fa-graduation-cap"></i> College Events</div>
+          <div class="event-cat-title">Campus &amp; Greek Life</div>
+          <div class="event-cat-desc">Rush shirts, homecoming apparel, intramural sports, orientation kits — we know what college needs.</div>
+          <a href="#enquiry" class="btn btn-white btn-sm" id="event-college-btn">Get Quote</a>
+        </div>
+      </div>
+      <div class="event-cat-card reveal" data-delay="400">
+        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&q=80" alt="Charity run and nonprofit fundraiser shirts" loading="lazy" />
+        <div class="event-cat-overlay">
+          <div class="event-cat-tag" style="background:var(--pc-green);"><i class="fa-solid fa-heart"></i> Charity &amp; Fundraisers</div>
+          <div class="event-cat-title">Charity &amp; Community</div>
+          <div class="event-cat-desc">Fundraiser runs, awareness campaigns, volunteer uniforms — with nonprofit discount pricing available.</div>
+          <a href="#enquiry" class="btn btn-white btn-sm" id="event-charity-btn">Get Quote</a>
+        </div>
+      </div>
+      <div class="event-cat-card reveal" data-delay="500">
+        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80" alt="Brand launch and clothing line drop printing" loading="lazy" />
+        <div class="event-cat-overlay">
+          <div class="event-cat-tag" style="background:#DB2777;"><i class="fa-solid fa-crown"></i> Brand Launches</div>
+          <div class="event-cat-title">Brand &amp; Merch Drops</div>
+          <div class="event-cat-desc">Limited edition drops, brand launches, influencer merch — we make your first impression iconic.</div>
+          <a href="#enquiry" class="btn btn-white btn-sm" id="event-brand-btn">Get Quote</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 2: BULK PRICING TIERS ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="bulk-pricing-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-percent"></i> Volume Discounts</div>
+      <h2 class="section-title reveal" id="bulk-pricing-heading">Bulk Pricing<br><span class="text-gradient">That Scales With You</span></h2>
+      <p class="section-desc reveal">The more you order, the more you save. No hidden fees, no setup charges, no surprises.</p>
+    </div>
+
+    <div style="overflow-x:auto;" class="reveal">
+      <table class="bulk-tier-table" aria-label="Bulk pricing tiers">
+        <thead>
+          <tr>
+            <th>Quantity</th>
+            <th>Classic Tee</th>
+            <th>Hoodie</th>
+            <th>Polo</th>
+            <th>Discount</th>
+            <th>Production</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1–11 pcs</td><td>$12.99</td><td>$28.99</td><td>$19.99</td><td>—</td><td>3–5 days</td><td><a href="design-studio.html" class="btn btn-sm btn-outline" id="tier-1-btn">Order</a></td></tr>
+          <tr><td>12–49 pcs</td><td>$9.99</td><td>$22.99</td><td>$15.99</td><td class="highlight">-23%</td><td>3–4 days</td><td><a href="design-studio.html" class="btn btn-sm btn-outline" id="tier-2-btn">Order</a></td></tr>
+          <tr class="popular-row"><td><strong>50–99 pcs <i class="fa-solid fa-star" style="color:var(--pc-accent);font-size:12px;"></i></strong></td><td class="highlight">$7.99</td><td class="highlight">$18.99</td><td class="highlight">$12.99</td><td class="highlight">-38%</td><td>3–4 days</td><td><a href="design-studio.html" class="btn btn-sm btn-primary" id="tier-3-btn">Order</a></td></tr>
+          <tr><td>100–499 pcs</td><td>$6.49</td><td>$15.99</td><td>$10.49</td><td class="highlight">-50%</td><td>4–5 days</td><td><a href="#enquiry" class="btn btn-sm btn-outline" id="tier-4-btn">Quote</a></td></tr>
+          <tr><td>500–999 pcs</td><td>$5.49</td><td>$13.99</td><td>$8.99</td><td class="highlight">-58%</td><td>5–7 days</td><td><a href="#enquiry" class="btn btn-sm btn-outline" id="tier-5-btn">Quote</a></td></tr>
+          <tr><td>1,000+ pcs</td><td>Custom</td><td>Custom</td><td>Custom</td><td class="highlight">Up to 60%</td><td>7–10 days</td><td><a href="#enquiry" class="btn btn-sm btn-dark" id="tier-6-btn">Contact</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:32px;justify-content:center;" class="reveal">
+      <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-muted);">
+        <i class="fa-solid fa-check" style="color:var(--pc-green);"></i> Free setup on all orders
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-muted);">
+        <i class="fa-solid fa-check" style="color:var(--pc-green);"></i> Free shipping over $200
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-muted);">
+        <i class="fa-solid fa-check" style="color:var(--pc-green);"></i> 48-hour rush available (+fee)
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-muted);">
+        <i class="fa-solid fa-check" style="color:var(--pc-green);"></i> Mix sizes at same price
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 3: CUSTOMIZATION PROCESS ====== -->
+<section class="section-py" aria-labelledby="bulk-process-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-route"></i> How It Works</div>
+      <h2 class="section-title reveal" id="bulk-process-heading">Bulk Order Process<br><span class="text-gradient">Made Simple</span></h2>
+    </div>
+    <div class="process-horizontal reveal-scale">
+      <div class="process-h-step">
+        <div class="process-h-num">01</div>
+        <div class="process-h-title">Submit Enquiry</div>
+        <div class="process-h-desc">Fill out our bulk order form with your event details, quantity, design requirements, and deadline.</div>
+      </div>
+      <div class="process-h-step">
+        <div class="process-h-num">02</div>
+        <div class="process-h-title">Get a Quote</div>
+        <div class="process-h-desc">Our team sends a detailed, no-obligation quote within 2 hours with pricing, production timeline, and options.</div>
+      </div>
+      <div class="process-h-step">
+        <div class="process-h-num">03</div>
+        <div class="process-h-title">Approve Proof</div>
+        <div class="process-h-desc">Review your digital print proof. Request revisions for free. Approve when it's perfect — then we print.</div>
+      </div>
+      <div class="process-h-step">
+        <div class="process-h-num">04</div>
+        <div class="process-h-title">We Produce</div>
+        <div class="process-h-desc">Your order enters priority production with real-time updates. QC inspection on every piece before packing.</div>
+      </div>
+      <div class="process-h-step">
+        <div class="process-h-num">05</div>
+        <div class="process-h-title">Delivered</div>
+        <div class="process-h-desc">Shipped with full tracking directly to your event venue, office, or multiple locations if needed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 4: WHY BULK WITH PRINTCRAFT ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="bulk-why-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-medal"></i> Our Guarantees</div>
+      <h2 class="section-title reveal" id="bulk-why-heading">Why Leading Events Choose<br><span class="text-gradient">PRINTCRAFT</span></h2>
+    </div>
+    <div class="bulk-guarantee">
+      <div class="guarantee-item reveal" data-delay="0">
+        <div class="guarantee-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="guarantee-title">48-Hour Rush</div>
+        <div class="guarantee-desc">Critical deadline? Our rush production can turn around large orders in as little as 48 hours. Never miss your event date.</div>
+      </div>
+      <div class="guarantee-item reveal" data-delay="100">
+        <div class="guarantee-icon"><i class="fa-solid fa-trophy"></i></div>
+        <div class="guarantee-title">100% QC on Every Piece</div>
+        <div class="guarantee-desc">We don't sample-check — we inspect every single garment before it ships. Zero defects are the standard, not the goal.</div>
+      </div>
+      <div class="guarantee-item reveal" data-delay="200">
+        <div class="guarantee-icon"><i class="fa-solid fa-box-open"></i></div>
+        <div class="guarantee-title">Multi-Location Shipping</div>
+        <div class="guarantee-desc">Split your order and ship to multiple venues, team locations, or individuals at no extra charge for large orders.</div>
+      </div>
+      <div class="guarantee-item reveal" data-delay="300">
+        <div class="guarantee-icon"><i class="fa-solid fa-laptop"></i></div>
+        <div class="guarantee-title">Dedicated Account Manager</div>
+        <div class="guarantee-desc">Orders over 100 pieces get a dedicated account manager — your single point of contact from quote to delivery.</div>
+      </div>
+    </div>
+    
+    <!-- Stats Bar -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;background:var(--pc-black);border-radius:var(--radius-xl);padding:48px;" class="reveal bulk-stats">
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display);font-size:56px;color:var(--pc-primary);line-height:1;" data-count="500" data-suffix="+">500+</div>
+        <div style="font-family:var(--font-heading);font-size:13px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.06em;margin-top:8px;">Major Events Supplied</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display);font-size:56px;color:var(--pc-accent);line-height:1;" data-count="48" data-suffix="H">48H</div>
+        <div style="font-family:var(--font-heading);font-size:13px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.06em;margin-top:8px;">Fastest Turnaround</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display);font-size:56px;color:var(--pc-green);line-height:1;" data-count="60" data-suffix="%">60%</div>
+        <div style="font-family:var(--font-heading);font-size:13px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.06em;margin-top:8px;">Max Bulk Discount</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--font-display);font-size:56px;color:#A78BFA;line-height:1;" data-count="100" data-suffix="%">100%</div>
+        <div style="font-family:var(--font-heading);font-size:13px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.06em;margin-top:8px;">Satisfaction Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 5: ORDER ENQUIRY FORM ====== -->
+<section class="section-py" id="enquiry" aria-labelledby="enquiry-heading">
+  <div class="container-pc" style="max-width:860px;">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-paper-plane"></i> Get Your Quote</div>
+      <h2 class="section-title reveal" id="enquiry-heading">Submit a Bulk<br><span class="text-gradient">Order Enquiry</span></h2>
+      <p class="section-desc reveal">Tell us about your project and we'll send a detailed quote within 2 business hours. No obligation, no pressure.</p>
+    </div>
+    <div class="enquiry-form reveal-scale">
+      <form data-validate id="bulk-enquiry-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="bulk-name">Full Name *</label>
+            <input type="text" class="form-control" id="bulk-name" placeholder="John Smith" required aria-required="true" />
+            <div class="form-error">Please enter your name.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="bulk-email">Email Address *</label>
+            <input type="email" class="form-control" id="bulk-email" placeholder="john@company.com" required aria-required="true" />
+            <div class="form-error">Please enter a valid email.</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="bulk-phone">Phone Number</label>
+            <input type="tel" class="form-control" id="bulk-phone" placeholder="+1 (555) 000-0000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="bulk-org">Organization / Company</label>
+            <input type="text" class="form-control" id="bulk-org" placeholder="ACME Events LLC" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="bulk-type">Event / Order Type *</label>
+            <select class="form-control" id="bulk-type" required aria-required="true">
+              <option value="">Select type...</option>
+              <option>Concert / Festival</option>
+              <option>Sports Event</option>
+              <option>Corporate Event</option>
+              <option>College / Campus</option>
+              <option>Charity / Fundraiser</option>
+              <option>Brand Launch</option>
+              <option>Other</option>
+            </select>
+            <div class="form-error">Please select an order type.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="bulk-qty">Estimated Quantity *</label>
+            <select class="form-control" id="bulk-qty" required aria-required="true">
+              <option value="">Select quantity...</option>
+              <option>12–49 pieces</option>
+              <option>50–99 pieces</option>
+              <option>100–499 pieces</option>
+              <option>500–999 pieces</option>
+              <option>1,000+ pieces</option>
+            </select>
+            <div class="form-error">Please select a quantity range.</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="bulk-print">Preferred Print Method</label>
+            <select class="form-control" id="bulk-print">
+              <option>DTG Printing</option>
+              <option>Screen Printing</option>
+              <option>Embroidery</option>
+              <option>Sublimation</option>
+              <option>Not Sure — Recommend One</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="bulk-deadline">Event / Deadline Date *</label>
+            <input type="date" class="form-control" id="bulk-deadline" required aria-required="true" />
+            <div class="form-error">Please enter your deadline date.</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bulk-details">Project Details</label>
+          <textarea class="form-control" id="bulk-details" rows="4" placeholder="Describe your project, design concept, apparel types needed, any special requirements..."></textarea>
+        </div>
+        <div class="form-group">
+          <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+            <input type="checkbox" style="accent-color:var(--pc-primary);margin-top:2px;" id="bulk-consent" /> 
+            <span>I agree to be contacted about my enquiry. We never share your data with third parties. See our <a href="#" style="color:var(--pc-primary);">Privacy Policy</a>.</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" id="bulk-submit-btn">
+          <i class="fa-solid fa-paper-plane"></i> Submit Bulk Enquiry — Get Free Quote
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 6: TESTIMONIALS + CTA ====== -->
+<section class="section-py" style="background:linear-gradient(135deg,var(--pc-black),#1A0A0A);position:relative;overflow:hidden;" aria-labelledby="bulk-testimonials-heading">
+  <div class="orb orb-red" style="width:500px;height:500px;top:-100px;right:-100px;" aria-hidden="true"></div>
+  <div class="orb orb-yellow" style="width:300px;height:300px;bottom:-100px;left:-80px;" aria-hidden="true"></div>
+  <div class="container-pc" style="position:relative;z-index:1;">
+    <div class="section-header">
+      <div class="section-label reveal" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:white;"><i class="fa-solid fa-star"></i>Client Stories</div>
+      <h2 class="section-title reveal" id="bulk-testimonials-heading" style="color:white;">Trusted by Event<br><span style="color:var(--pc-primary);">Organizers Worldwide</span></h2>
+    </div>
+    <div class="grid-3" style="margin-bottom:64px;">
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-xl);padding:32px;" class="reveal" data-delay="0">
+        <div style="color:var(--pc-accent);font-size:14px;margin-bottom:16px;display:flex;gap:3px;"><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i></div>
+        <p style="color:rgba(255,255,255,0.8);font-size:15px;line-height:1.8;margin-bottom:20px;font-style:italic;">"We ordered 5,000 festival shirts with a 3-day window. PRINTCRAFT delivered on time, under budget, and the quality was incredible. They saved our festival."</p>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,59,48,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;color:white;"><i class="fa-solid fa-palette"></i></div>
+          <div><div style="font-family:var(--font-heading);font-size:14px;font-weight:700;color:white;">Jake Morrison</div><div style="font-size:12px;color:rgba(255,255,255,0.4);">Founder, Soundwave Festival</div></div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-xl);padding:32px;" class="reveal" data-delay="150">
+        <div style="color:var(--pc-accent);font-size:14px;margin-bottom:16px;display:flex;gap:3px;"><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i></div>
+        <p style="color:rgba(255,255,255,0.8);font-size:15px;line-height:1.8;margin-bottom:20px;font-style:italic;">"We run a 12-team corporate league. PRINTCRAFT handles all our jersey printing — individualized names, numbers, logos. Always perfect, always on time."</p>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,214,10,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;color:white;"><i class="fa-solid fa-trophy"></i></div>
+          <div><div style="font-family:var(--font-heading);font-size:14px;font-weight:700;color:white;">Sarah Chen</div><div style="font-size:12px;color:rgba(255,255,255,0.4);">HR Director, TechVenture Inc.</div></div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-xl);padding:32px;" class="reveal" data-delay="300">
+        <div style="color:var(--pc-accent);font-size:14px;margin-bottom:16px;display:flex;gap:3px;"><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i></div>
+        <p style="color:rgba(255,255,255,0.8);font-size:15px;line-height:1.8;margin-bottom:20px;font-style:italic;">"Our charity marathon uses PRINTCRAFT every year for 2,000+ participant shirts. The nonprofit discount and dedicated account manager make all the difference."</p>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(16,185,129,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;color:white;"><i class="fa-solid fa-heart"></i></div>
+          <div><div style="font-family:var(--font-heading);font-size:14px;font-weight:700;color:white;">Maria Gonzalez</div><div style="font-size:12px;color:rgba(255,255,255,0.4);">Director, Hope Run Foundation</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;" class="reveal">
+      <h3 style="font-family:var(--font-display);font-size:clamp(40px,6vw,80px);color:white;line-height:0.92;margin-bottom:24px;">YOUR EVENT.<br><span style="color:var(--pc-primary);">OUR PRINT.</span></h3>
+      <p style="color:rgba(255,255,255,0.6);font-size:17px;max-width:500px;margin:0 auto 32px;line-height:1.7;">Get your free bulk quote in under 2 hours. No commitment required.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="#enquiry" class="btn btn-primary btn-lg" id="bulk-cta-enquiry"><i class="fa-solid fa-paper-plane"></i> Submit Enquiry</a>
+        <a href="pricing.html" class="btn btn-white btn-lg" id="bulk-cta-pricing"><i class="fa-solid fa-tags"></i> See Full Pricing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="container-pc">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="PRINTCRAFT Studio"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+        <p>Premium custom T-shirt printing &amp; design studio. Helping brands, teams, and creators wear their stories since 2018.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="service-detail.html">DTG Printing</a></li><li><a href="service-detail.html">Screen Printing</a></li><li><a href="service-detail.html">Embroidery</a></li><li><a href="service-detail.html">Sublimation</a></li><li><a href="service-detail.html">Heat Transfer</a></li><li><a href="bulk-orders.html">Bulk Orders</a></li></ul></div>
+      <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact Us</h4><ul class="footer-links"><li><a href="tel:+18005551234"><i class="fa-solid fa-phone"></i> +1 (800) 555-1234</a></li><li><a href="mailto:hello@printcraft.studio"><i class="fa-solid fa-envelope"></i> hello@printcraft.studio</a></li><li><a href="#"><i class="fa-solid fa-location-dot"></i> 123 Print Ave, NY 10001</a></li></ul>
+        <div style="margin-top:20px;">
+          <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:white;margin-bottom:10px;">Newsletter</div>
+          <div style="display:flex;gap:8px;">
+            <input type="email" placeholder="your@email.com" class="form-control" style="border-radius:8px;padding:10px 12px;font-size:13px;" aria-label="Newsletter email" />
+            <button class="btn btn-primary btn-sm" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2026 PRINTCRAFT Studio. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div><p style="font-size:12px;color:#5A5A5A;">Secure Payments: Visa · Mastercard · PayPal · Apple Pay</p></div>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

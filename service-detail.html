@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>DTG Printing Service – PRINTCRAFT Studio</title>
+  <meta name="description" content="Learn everything about our premium Direct-to-Garment (DTG) printing service. Photo-realistic quality, no minimums, eco-friendly inks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .service-detail-layout { display:grid; grid-template-columns:1fr 360px; gap:48px; align-items:start; }
+    @media(max-width:1024px){ .service-detail-layout{ grid-template-columns:1fr; } .service-detail-sidebar{ order:first; } }
+    .service-detail-sidebar { position:sticky; top:96px; }
+    .sidebar-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:32px; margin-bottom:20px; }
+    .sidebar-card h3 { font-family:var(--font-heading);font-size:18px;font-weight:800;color:var(--text-primary);margin-bottom:20px; }
+    .sidebar-price { font-family:var(--font-display);font-size:56px;color:var(--text-primary);line-height:1; }
+    .sidebar-price sup { font-family:var(--font-heading);font-size:22px;font-weight:700;vertical-align:top;margin-top:8px; }
+    .sidebar-per { font-size:13px;color:var(--text-muted);margin-bottom:24px; }
+    .sidebar-features { list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:24px; }
+    .sidebar-features li { display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-secondary); }
+    .sidebar-features li i { color:var(--pc-green);font-size:12px; }
+    .related-service { display:flex;align-items:center;gap:14px;padding:14px;border:1px solid var(--border-color);border-radius:var(--radius-md);margin-bottom:10px;transition:all var(--transition-fast);cursor:pointer; }
+    .related-service:hover { border-color:var(--pc-primary);background:rgba(255,59,48,0.04); }
+    .related-service-icon { width:44px;height:44px;border-radius:var(--radius-md);background:linear-gradient(135deg,rgba(255,59,48,0.1),rgba(255,214,10,0.08));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;color:var(--pc-primary); }
+    .related-service-name { font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--text-primary); }
+    .related-service-price { font-size:12px;color:var(--pc-primary);font-weight:600; }
+    .spec-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:32px; }
+    @media(max-width:640px){ .spec-grid{grid-template-columns:1fr;} }
+    .spec-item { padding:20px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md); }
+    .spec-item .label { font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px; }
+    .spec-item .value { font-family:var(--font-heading);font-size:18px;font-weight:800;color:var(--text-primary); }
+    .gallery-thumbs { display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px; }
+    .gallery-thumb { aspect-ratio:1;border-radius:var(--radius-md);overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color var(--transition-fast); }
+    .gallery-thumb.active { border-color:var(--pc-primary); }
+    .gallery-thumb img { width:100%;height:100%;object-fit:cover;transition:transform var(--transition-base); }
+    .gallery-thumb:hover img { transform:scale(1.05); }
+    .gallery-main { width:100%;height:460px;border-radius:var(--radius-xl);overflow:hidden;margin-bottom:16px;position:relative; }
+    .gallery-main img { width:100%;height:100%;object-fit:cover;transition:opacity var(--transition-base); }
+    .before-after { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+    .before-after-item { border-radius:var(--radius-lg);overflow:hidden;position:relative; }
+    .before-after-item img { width:100%;height:200px;object-fit:cover; }
+    .before-after-label { position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,0.7);color:white;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:700; }
+  </style>
+</head>
+<body>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+      <div class="profile-dropdown">
+        <button class="profile-btn" aria-label="Account menu" aria-expanded="false" aria-haspopup="true"><i class="fa-regular fa-circle-user"></i></button>
+        <div class="profile-menu" role="menu">
+          <a href="login.html" role="menuitem"><i class="fa-solid fa-right-to-bracket"></i><span>Login / Sign Up<small>Access your account</small></span></a>
+          <div class="profile-menu-divider"></div>
+          <a href="dashboard.html" role="menuitem"><i class="fa-solid fa-gauge"></i><span>User Dashboard<small>Orders, designs &amp; tracking</small></span></a>
+          <a href="admin.html" role="menuitem"><i class="fa-solid fa-user-shield"></i><span>Admin Dashboard<small>Manage store &amp; orders</small></span></a>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="services.html">Services</a></li>
+    <li><a href="design-studio.html">Design Studio</a></li><li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero" aria-labelledby="detail-hero-heading" style="--page-hero-bg: url('https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=1600&q=80');">
+  <div class="page-hero-bg-text" aria-hidden="true">DTG</div>
+  <div class="container-pc page-hero-content">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <span class="badge badge-primary">Most Popular</span>
+      <span class="badge badge-accent" style="color:#000;">No Minimums</span>
+    </div>
+    <h1 class="page-hero-title" id="detail-hero-heading">DIRECT-TO-<br><span style="color:var(--pc-primary);">GARMENT</span><br>PRINTING</h1>
+    <p class="page-hero-desc">Museum-quality prints on any garment. Photo-realistic detail, unlimited colors, water-based eco inks.</p>
+  </div>
+</section>
+
+<!-- ====== SECTION 1: OVERVIEW + GALLERY ====== -->
+<section class="section-py" aria-labelledby="dtg-overview-heading">
+  <div class="container-pc">
+    <div class="service-detail-layout">
+      <!-- Main Content -->
+      <div>
+        <div class="section-label" style="display:inline-flex;margin-bottom:16px;"><i class="fa-solid fa-print"></i>Service Overview</div>
+        <h2 id="dtg-overview-heading" class="heading-xl" style="margin-bottom:20px;">What is DTG Printing?</h2>
+        <p class="body-lg" style="margin-bottom:16px;">Direct-to-Garment (DTG) printing uses industrial inkjet technology to print your design directly onto fabric fibers. The result is a soft, breathable print with photographic detail and unlimited color reproduction — indistinguishable from the fabric itself.</p>
+        <p class="body-md" style="margin-bottom:32px;">Unlike screen printing, DTG requires no screens or setup — making it ideal for complex artwork, gradients, photos, and small run custom orders. Upload your file and we print it exactly as-is, at 600 DPI resolution.</p>
+        
+        <!-- Gallery Main -->
+        <div class="gallery-main reveal-scale">
+          <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=900&q=80" alt="Close-up of vibrant DTG printed design on black cotton tee" id="gallery-main-img" loading="lazy" />
+          <div style="position:absolute;top:16px;right:16px;"><span class="badge badge-dark">600 DPI Quality</span></div>
+        </div>
+        <div class="gallery-thumbs">
+          <div class="gallery-thumb active" onclick="switchGallery(this,'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=900&q=80')">
+            <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=200&q=70" alt="DTG print 1" loading="lazy" />
+          </div>
+          <div class="gallery-thumb" onclick="switchGallery(this,'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80')">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=70" alt="DTG print 2" loading="lazy" />
+          </div>
+          <div class="gallery-thumb" onclick="switchGallery(this,'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=900&q=80')">
+            <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=200&q=70" alt="DTG print 3" loading="lazy" />
+          </div>
+          <div class="gallery-thumb" onclick="switchGallery(this,'https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?w=900&q=80')">
+            <img src="https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?w=200&q=70" alt="DTG print 4" loading="lazy" />
+          </div>
+        </div>
+        
+        <!-- Specs -->
+        <h3 class="heading-md" style="margin-bottom:20px;">Technical Specifications</h3>
+        <div class="spec-grid reveal">
+          <div class="spec-item"><div class="label">Print Resolution</div><div class="value">600 DPI</div></div>
+          <div class="spec-item"><div class="label">Max Print Area</div><div class="value">16" × 20"</div></div>
+          <div class="spec-item"><div class="label">Color Gamut</div><div class="value">Unlimited</div></div>
+          <div class="spec-item"><div class="label">Ink Type</div><div class="value">Water-Based</div></div>
+          <div class="spec-item"><div class="label">Minimum Order</div><div class="value">1 Piece</div></div>
+          <div class="spec-item"><div class="label">Best Fabric</div><div class="value">100% Cotton</div></div>
+          <div class="spec-item"><div class="label">Wash Durability</div><div class="value">50+ Washes</div></div>
+          <div class="spec-item"><div class="label">Production Time</div><div class="value">2–4 Days</div></div>
+        </div>
+      </div>
+      
+      <!-- Sidebar -->
+      <div class="service-detail-sidebar">
+        <div class="sidebar-card" style="background:linear-gradient(135deg,var(--pc-black),#1A0A0A);border-color:var(--pc-primary);">
+          <h3 style="color:white;">Get This Service</h3>
+          <div class="sidebar-price" style="color:white;"><sup>$</sup>12</div>
+          <div class="sidebar-per" style="color:rgba(255,255,255,0.5);">per piece · Standard quantity</div>
+          <ul class="sidebar-features">
+            <li style="color:rgba(255,255,255,0.8);"><i class="fa-solid fa-check" style="color:var(--pc-green);"></i> No setup fees</li>
+            <li style="color:rgba(255,255,255,0.8);"><i class="fa-solid fa-check" style="color:var(--pc-green);"></i> No minimums</li>
+            <li style="color:rgba(255,255,255,0.8);"><i class="fa-solid fa-check" style="color:var(--pc-green);"></i> Free digital proof</li>
+            <li style="color:rgba(255,255,255,0.8);"><i class="fa-solid fa-check" style="color:var(--pc-green);"></i> Ships in 2–4 days</li>
+            <li style="color:rgba(255,255,255,0.8);"><i class="fa-solid fa-check" style="color:var(--pc-green);"></i> Satisfaction guaranteed</li>
+          </ul>
+          <a href="design-studio.html" class="btn btn-primary w-full" style="justify-content:center;margin-bottom:12px;" id="sidebar-design-btn">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Start Designing
+          </a>
+          <a href="contact.html" class="btn btn-outline w-full" style="justify-content:center;border-color:rgba(255,255,255,0.2);color:white;" id="sidebar-quote-btn">
+            Get a Custom Quote
+          </a>
+        </div>
+        
+        <div class="sidebar-card">
+          <h3>Other Services</h3>
+          <a href="service-detail.html" class="related-service" id="related-screen">
+            <div class="related-service-icon"><i class="fa-solid fa-print" aria-hidden="true"></i></div>
+            <div><div class="related-service-name">Screen Printing</div><div class="related-service-price">From $6/pc · 12+ pcs</div></div>
+          </a>
+          <a href="service-detail.html" class="related-service" id="related-embroidery">
+            <div class="related-service-icon"><i class="fa-solid fa-scissors" aria-hidden="true"></i></div>
+            <div><div class="related-service-name">Embroidery</div><div class="related-service-price">From $14/pc</div></div>
+          </a>
+          <a href="service-detail.html" class="related-service" id="related-sublimation">
+            <div class="related-service-icon"><i class="fa-solid fa-fill-drip" aria-hidden="true"></i></div>
+            <div><div class="related-service-name">Sublimation</div><div class="related-service-price">From $18/pc</div></div>
+          </a>
+          <a href="service-detail.html" class="related-service" id="related-heat">
+            <div class="related-service-icon"><i class="fa-solid fa-temperature-high" aria-hidden="true"></i></div>
+            <div><div class="related-service-name">Heat Transfer</div><div class="related-service-price">From $8/pc</div></div>
+          </a>
+        </div>
+        
+        <div class="sidebar-card" style="background:rgba(16,185,129,0.06);border-color:rgba(16,185,129,0.2);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <i class="fa-solid fa-headset" style="color:var(--pc-green);font-size:20px;"></i>
+            <span style="font-family:var(--font-heading);font-size:15px;font-weight:700;color:var(--text-primary);">Need Help Deciding?</span>
+          </div>
+          <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">Talk to our print experts. Free consultation, no obligation.</p>
+          <a href="contact.html" class="btn btn-outline btn-sm w-full" style="justify-content:center;" id="sidebar-consult-btn">Chat with an Expert</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 2: HOW IT WORKS ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="dtg-process-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-route"></i> The DTG Process</div>
+      <h2 class="section-title reveal" id="dtg-process-heading">How DTG Printing <span class="text-gradient">Works</span></h2>
+    </div>
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="process-step-num">01</div>
+        <div class="process-step-title">Pre-Treatment</div>
+        <div class="process-step-desc">The garment is pre-treated with a special solution that helps ink bond to the fabric fibers for optimal color vibrancy and wash durability.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">02</div>
+        <div class="process-step-title">Print Loading</div>
+        <div class="process-step-desc">The garment is loaded onto a flatbed platen and positioned precisely. Our equipment prints directly from your digital file at 600 DPI resolution.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">03</div>
+        <div class="process-step-title">Heat Curing</div>
+        <div class="process-step-desc">After printing, the garment goes through a heat tunnel to cure the ink — permanently bonding it to the fabric for lasting color and wash resistance.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">04</div>
+        <div class="process-step-title">QC &amp; Ship</div>
+        <div class="process-step-desc">Every piece is inspected against your proof for color accuracy and placement. Then carefully packaged and shipped with live tracking.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 3: BEFORE / AFTER + IDEAL USE CASES ====== -->
+<section class="section-py" aria-labelledby="dtg-use-heading">
+  <div class="container-pc">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;" class="responsive-2col">
+      <div class="reveal-left">
+        <div class="section-label" style="display:inline-flex;"><i class="fa-solid fa-check-double"></i>Ideal For</div>
+        <h2 id="dtg-use-heading" class="section-title" style="text-align:left;margin:16px 0 32px;">When to Choose<br><span class="text-gradient">DTG Printing</span></h2>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:40px;height:40px;border-radius:var(--radius-md);background:rgba(255,59,48,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:var(--pc-primary);"><i class="fa-solid fa-image" aria-hidden="true"></i></div>
+            <div><div style="font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">Complex Designs & Photos</div><div style="font-size:14px;color:var(--text-muted);line-height:1.6;">Gradients, photographs, intricate illustrations — DTG handles unlimited colors effortlessly.</div></div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:40px;height:40px;border-radius:var(--radius-md);background:rgba(255,59,48,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:var(--pc-primary);"><i class="fa-solid fa-box-open" aria-hidden="true"></i></div>
+            <div><div style="font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">Small & On-Demand Orders</div><div style="font-size:14px;color:var(--text-muted);line-height:1.6;">Order 1 shirt or 100. No minimums, no setup costs. Perfect for test runs and POD.</div></div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:40px;height:40px;border-radius:var(--radius-md);background:rgba(255,59,48,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:var(--pc-primary);"><i class="fa-solid fa-rocket" aria-hidden="true"></i></div>
+            <div><div style="font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">Creator & Merch Drops</div><div style="font-size:14px;color:var(--text-muted);line-height:1.6;">Launch limited edition merch without inventory risk. Print on demand as orders come in.</div></div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:40px;height:40px;border-radius:var(--radius-md);background:rgba(255,59,48,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:var(--pc-primary);"><i class="fa-solid fa-leaf" aria-hidden="true"></i></div>
+            <div><div style="font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">Eco-Conscious Brands</div><div style="font-size:14px;color:var(--text-muted);line-height:1.6;">Our water-based DTG inks are OEKO-TEX certified and free from harmful chemicals.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div style="margin-bottom:16px;font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--text-primary);">Design Quality Example</div>
+        <div class="before-after">
+          <div class="before-after-item">
+            <img src="https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?w=400&q=80" alt="Original artwork file before printing" loading="lazy" />
+            <div class="before-after-label">Original Art</div>
+          </div>
+          <div class="before-after-item">
+            <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=400&q=80" alt="Final DTG printed result on shirt" loading="lazy" />
+            <div class="before-after-label">Printed Result</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:16px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--text-primary);"><i class="fa-solid fa-star" style="color:var(--pc-accent);" aria-hidden="true"></i> Customer Review</div>
+          <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;font-style:italic;">"The DTG print matched my digital artwork pixel-for-pixel. I've used 5 different printers and PRINTCRAFT is the only one that truly nails it every time."</p>
+          <div style="margin-top:8px;font-size:13px;color:var(--text-muted);">— David K., Streetwear Designer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 4: PRICING TIERS ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="dtg-pricing-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-tags"></i> Pricing</div>
+      <h2 class="section-title reveal" id="dtg-pricing-heading">DTG Printing <span class="text-gradient">Pricing</span></h2>
+      <p class="section-desc reveal">Transparent, volume-based pricing. The more you order, the less you pay per piece.</p>
+    </div>
+    <div class="grid-4 reveal">
+      <div class="pricing-card">
+        <div class="pricing-icon"><i class="fa-solid fa-file-lines" style="color:var(--pc-primary);" aria-hidden="true"></i></div>
+        <div class="pricing-title">Starter</div>
+        <div class="pricing-desc">1–11 pieces</div>
+        <div class="pricing-price"><sup>$</sup>12</div>
+        <div class="pricing-per">per piece</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><div class="icon">&#10003;</div> No minimums</li>
+          <li><div class="icon">&#10003;</div> 600 DPI print</li>
+          <li><div class="icon">&#10003;</div> 2–4 day production</li>
+          <li><div class="icon no">&#10003;</div> Standard shipping</li>
+        </ul>
+        <a href="design-studio.html" class="btn btn-outline w-full" style="justify-content:center;" id="dtg-starter-btn">Order Now</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-icon"><i class="fa-solid fa-chart-line" style="color:var(--pc-primary);" aria-hidden="true"></i></div>
+        <div class="pricing-title">Growth</div>
+        <div class="pricing-desc">12–49 pieces</div>
+        <div class="pricing-price"><sup>$</sup>9</div>
+        <div class="pricing-per">per piece · Save 25%</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><div class="icon">&#10003;</div> Volume discount</li>
+          <li><div class="icon">&#10003;</div> Priority production</li>
+          <li><div class="icon">&#10003;</div> Free digital proof</li>
+          <li><div class="icon">&#10003;</div> Free shipping</li>
+        </ul>
+        <a href="design-studio.html" class="btn btn-primary w-full" style="justify-content:center;" id="dtg-growth-btn">Order Now</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-icon"><i class="fa-solid fa-rocket" style="color:var(--pc-primary);" aria-hidden="true"></i></div>
+        <div class="pricing-title">Scale</div>
+        <div class="pricing-desc">50–199 pieces</div>
+        <div class="pricing-price"><sup>$</sup>7</div>
+        <div class="pricing-per">per piece · Save 42%</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><div class="icon">&#10003;</div> Bulk discount</li>
+          <li><div class="icon">&#10003;</div> Account manager</li>
+          <li><div class="icon">&#10003;</div> Printed sample</li>
+          <li><div class="icon">&#10003;</div> Free express ship</li>
+        </ul>
+        <a href="design-studio.html" class="btn btn-outline w-full" style="justify-content:center;" id="dtg-scale-btn">Order Now</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-icon"><i class="fa-solid fa-trophy" style="color:var(--pc-primary);" aria-hidden="true"></i></div>
+        <div class="pricing-title">Enterprise</div>
+        <div class="pricing-desc">200+ pieces</div>
+        <div class="pricing-price" style="font-size:42px;">Custom</div>
+        <div class="pricing-per">per piece pricing</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><div class="icon">&#10003;</div> Custom pricing</li>
+          <li><div class="icon">&#10003;</div> Net-30 invoicing</li>
+          <li><div class="icon">&#10003;</div> Dedicated rep</li>
+          <li><div class="icon">&#10003;</div> White-label option</li>
+        </ul>
+        <a href="contact.html" class="btn btn-dark w-full" style="justify-content:center;" id="dtg-enterprise-btn">Get Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 5: FAQ ====== -->
+<section class="section-py" aria-labelledby="dtg-faq-heading">
+  <div class="container-pc" style="max-width:800px;">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-circle-question"></i> DTG FAQ</div>
+      <h2 class="section-title reveal" id="dtg-faq-heading">Everything About <span class="text-gradient">DTG Printing</span></h2>
+    </div>
+    <div class="reveal">
+      <div class="faq-item open">
+        <div class="faq-question">Is DTG print quality as good as screen printing?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">DTG excels for complex, multi-color artwork and photographs. Screen printing has a slight edge for solid, bold colors at very high quantities. For most modern designs, DTG produces stunning results that match or exceed screen printing quality.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How should I care for my DTG printed garment?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Wash inside-out in cold water on a gentle cycle. Tumble dry on low heat. Avoid bleach and dry cleaning. With proper care, DTG prints last 50+ washes while maintaining vibrancy.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can you DTG print on dark-colored shirts?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes! We use a white underbase for dark garments, which adds a slight additional cost (+$2/piece) but ensures colors are vivid on dark fabrics. Our results on black shirts are consistently excellent.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What's the minimum file resolution for DTG?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">We recommend a minimum of 300 DPI at full print size. Our equipment prints at 600 DPI, so high-resolution files produce the most detailed results. Vector files (AI, EPS, SVG) work perfectly at any size.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How long does DTG printing take?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Standard production is 2–4 business days. We offer 48-hour rush and same-day rush options for urgent orders. Exact timing depends on order size and current queue. You'll receive a confirmed timeline with your order confirmation.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 6: CTA ====== -->
+<section style="background:linear-gradient(135deg,var(--pc-black),#1A0A0A);padding:100px 0;position:relative;overflow:hidden;" aria-labelledby="dtg-cta-heading">
+  <div class="orb orb-red" style="width:600px;height:600px;top:-200px;right:-150px;" aria-hidden="true"></div>
+  <div class="container-pc" style="position:relative;z-index:1;text-align:center;">
+    <h2 id="dtg-cta-heading" style="font-family:var(--font-display);font-size:clamp(48px,7vw,100px);color:white;line-height:0.92;margin-bottom:24px;" class="reveal">
+      PRINT YOUR<br><span style="color:var(--pc-primary);">VISION</span><br>TODAY
+    </h2>
+    <p class="reveal" style="font-size:18px;color:rgba(255,255,255,0.6);max-width:500px;margin:0 auto 40px;line-height:1.7;">No minimums. No setup fees. Upload your design and get a digital proof within 2 hours.</p>
+    <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="design-studio.html" class="btn btn-primary btn-lg" id="dtg-cta-design"><i class="fa-solid fa-wand-magic-sparkles"></i> Start Designing Now</a>
+      <a href="pricing.html" class="btn btn-white btn-lg" id="dtg-cta-pricing"><i class="fa-solid fa-tags"></i> View All Pricing</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="container-pc">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="PRINTCRAFT Studio"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+        <p>Premium custom T-shirt printing &amp; design studio. Helping brands, teams, and creators wear their stories since 2018.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="service-detail.html">DTG Printing</a></li><li><a href="service-detail.html">Screen Printing</a></li><li><a href="service-detail.html">Embroidery</a></li><li><a href="service-detail.html">Sublimation</a></li><li><a href="service-detail.html">Heat Transfer</a></li><li><a href="bulk-orders.html">Bulk Orders</a></li></ul></div>
+      <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact Us</h4><ul class="footer-links"><li><a href="tel:+18005551234"><i class="fa-solid fa-phone"></i> +1 (800) 555-1234</a></li><li><a href="mailto:hello@printcraft.studio"><i class="fa-solid fa-envelope"></i> hello@printcraft.studio</a></li><li><a href="#"><i class="fa-solid fa-location-dot"></i> 123 Print Ave, NY 10001</a></li></ul>
+        <div style="margin-top:20px;">
+          <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:white;margin-bottom:10px;">Newsletter</div>
+          <div style="display:flex;gap:8px;">
+            <input type="email" placeholder="your@email.com" class="form-control" style="border-radius:8px;padding:10px 12px;font-size:13px;" aria-label="Newsletter email" />
+            <button class="btn btn-primary btn-sm" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2026 PRINTCRAFT Studio. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div><p style="font-size:12px;color:#5A5A5A;">Secure Payments: Visa · Mastercard · PayPal · Apple Pay</p></div>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+<div class="zoom-overlay" role="dialog" aria-modal="true" aria-label="Image preview">
+  <button class="zoom-close" aria-label="Close">&#10005;</button>
+  <img src="" alt="Enlarged image" />
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+function switchGallery(thumb, src) {
+  document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+  const mainImg = document.getElementById('gallery-main-img');
+  mainImg.style.opacity = '0';
+  setTimeout(() => { mainImg.src = src; mainImg.style.opacity = '1'; }, 150);
+}
+</script>
+<style>
+@media(max-width:768px){
+  .responsive-2col{ grid-template-columns:1fr !important; gap:40px !important; }
+  .before-after{ grid-template-columns:1fr !important; }
+}
+</style>
+</body>
+</html>

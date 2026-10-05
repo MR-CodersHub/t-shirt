@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>Something Big is Coming – PRINTCRAFT Studio</title>
+  <meta name="description" content="PRINTCRAFT Studio is getting a major upgrade. Enter your email to be the first to know when we're back — with exclusive launch discounts." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --pc-primary:#FF3B30;
+      --pc-accent:#FFD60A;
+      --pc-black:#0A0A0A;
+      --font-display:'Bebas Neue',sans-serif;
+      --font-heading:'Outfit',sans-serif;
+      --radius-md:10px;
+      --radius-full:999px;
+    }
+    html, body { height:100%; }
+    body { font-family:'Inter',sans-serif; background:var(--pc-black); color:white; min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; overflow-x:hidden; position:relative; }
+    
+    /* Animated background */
+    .cs-bg { position:fixed;inset:0;z-index:0;overflow:hidden; }
+    .cs-bg-img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.07;filter:grayscale(100%); }
+    .cs-bg-grid { position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:60px 60px; }
+    .cs-orb-1 { position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(255,59,48,0.12) 0%,transparent 70%);top:-200px;left:-200px;animation:csFloat 12s ease-in-out infinite; }
+    .cs-orb-2 { position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,214,10,0.08) 0%,transparent 70%);bottom:-150px;right:-100px;animation:csFloat 15s ease-in-out infinite reverse; }
+    @keyframes csFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-40px);} }
+
+    /* Content */
+    .cs-content { position:relative;z-index:1;text-align:center;padding:40px 20px;width:100%;max-width:800px; }
+    
+    /* Logo */
+    .cs-logo { display:inline-flex;align-items:center;gap:12px;font-family:var(--font-heading);font-size:22px;font-weight:900;letter-spacing:0.04em;color:white;margin-bottom:48px; }
+    .cs-logo-icon { width:44px;height:44px;border-radius:var(--radius-md);background:var(--pc-primary);display:flex;align-items:center;justify-content:center;font-size:20px; }
+    .cs-logo span { color:var(--pc-primary); }
+    
+    /* Main heading */
+    .cs-badge { display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid rgba(255,59,48,0.4);border-radius:var(--radius-full);font-family:var(--font-heading);font-size:12px;font-weight:700;color:var(--pc-primary);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:24px; }
+    .cs-badge-dot { width:6px;height:6px;border-radius:50%;background:var(--pc-primary);animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(1.3);} }
+    
+    .cs-headline { font-family:var(--font-display);font-size:clamp(64px,14vw,160px);line-height:0.88;color:white;margin-bottom:16px;letter-spacing:-0.01em; }
+    .cs-headline .accent { color:var(--pc-primary); }
+    .cs-headline .accent-y { color:var(--pc-accent); }
+    .cs-subheadline { font-size:clamp(15px,2vw,20px);color:rgba(255,255,255,0.5);line-height:1.7;max-width:560px;margin:0 auto 48px; }
+    
+    /* Countdown */
+    .cs-countdown { display:flex;justify-content:center;gap:clamp(12px,3vw,32px);margin-bottom:48px; }
+    .cs-count-item { text-align:center; }
+    .cs-count-num { font-family:var(--font-display);font-size:clamp(48px,10vw,100px);color:white;line-height:1;min-width:2ch;display:block; }
+    .cs-count-label { font-family:var(--font-heading);font-size:clamp(9px,1.5vw,13px);font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em; }
+    .cs-count-sep { font-family:var(--font-display);font-size:clamp(40px,8vw,80px);color:rgba(255,59,48,0.4);line-height:1;align-self:flex-start;margin-top:4px; }
+
+    /* Progress bar */
+    .cs-progress-wrap { max-width:560px;margin:0 auto 48px; }
+    .cs-progress-label { display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:10px; }
+    .cs-progress-bar { height:6px;background:rgba(255,255,255,0.08);border-radius:var(--radius-full);overflow:hidden; }
+    .cs-progress-fill { height:100%;border-radius:var(--radius-full);background:linear-gradient(90deg,var(--pc-primary),var(--pc-accent));width:67%;transition:width 2s ease; }
+
+    /* Email form */
+    .cs-form { display:flex;gap:0;max-width:480px;margin:0 auto 24px;border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-full);overflow:hidden;background:rgba(255,255,255,0.06); }
+    .cs-form input { flex:1;padding:14px 20px;background:transparent;border:none;color:white;font-size:15px;font-family:'Inter',sans-serif;outline:none; }
+    .cs-form input::placeholder { color:rgba(255,255,255,0.3); }
+    .cs-form button { padding:14px 24px;background:var(--pc-primary);border:none;color:white;font-family:var(--font-heading);font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background 0.2s ease; }
+    .cs-form button:hover { background:#e0352b; }
+    .cs-form-note { font-size:12px;color:rgba(255,255,255,0.3);text-align:center; }
+    
+    /* Features */
+    .cs-features { display:flex;justify-content:center;gap:clamp(16px,4vw,48px);flex-wrap:wrap;margin-top:48px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.07); }
+    .cs-feature { display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.4); }
+    .cs-feature i { color:var(--pc-primary); }
+    
+    /* Socials */
+    .cs-socials { display:flex;justify-content:center;gap:12px;margin-top:28px; }
+    .cs-social { width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.4);font-size:14px;transition:all 0.2s ease; }
+    .cs-social:hover { border-color:var(--pc-primary);color:var(--pc-primary);transform:scale(1.1); }
+    
+    /* Status pill */
+    .cs-status { display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:var(--radius-full);font-size:13px;color:#10B981;font-weight:600;margin-top:16px; }
+    
+    /* Particles */
+    .particle { position:fixed;width:4px;height:4px;border-radius:50%;pointer-events:none;animation:particleFloat linear infinite; }
+    @keyframes particleFloat { 0%{opacity:0;transform:translateY(100vh) rotate(0deg);} 10%{opacity:1;} 90%{opacity:1;} 100%{opacity:0;transform:translateY(-100px) rotate(720deg);} }
+
+    /* Toast */
+    .toast-container { position:fixed;bottom:32px;right:32px;z-index:9999;display:flex;flex-direction:column;gap:10px; }
+    .toast { padding:14px 20px;background:#1F2937;border-left:4px solid var(--pc-primary);border-radius:var(--radius-md);font-size:14px;color:white;box-shadow:0 10px 32px rgba(0,0,0,0.3);animation:slideIn 0.3s ease;max-width:320px; }
+    @keyframes slideIn { from{opacity:0;transform:translateX(40px);} to{opacity:1;transform:translateX(0);} }
+    
+    @media(max-width:640px) {
+      .cs-form { flex-direction:column;border-radius:12px; }
+      .cs-form button { border-radius:0 0 12px 12px; }
+      .cs-count-sep { display:none; }
+    }
+  </style>
+</head>
+<body>
+<!-- Background -->
+<div class="cs-bg" aria-hidden="true">
+  <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1400&q=70" alt="" class="cs-bg-img" loading="lazy" />
+  <div class="cs-bg-grid"></div>
+  <div class="cs-orb-1"></div>
+  <div class="cs-orb-2"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.6) 0%,rgba(10,10,10,0.95) 100%);"></div>
+</div>
+
+<!-- Particles -->
+<div id="particles-container" aria-hidden="true"></div>
+
+<main class="cs-content" role="main" aria-label="Coming Soon page">
+  <!-- Logo -->
+  <div class="cs-logo">
+    <div class="cs-logo-icon"><i class="fa-solid fa-shirt" aria-hidden="true"></i></div>
+    PRINT<span>CRAFT</span>
+  </div>
+
+  <!-- Badge -->
+  <div class="cs-badge"><div class="cs-badge-dot" aria-hidden="true"></div> Major Update Incoming</div>
+
+  <!-- Headline -->
+  <h1 class="cs-headline" aria-label="Something BIG is being printed">
+    SOMETHING<br><span class="accent">BIG</span> IS BEING<br><span class="accent-y">PRINTED</span>
+  </h1>
+  <p class="cs-subheadline">We're upgrading PRINTCRAFT Studio with brand-new features, a redesigned Design Studio, and faster production. Back very soon.</p>
+
+  <!-- Countdown -->
+  <div class="cs-countdown" role="timer" aria-label="Countdown to launch">
+    <div class="cs-count-item">
+      <span class="cs-count-num" id="countdown-days" aria-live="polite">14</span>
+      <span class="cs-count-label">Days</span>
+    </div>
+    <div class="cs-count-sep" aria-hidden="true">:</div>
+    <div class="cs-count-item">
+      <span class="cs-count-num" id="countdown-hours" aria-live="polite">08</span>
+      <span class="cs-count-label">Hours</span>
+    </div>
+    <div class="cs-count-sep" aria-hidden="true">:</div>
+    <div class="cs-count-item">
+      <span class="cs-count-num" id="countdown-minutes" aria-live="polite">43</span>
+      <span class="cs-count-label">Minutes</span>
+    </div>
+    <div class="cs-count-sep" aria-hidden="true">:</div>
+    <div class="cs-count-item">
+      <span class="cs-count-num" id="countdown-seconds" aria-live="polite">00</span>
+      <span class="cs-count-label">Seconds</span>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="cs-progress-wrap" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" aria-label="Launch progress 67%">
+    <div class="cs-progress-label"><span>Launch Progress</span><span id="progress-pct">67% Complete</span></div>
+    <div class="cs-progress-bar"><div class="cs-progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <!-- Email Form -->
+  <form class="cs-form" id="cs-email-form" novalidate>
+    <input type="email" placeholder="Enter your email for early access..." required aria-label="Email address for early access notification" id="cs-email-input" autocomplete="email" />
+    <button type="submit" id="cs-notify-btn">Notify Me</button>
+  </form>
+  <p class="cs-form-note"><i class="fa-solid fa-lock"></i> No spam. Early access subscribers get 20% off at launch.</p>
+
+  <!-- Status -->
+  <div class="cs-status" aria-label="System status: All systems operational">
+    <span style="width:8px;height:8px;border-radius:50%;background:#10B981;animation:pulse 2s infinite;" aria-hidden="true"></span>
+    All existing systems are fully operational
+  </div>
+
+  <!-- Features list -->
+  <div class="cs-features" aria-label="What's coming in the new version">
+    <div class="cs-feature"><i class="fa-solid fa-sparkles" aria-hidden="true"></i> New AI Design Studio</div>
+    <div class="cs-feature"><i class="fa-solid fa-bolt" aria-hidden="true"></i> 2× Faster Production</div>
+    <div class="cs-feature"><i class="fa-solid fa-mobile-alt" aria-hidden="true"></i> Native Mobile App</div>
+    <div class="cs-feature"><i class="fa-solid fa-globe" aria-hidden="true"></i> International Shipping</div>
+    <div class="cs-feature"><i class="fa-solid fa-gift" aria-hidden="true"></i> Loyalty Rewards Program</div>
+  </div>
+
+  <!-- Socials -->
+  <div class="cs-socials" aria-label="Follow us on social media">
+    <a href="#" class="cs-social" aria-label="Follow on Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+    <a href="#" class="cs-social" aria-label="Follow on TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+    <a href="#" class="cs-social" aria-label="Follow on Twitter/X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+    <a href="#" class="cs-social" aria-label="Follow on Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+    <a href="#" class="cs-social" aria-label="Follow on YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+  </div>
+  
+  <p style="margin-top:24px;font-size:13px;color:rgba(255,255,255,0.2);">Need something urgently? Email us at <a href="mailto:hello@printcraft.studio" style="color:rgba(255,59,48,0.6);">hello@printcraft.studio</a></p>
+</main>
+
+<!-- Toast container -->
+<div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+<script>
+// Countdown timer
+const launchDate = new Date();
+launchDate.setDate(launchDate.getDate() + 14);
+launchDate.setHours(launchDate.getHours() + 8);
+launchDate.setMinutes(launchDate.getMinutes() + 43);
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = launchDate - now;
+  if (diff <= 0) {
+    document.getElementById('countdown-days').textContent = '00';
+    document.getElementById('countdown-hours').textContent = '00';
+    document.getElementById('countdown-minutes').textContent = '00';
+    document.getElementById('countdown-seconds').textContent = '00';
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('countdown-days').textContent = String(d).padStart(2,'0');
+  document.getElementById('countdown-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('countdown-minutes').textContent = String(m).padStart(2,'0');
+  document.getElementById('countdown-seconds').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Progress bar animation
+setTimeout(() => {
+  const fill = document.getElementById('progress-fill');
+  if (fill) fill.style.width = '67%';
+}, 200);
+
+// Email form
+document.getElementById('cs-email-form')?.addEventListener('submit', e => {
+  e.preventDefault();
+  const email = document.getElementById('cs-email-input')?.value;
+  if (!email) return;
+  showToast('You\'re on the early access list! Expect a 20% off code at launch.');
+  document.getElementById('cs-email-input').value = '';
+});
+
+// Toast
+function showToast(message, type = 'success') {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.style.borderLeftColor = type === 'success' ? '#10B981' : '#FF3B30';
+  toast.textContent = message;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
+
+// Particles
+(function createParticles() {
+  const container = document.getElementById('particles-container');
+  if (!container) return;
+  const colors = ['rgba(255,59,48,0.4)','rgba(255,214,10,0.3)','rgba(255,255,255,0.1)'];
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    p.style.width = p.style.height = (Math.random() * 4 + 2) + 'px';
+    p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    container.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>

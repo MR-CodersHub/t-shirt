@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>Customer Dashboard – My Orders & Designs | PRINTCRAFT</title>
+  <meta name="description" content="Manage your PRINTCRAFT orders, track delivery status, access saved designs, and manage account settings from your personal dashboard." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    body { background:var(--bg-secondary); }
+    .dashboard-layout { display:grid; grid-template-columns:260px minmax(0,1fr); gap:0; min-height:100vh; padding-top:72px; overflow-x:clip; }
+    .dashboard-sidebar, .dashboard-main { min-width:0; min-height:0; }
+    @media(max-width:1024px){ .dashboard-layout{ grid-template-columns:1fr; } .dashboard-sidebar{ display:none; } .dashboard-sidebar.open{ display:flex; } }
+    [id^="sec-"] { scroll-margin-top:88px; }
+    .dash-menu-btn { display:none; align-items:center; gap:8px; padding:10px 18px; margin-bottom:20px; border:1.5px solid var(--border-color); border-radius:var(--radius-full); background:var(--bg-card); color:var(--text-primary); font-family:var(--font-heading); font-size:13px; font-weight:700; cursor:pointer; }
+    .dash-backdrop { display:none; }
+    @media(max-width:1024px){
+      .dash-menu-btn{ display:inline-flex; }
+      .dashboard-sidebar.open{ position:fixed; left:0; top:72px; bottom:0; width:min(280px,85vw); max-width:85vw; z-index:300; box-shadow:var(--shadow-xl); }
+      .dash-backdrop.show{ display:block; position:fixed; inset:0; top:72px; background:rgba(0,0,0,0.5); z-index:250; }
+      html[dir="rtl"] .dashboard-sidebar.open{ left:auto; right:0; }
+      /* While the drawer is open nothing may paint over it */
+      body.drawer-open{ overflow:hidden; }
+      body.drawer-open .back-to-top, body.drawer-open .scroll-progress{ opacity:0; pointer-events:none; }
+      .dash-profile-grid{ grid-template-columns:1fr !important; }
+    }
+    .dashboard-sidebar { background:var(--bg-card); border-right:1px solid var(--border-color); display:flex; flex-direction:column; position:sticky; top:72px; height:calc(100vh - 72px); overflow-y:auto; }
+    .dash-sidebar-header { padding:24px 20px; border-bottom:1px solid var(--border-color); }
+    .dash-user-avatar { width:52px; height:52px; border-radius:50%; object-fit:cover; margin-bottom:12px; }
+    .dash-user-name { font-family:var(--font-heading);font-size:16px;font-weight:800;color:var(--text-primary); }
+    .dash-user-email { font-size:12px;color:var(--text-muted); }
+    .dash-user-tier { display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;background:rgba(255,214,10,0.15);color:#B45309;margin-top:6px; }
+    .dash-nav { padding:16px 0; flex:1; }
+    .dash-nav-section { font-family:var(--font-heading);font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;padding:8px 20px;margin-top:8px; }
+    .dash-nav-item { display:flex;align-items:center;gap:12px;padding:11px 20px;font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-muted);cursor:pointer;transition:all var(--transition-fast);border-left:3px solid transparent; }
+    .dash-nav-item:hover { background:var(--bg-secondary);color:var(--text-primary); }
+    .dash-nav-item.active { background:rgba(255,59,48,0.06);color:var(--pc-primary);border-left-color:var(--pc-primary); }
+    .dash-nav-item i { width:18px;text-align:center;font-size:14px; }
+    .dash-nav-item .badge-count { margin-left:auto;background:var(--pc-primary);color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:999px; }
+    .dashboard-main { padding:32px; min-width:0; overflow-x:clip; }
+    @media(max-width:640px){ .dashboard-main{padding:20px;} }
+    .dash-greeting { margin-bottom:32px; }
+    .dash-greeting h1 { font-family:var(--font-heading);font-size:clamp(22px,5.5vw,28px);font-weight:900;color:var(--text-primary);margin-bottom:4px;overflow-wrap:break-word; }
+    .dash-greeting p { font-size:14px;color:var(--text-muted); }
+    .dash-stats { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px; }
+    @media(max-width:1024px){ .dash-stats{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:480px){ .dash-stats{grid-template-columns:1fr 1fr;} }
+    .dash-stat-card { background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:20px;min-width:0;transition:all var(--transition-base); }
+    .dash-stat-card:hover { box-shadow:var(--shadow-md);transform:translateY(-2px); }
+    .dash-stat-icon { font-size:24px;margin-bottom:10px; }
+    .dash-stat-val { font-family:var(--font-display);font-size:clamp(28px,7vw,36px);color:var(--text-primary);line-height:1;margin-bottom:4px;overflow-wrap:break-word; }
+    .dash-stat-label { font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.04em; }
+    .dash-stat-change { font-size:11px;color:var(--pc-green);font-weight:600;margin-top:4px; }
+    .dash-section-title { font-family:var(--font-heading);font-size:18px;font-weight:800;color:var(--text-primary);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color); }
+    /* Section header rows (title + action button) must wrap on narrow screens */
+    .dashboard-main [id^="sec-"] > div:first-child, .dashboard-main [id^="asec-"] > div:first-child { flex-wrap:wrap; gap:12px; row-gap:12px; }
+    .orders-table { width:100%;min-width:620px;border-collapse:collapse;background:var(--bg-card);border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--border-color); }
+    .orders-table th, .orders-table td { white-space:nowrap; }
+    .orders-table th { padding:14px 16px;background:var(--bg-secondary);font-family:var(--font-heading);font-size:11px;font-weight:700;color:var(--text-muted);text-align:left;text-transform:uppercase;letter-spacing:0.06em; }
+    .orders-table td { padding:14px 16px;border-top:1px solid var(--border-color);font-size:13px;color:var(--text-secondary);vertical-align:middle; }
+    .orders-table tr:hover td { background:var(--bg-secondary); }
+    /* Orders table becomes stacked label/value cards on phones — no horizontal scroll */
+    @media(max-width:600px){
+      .orders-table{ min-width:0; background:transparent; border:none; overflow:visible; }
+      .orders-table thead{ display:none; }
+      .orders-table, .orders-table tbody, .orders-table tr, .orders-table td{ display:block; width:100%; }
+      .orders-table tr{ background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg); margin-bottom:12px; padding:6px 0; }
+      .orders-table tr:hover td{ background:transparent; }
+      .orders-table td{ border-top:none; border-bottom:1px dashed var(--border-color); padding:10px 16px; white-space:normal; display:flex; align-items:center; justify-content:space-between; gap:12px; text-align:right; overflow-wrap:break-word; }
+      .orders-table td:last-child{ border-bottom:none; }
+      .orders-table td::before{ content:attr(data-label); font-family:var(--font-heading); font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; text-align:left; flex-shrink:0; }
+      .orders-table td.no-label{ justify-content:stretch; }
+      .orders-table td.no-label::before{ display:none; }
+      .orders-table td.no-label .btn{ flex:1; justify-content:center; }
+    }
+    .order-id { font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-primary); }
+    .order-status { display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700; }
+    .status-production { background:rgba(255,214,10,0.12);color:#B45309; }
+    .status-shipped { background:rgba(8,145,178,0.12);color:#0891B2; }
+    .status-delivered { background:rgba(16,185,129,0.12);color:var(--pc-green); }
+    .status-processing { background:rgba(124,58,237,0.12);color:var(--pc-purple); }
+    .design-saved-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:16px; }
+    @media(max-width:768px){ .design-saved-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:480px){ .design-saved-grid{grid-template-columns:1fr;} }
+    .saved-design-card { background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition-base); }
+    .saved-design-card:hover { box-shadow:var(--shadow-md);transform:translateY(-2px); }
+    .saved-design-img { height:140px;overflow:hidden;position:relative; }
+    .saved-design-img img { width:100%;height:100%;object-fit:cover; }
+    .saved-design-overlay { position:absolute;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;gap:10px;opacity:0;transition:opacity var(--transition-fast); }
+    .saved-design-card:hover .saved-design-overlay { opacity:1; }
+    /* Touch devices have no hover — keep Edit/Order reachable with a bottom sheet style */
+    @media(hover:none){
+      .saved-design-overlay{ opacity:1; background:linear-gradient(to top, rgba(0,0,0,0.65), transparent 62%); align-items:flex-end; justify-content:flex-start; padding:10px; }
+    }
+    .saved-design-body { padding:14px; }
+    .saved-design-name { font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:4px; }
+    .saved-design-date { font-size:12px;color:var(--text-muted); }
+    .progress-bar-wrap { background:var(--bg-secondary);border-radius:999px;height:8px;overflow:hidden;margin-top:8px; }
+    .progress-bar-fill { height:100%;border-radius:999px;background:linear-gradient(90deg,var(--pc-primary),var(--pc-accent)); }
+    .notification-item { display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border-color); }
+    .notification-item:last-child { border-bottom:none; }
+    .notification-dot { width:8px;height:8px;border-radius:50%;background:var(--pc-primary);flex-shrink:0;margin-top:5px; }
+    .notification-text { font-size:13px;color:var(--text-secondary);line-height:1.6; }
+    .notification-time { font-size:11px;color:var(--text-muted);margin-top:2px; }
+    /* Order tracker timeline scrolls inside its card on small phones */
+    @media(max-width:600px){
+      .tracker-steps{ overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:10px; }
+      .tracker-steps > div:nth-child(odd){ flex:1 0 88px; min-width:88px; }
+      .tracker-steps > div:nth-child(even){ flex:0 0 18px; min-width:18px; }
+      .tracker-steps [style*="font-size:11px"]{ font-size:10px !important; line-height:1.4; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar (logo + theme only) -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+    </div>
+  </div>
+</nav>
+
+<div class="dashboard-layout">
+  <!-- Sidebar -->
+  <aside class="dashboard-sidebar" aria-label="Dashboard navigation">
+    <div class="dash-sidebar-header">
+      <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=104&q=70" alt="John Smith profile photo" class="dash-user-avatar" loading="lazy" />
+      <div class="dash-user-name">John Smith</div>
+      <div class="dash-user-email">john.smith@email.com</div>
+      <div class="dash-user-tier"><i class="fa-solid fa-star"></i> Gold Member</div>
+    </div>
+    <nav class="dash-nav" aria-label="Dashboard sections">
+      <div class="dash-nav-section">Main</div>
+      <div class="dash-nav-item active" id="nav-overview" role="button" tabindex="0" data-target="sec-overview"><i class="fa-solid fa-gauge" aria-hidden="true"></i> Overview</div>
+      <div class="dash-nav-item" id="nav-orders" role="button" tabindex="0" data-target="sec-orders"><i class="fa-solid fa-box" aria-hidden="true"></i> My Orders<span class="badge-count">3</span></div>
+      <div class="dash-nav-item" id="nav-designs" role="button" tabindex="0" data-target="sec-designs"><i class="fa-solid fa-paintbrush" aria-hidden="true"></i> Saved Designs</div>
+      <div class="dash-nav-item" id="nav-track" role="button" tabindex="0" data-target="sec-track"><i class="fa-solid fa-truck" aria-hidden="true"></i> Track Order</div>
+      <div class="dash-nav-section">Account</div>
+      <div class="dash-nav-item" id="nav-profile" role="button" tabindex="0" data-target="sec-profile"><i class="fa-regular fa-user" aria-hidden="true"></i> My Profile</div>
+      <div class="dash-nav-item" id="nav-addresses" role="button" tabindex="0" data-target="sec-addresses"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Addresses</div>
+      <div class="dash-nav-item" id="nav-billing" role="button" tabindex="0" data-target="sec-billing"><i class="fa-regular fa-credit-card" aria-hidden="true"></i> Billing &amp; Payments</div>
+      <div class="dash-nav-item" id="nav-notifications" role="button" tabindex="0" data-target="sec-notifications"><i class="fa-regular fa-bell" aria-hidden="true"></i> Notifications<span class="badge-count">2</span></div>
+      <div class="dash-nav-section">Support</div>
+      <div class="dash-nav-item" id="nav-contact" role="button" tabindex="0" onclick="location.href='contact.html'"><i class="fa-solid fa-headset" aria-hidden="true"></i> Contact Support</div>
+      <div class="dash-nav-item" id="nav-signout" role="button" tabindex="0" onclick="location.href='login.html'"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Sign Out</div>
+    </nav>
+  </aside>
+  <div class="dash-backdrop" id="dash-backdrop"></div>
+
+  <!-- Main Content -->
+  <main class="dashboard-main" aria-label="Dashboard main content">
+    <button class="dash-menu-btn" id="dash-menu-btn" aria-label="Open dashboard menu"><i class="fa-solid fa-bars"></i> Menu</button>
+    <!-- Greeting -->
+    <div class="dash-greeting" id="sec-overview">
+      <h1>Good afternoon, John!</h1>
+      <p>Here's a summary of your PRINTCRAFT account and recent activity.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="dash-stats">
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon"><i class="fa-solid fa-box"></i></div>
+        <div class="dash-stat-val">12</div>
+        <div class="dash-stat-label">Total Orders</div>
+        <div class="dash-stat-change">&#8593; 2 this month</div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon"><i class="fa-solid fa-fire"></i></div>
+        <div class="dash-stat-val">3</div>
+        <div class="dash-stat-label">In Production</div>
+        <div class="dash-stat-change" style="color:var(--pc-accent);">Estimated 3 days</div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon"><i class="fa-solid fa-palette"></i></div>
+        <div class="dash-stat-val">8</div>
+        <div class="dash-stat-label">Saved Designs</div>
+        <div class="dash-stat-change">&#8593; 3 new</div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+        <div class="dash-stat-val">$1,240</div>
+        <div class="dash-stat-label">Total Spent</div>
+        <div class="dash-stat-change">Gold member savings: $186</div>
+      </div>
+    </div>
+
+    <!-- Active Order Tracker -->
+    <div id="sec-track" style="background:linear-gradient(135deg,var(--pc-black),#1A0A0A);border-radius:var(--radius-xl);padding:28px;margin-bottom:28px;position:relative;overflow:hidden;">
+      <div class="orb orb-red" style="width:200px;height:200px;top:-80px;right:-60px;" aria-hidden="true"></div>
+      <div style="position:relative;z-index:1;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
+          <div>
+            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Active Order</div>
+            <div style="font-family:var(--font-heading);font-size:20px;font-weight:800;color:white;">#PC-2026-0089 · Custom Crew Tees × 50</div>
+          </div>
+          <span class="order-status status-production" style="background:rgba(255,214,10,0.15);color:#FFD60A;">&#9679; In Production</span>
+        </div>
+        <div class="tracker-steps" style="display:flex;gap:0;margin-bottom:20px;">
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:18px;margin-bottom:4px;color:var(--pc-green);"><i class="fa-solid fa-circle-check"></i></div>
+            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);">Order Placed</div>
+          </div>
+          <div style="flex:1;display:flex;align-items:center;"><div style="height:2px;background:var(--pc-primary);width:100%;"></div></div>
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:18px;margin-bottom:4px;color:var(--pc-green);"><i class="fa-solid fa-circle-check"></i></div>
+            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);">Proof Approved</div>
+          </div>
+          <div style="flex:1;display:flex;align-items:center;"><div style="height:2px;background:var(--pc-primary);width:100%;"></div></div>
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:18px;margin-bottom:4px;color:var(--pc-accent);"><i class="fa-solid fa-clock"></i></div>
+            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.4);">In Production</div>
+          </div>
+          <div style="flex:1;display:flex;align-items:center;"><div style="height:2px;background:rgba(255,255,255,0.15);width:100%;"></div></div>
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:18px;margin-bottom:4px;color:var(--text-muted);"><i class="fa-solid fa-box-open"></i></div>
+            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);">Shipped</div>
+          </div>
+          <div style="flex:1;display:flex;align-items:center;"><div style="height:2px;background:rgba(255,255,255,0.15);width:100%;"></div></div>
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:18px;margin-bottom:4px;color:var(--text-muted);"><i class="fa-solid fa-house"></i></div>
+            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);">Delivered</div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);">Estimated delivery: <strong style="color:white;">October 4, 2026</strong></div>
+      </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div id="sec-orders" style="margin-bottom:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+        <h2 class="dash-section-title" style="border:none;padding:0;margin:0;">Recent Orders</h2>
+        <button class="btn btn-sm btn-outline" id="view-all-orders-btn" onclick="">View All</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="orders-table" aria-label="Recent orders">
+          <thead>
+            <tr><th>Order ID</th><th>Product</th><th>Qty</th><th>Total</th><th>Status</th><th>Date</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Order"><span class="order-id">#PC-2026-0089</span></td>
+              <td data-label="Product">Custom Crew Tee · DTG</td><td data-label="Qty">50</td><td data-label="Total">$399.50</td>
+              <td data-label="Status"><span class="order-status status-production">&#9679; Production</span></td>
+              <td data-label="Date">Sep 28, 2026</td>
+              <td class="no-label"><button class="btn btn-sm btn-outline" id="track-order-1">Track</button></td>
+            </tr>
+            <tr>
+              <td data-label="Order"><span class="order-id">#PC-2026-0071</span></td>
+              <td data-label="Product">Premium Hoodie · Screen</td><td data-label="Qty">24</td><td data-label="Total">$551.76</td>
+              <td data-label="Status"><span class="order-status status-shipped">&#9679; Shipped</span></td>
+              <td data-label="Date">Sep 15, 2026</td>
+              <td class="no-label"><button class="btn btn-sm btn-outline" id="track-order-2">Track</button></td>
+            </tr>
+            <tr>
+              <td data-label="Order"><span class="order-id">#PC-2026-0058</span></td>
+              <td data-label="Product">Event Tees · Screen</td><td data-label="Qty">200</td><td data-label="Total">$1,298.00</td>
+              <td data-label="Status"><span class="order-status status-delivered">&#9679; Delivered</span></td>
+              <td data-label="Date">Sep 1, 2026</td>
+              <td class="no-label"><button class="btn btn-sm btn-outline" id="reorder-1">Reorder</button></td>
+            </tr>
+            <tr>
+              <td data-label="Order"><span class="order-id">#PC-2026-0041</span></td>
+              <td data-label="Product">Polo Shirt · Embroidery</td><td data-label="Qty">12</td><td data-label="Total">$239.88</td>
+              <td data-label="Status"><span class="order-status status-delivered">&#9679; Delivered</span></td>
+              <td data-label="Date">Aug 20, 2026</td>
+              <td class="no-label"><button class="btn btn-sm btn-outline" id="reorder-2">Reorder</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Saved Designs -->
+    <div id="sec-designs" style="margin-bottom:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+        <h2 class="dash-section-title" style="border:none;padding:0;margin:0;">Saved Designs</h2>
+        <a href="design-studio.html" class="btn btn-sm btn-primary" id="new-design-dash-btn"><i class="fa-solid fa-plus"></i> New Design</a>
+      </div>
+      <div class="design-saved-grid">
+        <div class="saved-design-card">
+          <div class="saved-design-img">
+            <img src="https://images.unsplash.com/photo-1550859492-d5da9d8e45f3?w=300&q=70" alt="Saved design: Bold Red Graphic" loading="lazy" />
+            <div class="saved-design-overlay">
+              <a href="design-studio.html" class="btn btn-white btn-sm" id="edit-design-1">Edit</a>
+              <button class="btn btn-primary btn-sm" id="order-design-1" onclick="showToast('Added to cart!','success')">Order</button>
+            </div>
+          </div>
+          <div class="saved-design-body">
+            <div class="saved-design-name">Bold Red Graphic</div>
+            <div class="saved-design-date">Last edited Sep 25, 2026</div>
+          </div>
+        </div>
+        <div class="saved-design-card">
+          <div class="saved-design-img">
+            <img src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=300&q=70" alt="Saved design: Minimalist Logo" loading="lazy" />
+            <div class="saved-design-overlay">
+              <a href="design-studio.html" class="btn btn-white btn-sm" id="edit-design-2">Edit</a>
+              <button class="btn btn-primary btn-sm" id="order-design-2" onclick="showToast('Added to cart!','success')">Order</button>
+            </div>
+          </div>
+          <div class="saved-design-body">
+            <div class="saved-design-name">Minimalist Logo</div>
+            <div class="saved-design-date">Last edited Sep 18, 2026</div>
+          </div>
+        </div>
+        <div class="saved-design-card">
+          <div class="saved-design-img">
+            <img src="https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=300&q=70" alt="Saved design: Event Shirt 2026" loading="lazy" />
+            <div class="saved-design-overlay">
+              <a href="design-studio.html" class="btn btn-white btn-sm" id="edit-design-3">Edit</a>
+              <button class="btn btn-primary btn-sm" id="order-design-3" onclick="showToast('Added to cart!','success')">Order</button>
+            </div>
+          </div>
+          <div class="saved-design-body">
+            <div class="saved-design-name">Event Shirt 2026</div>
+            <div class="saved-design-date">Last edited Aug 30, 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Profile -->
+    <div id="sec-profile" style="margin-bottom:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+        <h2 class="dash-section-title" style="border:none;padding:0;margin:0;">My Profile</h2>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:24px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" class="dash-profile-grid">
+          <div class="form-group" style="margin:0;">
+            <label class="form-label" for="profile-name">Full Name</label>
+            <input type="text" class="form-control" id="profile-name" value="John Smith" />
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label class="form-label" for="profile-email">Email</label>
+            <input type="email" class="form-control" id="profile-email" value="john.smith@email.com" />
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label class="form-label" for="profile-phone">Phone</label>
+            <input type="tel" class="form-control" id="profile-phone" value="+1 (555) 123-4567" />
+          </div>
+          <div class="form-group" style="margin:0;display:flex;align-items:flex-end;">
+            <button class="btn btn-primary w-full" style="justify-content:center;" id="profile-save-btn" onclick="showToast('Profile updated successfully!','success')"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Addresses -->
+    <div id="sec-addresses" style="margin-bottom:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+        <h2 class="dash-section-title" style="border:none;padding:0;margin:0;">Addresses</h2>
+        <button class="btn btn-sm btn-outline" id="address-add-btn" onclick="showToast('Address form opened!','info')"><i class="fa-solid fa-plus"></i> Add New</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" class="dash-profile-grid">
+        <div style="background:var(--bg-card);border:1px solid var(--pc-primary);border-radius:var(--radius-xl);padding:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <strong style="font-family:var(--font-heading);font-size:14px;color:var(--text-primary);">Home</strong>
+            <span class="badge badge-primary" style="font-size:10px;">Default</span>
+          </div>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.6;margin:0;">456 Maple Street, Apt 7B<br>Brooklyn, NY 11201<br>+1 (555) 123-4567</p>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <strong style="font-family:var(--font-heading);font-size:14px;color:var(--text-primary);">Office</strong>
+            <button class="btn btn-sm btn-outline" id="address-office-btn" onclick="showToast('Office set as default!','success')">Set Default</button>
+          </div>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.6;margin:0;">89 Business Plaza, Suite 200<br>New York, NY 10001<br>+1 (555) 987-6543</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Billing & Payments -->
+    <div id="sec-billing" style="margin-bottom:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+        <h2 class="dash-section-title" style="border:none;padding:0;margin:0;">Billing &amp; Payments</h2>
+        <button class="btn btn-sm btn-outline" id="billing-add-btn" onclick="showToast('Add payment method opened!','info')"><i class="fa-solid fa-plus"></i> Add Method</button>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="width:52px;height:36px;border-radius:8px;background:linear-gradient(135deg,#1a1a2e,#16213e);color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;"><i class="fa-brands fa-cc-visa"></i></div>
+        <div style="flex:1;min-width:160px;">
+          <div style="font-family:var(--font-heading);font-size:15px;font-weight:700;color:var(--text-primary);">Visa ending in 4242</div>
+          <div style="font-size:13px;color:var(--text-muted);">Expires 08/28 · Default method</div>
+        </div>
+        <button class="btn btn-sm btn-outline" id="billing-remove-btn" onclick="showToast('Payment method removed','info')">Remove</button>
+      </div>
+    </div>
+
+    <!-- Notifications + Quick Actions -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;" class="dash-bottom-grid">
+      <div id="sec-notifications" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+          <h2 style="font-family:var(--font-heading);font-size:16px;font-weight:800;color:var(--text-primary);margin:0;">Notifications</h2>
+          <span class="badge badge-primary" style="font-size:11px;">2 New</span>
+        </div>
+        <div class="notification-item">
+          <div class="notification-dot"></div>
+          <div><div class="notification-text">Your order <strong>#PC-2026-0089</strong> has entered the production phase. Estimated completion: Oct 2.</div><div class="notification-time">2 hours ago</div></div>
+        </div>
+        <div class="notification-item">
+          <div class="notification-dot"></div>
+          <div><div class="notification-text">Your digital proof is ready for review! Please approve within 24 hours to maintain your timeline.</div><div class="notification-time">Yesterday, 3:45 PM</div></div>
+        </div>
+        <div class="notification-item">
+          <div class="notification-dot" style="background:var(--pc-green);"></div>
+          <div><div class="notification-text">Order <strong>#PC-2026-0071</strong> has shipped! Tracking: <a href="#" style="color:var(--pc-primary);">1Z999AA10123456784</a></div><div class="notification-time">Sep 20, 2026</div></div>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:24px;">
+        <h2 style="font-family:var(--font-heading);font-size:16px;font-weight:800;color:var(--text-primary);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">Quick Actions</h2>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="design-studio.html" class="btn btn-primary" style="justify-content:flex-start;" id="qa-design-btn"><i class="fa-solid fa-wand-magic-sparkles" style="width:20px;"></i> Start New Design</a>
+          <a href="bulk-orders.html" class="btn btn-outline" style="justify-content:flex-start;" id="qa-bulk-btn"><i class="fa-solid fa-boxes-stacked" style="width:20px;"></i> Submit Bulk Enquiry</a>
+          <a href="contact.html" class="btn btn-outline" style="justify-content:flex-start;" id="qa-contact-btn"><i class="fa-solid fa-headset" style="width:20px;"></i> Contact Support</a>
+          <button class="btn btn-outline" style="justify-content:flex-start;" id="qa-track-btn" onclick="showToast('Order tracking opened!','success')"><i class="fa-solid fa-magnifying-glass" style="width:20px;"></i> Track an Order</button>
+          <a href="pricing.html" class="btn btn-outline" style="justify-content:flex-start;" id="qa-pricing-btn"><i class="fa-solid fa-tags" style="width:20px;"></i> View Pricing Guide</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+// Dashboard sidebar nav: scroll to section + scroll-spy + mobile drawer
+(function () {
+  var sidebar = document.querySelector('.dashboard-sidebar');
+  var backdrop = document.getElementById('dash-backdrop');
+  var menuBtn = document.getElementById('dash-menu-btn');
+  function setActive(item) {
+    document.querySelectorAll('.dash-nav-item').forEach(i => i.classList.remove('active'));
+    if (item) item.classList.add('active');
+  }
+  function setDrawer(open) {
+    if (sidebar) sidebar.classList.toggle('open', open);
+    if (backdrop) backdrop.classList.toggle('show', open);
+    document.body.classList.toggle('drawer-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  function closeDrawer() {
+    setDrawer(false);
+  }
+  document.querySelectorAll('.dash-nav-item[data-target]').forEach(item => {
+    var go = function () {
+      var sec = document.getElementById(item.dataset.target);
+      if (sec) sec.scrollIntoView({behavior: 'smooth', block: 'start'});
+      setActive(item);
+      closeDrawer();
+    };
+    item.addEventListener('click', go);
+    item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  });
+  if (menuBtn) menuBtn.addEventListener('click', function () {
+    setDrawer(!(sidebar && sidebar.classList.contains('open')));
+  });
+  if (backdrop) backdrop.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) setDrawer(false);
+  });
+  // Scroll-spy: highlight nav item for section in view
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          var link = document.querySelector('.dash-nav-item[data-target="' + en.target.id + '"]');
+          if (link) setActive(link);
+        }
+      });
+    }, {rootMargin: '-40% 0px -55% 0px'});
+    document.querySelectorAll('[id^="sec-"]').forEach(s => spy.observe(s));
+  }
+})();
+</script>
+<style>
+@media(max-width:768px){
+  .dash-bottom-grid{ grid-template-columns:1fr !important; }
+  /* Sync fixed offsets with the 64px mobile navbar */
+  .dashboard-layout{ padding-top:64px; }
+  .dashboard-sidebar.open{ top:64px; }
+  .dash-backdrop.show{ top:64px; }
+}
+@media(max-width:480px){
+  .dash-stat-card{ padding:14px; }
+  .dash-stat-val{ font-size:28px; }
+  .dash-stat-label{ overflow-wrap:break-word; }
+  .dash-greeting{ margin-bottom:24px; }
+  #sec-track{ padding:20px !important; }
+}
+@media(max-width:360px){
+  .dash-stat-val{ font-size:26px; }
+  .orders-table th, .orders-table td{ padding:10px 12px; font-size:12px; }
+}
+/* Sidebar vendam — content full width on all screens */
+.dashboard-layout{ grid-template-columns:1fr; }
+.dashboard-sidebar{ display:none !important; }
+.dash-menu-btn{ display:none !important; }
+.dash-backdrop{ display:none !important; }
+</style>
+</body>
+</html>

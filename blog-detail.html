@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>The Ultimate Guide to DTG Printing in 2026 | PRINTCRAFT Blog</title>
+  <meta name="description" content="Everything you need to know about direct-to-garment printing in 2026 — from artwork prep to wash care — the definitive guide by PRINTCRAFT." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .blog-detail-layout { display:grid; grid-template-columns:1fr 320px; gap:48px; }
+    @media(max-width:1024px){ .blog-detail-layout{ grid-template-columns:1fr; } }
+    .blog-article { max-width:100%; }
+    .blog-article-hero { width:100%; height:440px; border-radius:var(--radius-xl); overflow:hidden; margin-bottom:40px; border:1px solid var(--border-color); box-shadow:var(--shadow-lg); }
+    .blog-article-hero img { width:100%;height:100%;object-fit:cover;display:block; }
+    @media(max-width:640px){ .blog-article-hero{ height:280px; } }
+    .blog-article-meta { display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:32px; }
+    .article-author { display:flex;align-items:center;gap:10px; }
+    .article-author-img { width:44px;height:44px;border-radius:50%;object-fit:cover; }
+    .article-author-name { font-family:var(--font-heading);font-size:15px;font-weight:700;color:var(--text-primary); }
+    .article-author-role { font-size:12px;color:var(--text-muted); }
+    .article-meta-item { display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-muted); }
+    .article-body { font-size:16px; line-height:1.85; color:var(--text-secondary); }
+    .article-body h2 { font-family:var(--font-heading);font-size:28px;font-weight:800;color:var(--text-primary);margin:40px 0 16px; }
+    .article-body h3 { font-family:var(--font-heading);font-size:22px;font-weight:700;color:var(--text-primary);margin:32px 0 12px; }
+    .article-body p { margin-bottom:20px; }
+    .article-body ul, .article-body ol { margin:0 0 20px 24px; display:flex;flex-direction:column;gap:10px; }
+    .article-body li { color:var(--text-secondary); }
+    .article-body strong { color:var(--text-primary);font-weight:700; }
+    .article-body .callout { background:rgba(255,59,48,0.06);border-left:4px solid var(--pc-primary);border-radius:0 var(--radius-md) var(--radius-md) 0;padding:20px 24px;margin:28px 0; }
+    .article-body .callout p { margin:0;color:var(--text-primary);font-weight:500; }
+    .article-body figure { margin:32px 0; }
+    .article-body figure img { width:100%;border-radius:var(--radius-xl);margin-bottom:10px; }
+    .article-body figure figcaption { font-size:13px;color:var(--text-muted);text-align:center; }
+    .article-toc { background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:24px;margin-bottom:32px; }
+    .article-toc h4 { font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:16px;text-transform:uppercase;letter-spacing:0.06em; }
+    .article-toc ol { list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;counter-reset:toc-step; }
+    @media(max-width:640px){ .article-toc ol{ grid-template-columns:1fr; } }
+    .article-toc li { counter-increment:toc-step; }
+    .article-toc a { display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-secondary);font-weight:500;padding:10px 14px;background:var(--bg-primary);border:1px solid var(--border-color);border-radius:var(--radius-md);text-decoration:none;transition:all var(--transition-fast); }
+    .article-toc a::before { content:counter(toc-step,decimal-leading-zero);font-family:var(--font-heading);font-size:12px;font-weight:800;color:var(--pc-primary);flex-shrink:0; }
+    .article-toc a:hover { border-color:var(--pc-primary);color:var(--pc-primary);text-decoration:none;transform:translateY(-1px); }
+    .article-body > p:first-of-type::first-letter { font-family:var(--font-display);font-size:3.2em;line-height:0.85;float:left;margin:6px 10px 0 0;color:var(--pc-primary); }
+    .blog-tags { display:flex;flex-wrap:wrap;gap:8px;margin:32px 0; }
+    .blog-tag-item { padding:5px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:999px;font-size:12px;font-weight:600;color:var(--text-muted); }
+    .author-box { display:flex;gap:20px;align-items:center;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:24px;margin:40px 0; }
+    @media(max-width:640px){ .author-box{flex-direction:column;text-align:center;} }
+    .author-box-img { width:80px;height:80px;border-radius:50%;object-fit:cover;flex-shrink:0; }
+    .author-box-name { font-family:var(--font-heading);font-size:18px;font-weight:800;color:var(--text-primary);margin-bottom:4px; }
+    .author-box-role { font-size:13px;color:var(--pc-primary);font-weight:600;margin-bottom:10px; }
+    .author-box-bio { font-size:14px;color:var(--text-muted);line-height:1.7; }
+    .share-bar { display:flex;align-items:center;gap:12px;padding:24px 0;border-top:1px solid var(--border-color);border-bottom:1px solid var(--border-color);margin:32px 0; }
+    .share-label { font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-right:4px; }
+    .share-btn { width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-color);color:var(--text-muted);transition:all var(--transition-fast);font-size:14px; }
+    .share-btn:hover { transform:scale(1.1); }
+    .related-posts-grid { display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px; }
+    @media(max-width:640px){ .related-posts-grid{grid-template-columns:1fr;} }
+    .related-post-card { background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition-base); }
+    .related-post-card:hover { box-shadow:var(--shadow-md);transform:translateY(-2px); }
+    .related-post-img { height:140px;overflow:hidden; }
+    .related-post-img img { width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease; }
+    .related-post-card:hover .related-post-img img { transform:scale(1.05); }
+    .related-post-body { padding:16px; }
+    .related-post-title { font-family:var(--font-heading);font-size:15px;font-weight:700;color:var(--text-primary);line-height:1.3;margin-bottom:6px;transition:color var(--transition-fast); }
+    .related-post-card:hover .related-post-title { color:var(--pc-primary); }
+    .related-post-meta { font-size:12px;color:var(--text-muted); }
+    .progress-reading { position:fixed;top:72px;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--pc-primary),var(--pc-accent));transform-origin:left;transform:scaleX(0);z-index:100;transition:transform 0.1s linear; }
+  </style>
+</head>
+<body>
+<div class="progress-reading" id="reading-progress" aria-hidden="true"></div>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="home2.html">Home2</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+      <div class="profile-dropdown">
+        <button class="profile-btn" aria-label="Account menu" aria-expanded="false" aria-haspopup="true"><i class="fa-regular fa-circle-user"></i></button>
+        <div class="profile-menu" role="menu">
+          <a href="login.html" role="menuitem"><i class="fa-solid fa-right-to-bracket"></i><span>Login / Sign Up<small>Access your account</small></span></a>
+          <div class="profile-menu-divider"></div>
+          <a href="dashboard.html" role="menuitem"><i class="fa-solid fa-gauge"></i><span>User Dashboard<small>Orders, designs &amp; tracking</small></span></a>
+          <a href="admin.html" role="menuitem"><i class="fa-solid fa-user-shield"></i><span>Admin Dashboard<small>Manage store &amp; orders</small></span></a>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="services.html">Services</a></li>
+    <li><a href="design-studio.html">Design Studio</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Page Header -->
+<section style="padding:120px 0 48px;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(255,59,48,0.07),transparent 70%),var(--bg-secondary);border-bottom:1px solid var(--border-color);" aria-label="Article header">
+  <div class="container-pc" style="max-width:860px;text-align:center;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin:0 0 20px;flex-wrap:wrap;">
+      <span class="badge badge-primary" id="article-badge"><i class="fa-solid fa-file-lines"></i> Print Guide</span>
+      <span style="font-size:13px;color:var(--text-muted);" id="article-readtime">12 min read</span>
+      <span style="font-size:13px;color:var(--text-muted);" id="article-date"><i class="fa-solid fa-calendar-days"></i> January 15, 2026</span>
+    </div>
+    <h1 style="font-family:var(--font-heading);font-size:clamp(32px,5vw,54px);font-weight:900;color:var(--text-primary);line-height:1.15;margin-bottom:20px;" id="article-title">The Ultimate Guide to DTG Printing in 2026: Everything You Need to Know</h1>
+    <p style="font-size:18px;color:var(--text-secondary);line-height:1.7;margin:0 auto 28px;max-width:720px;" id="article-excerpt">From artwork preparation and ink chemistry to wash care and choosing the right garment — this is the most comprehensive DTG printing guide you'll find anywhere.</p>
+    <div class="blog-article-meta" style="justify-content:center;">
+      <div class="article-author" style="text-align:left;">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=70" alt="Marcus Lee" class="article-author-img" id="article-author-img" loading="lazy" />
+        <div>
+          <div class="article-author-name" id="article-author-name">Marcus Lee</div>
+          <div class="article-author-role" id="article-author-role">Co-Founder &amp; CEO, PRINTCRAFT</div>
+        </div>
+      </div>
+      <div class="article-meta-item"><i class="fa-regular fa-eye" aria-hidden="true"></i> 24,891 views</div>
+      <div class="article-meta-item"><i class="fa-regular fa-heart" aria-hidden="true"></i> 1,203 likes</div>
+      <div class="article-meta-item"><i class="fa-regular fa-comment" aria-hidden="true"></i> 87 comments</div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Article -->
+<section class="section-py" aria-labelledby="article-heading">
+  <div class="container-pc" style="max-width:1160px;">
+    <div class="blog-detail-layout">
+      <!-- Article Content -->
+      <article class="blog-article" aria-labelledby="article-main-heading">
+        <!-- Hero Image -->
+        <div class="blog-article-hero reveal-scale">
+          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=85" alt="Industrial print production at PRINTCRAFT" id="article-hero-img" loading="lazy" />
+        </div>
+        
+        <!-- Table of Contents -->
+        <div class="article-toc reveal">
+          <h4><i class="fa-solid fa-list" aria-hidden="true"></i> Table of Contents</h4>
+          <ol>
+            <li><a href="#what-is-dtg">What Is DTG Printing?</a></li>
+            <li><a href="#how-it-works">How DTG Printing Works</a></li>
+            <li><a href="#artwork">Preparing Your Artwork</a></li>
+            <li><a href="#fabrics">Best Fabrics for DTG</a></li>
+            <li><a href="#colors">Printing on Dark vs. Light Colors</a></li>
+            <li><a href="#care">Wash Care Instructions</a></li>
+            <li><a href="#vs-screen">DTG vs. Screen Printing</a></li>
+            <li><a href="#choosing">When to Choose DTG</a></li>
+          </ol>
+        </div>
+        
+        <div class="article-body reveal">
+          <h2 id="what-is-dtg">What Is DTG Printing?</h2>
+          <p>Direct-to-Garment (DTG) printing is a digital printing technology that works similarly to a desktop inkjet printer — except instead of printing on paper, it prints directly onto fabric. The result is a soft, breathable print with photographic quality and virtually unlimited color reproduction.</p>
+          <p>Unlike screen printing, which requires physical screens to be made for each color, DTG reads your design digitally and prints it exactly as-is. This makes it ideal for complex artwork, photographs, gradients, and one-off pieces where traditional printing methods would be prohibitively expensive.</p>
+          
+          <div class="callout">
+            <p><i class="fa-solid fa-lightbulb" style="color:var(--pc-accent);"></i> <strong>Key insight:</strong> DTG is the only printing method that can reproduce photographic images and complex artwork with unlimited colors at no extra cost — making it the go-to choice for modern, intricate designs.</p>
+          </div>
+          
+          <h2 id="how-it-works">How DTG Printing Works</h2>
+          <p>The DTG process involves several carefully orchestrated steps:</p>
+          <ol>
+            <li><strong>Pre-treatment:</strong> The garment is sprayed with a special pre-treatment solution that helps the ink bond to the fabric fibers. This step is critical for color accuracy and wash durability — especially on dark-colored garments.</li>
+            <li><strong>Loading:</strong> The treated garment is stretched flat onto a printer platen and loaded into the DTG machine. Positioning is precise to ensure accurate print placement.</li>
+            <li><strong>Printing:</strong> The printer head moves across the garment, depositing CMYK (and white ink for dark garments) in precise droplets at 600 DPI resolution.</li>
+            <li><strong>Curing:</strong> The garment passes through a heat press or tunnel dryer at ~330°F to permanently cure the ink into the fabric fibers.</li>
+          </ol>
+          
+          <figure>
+            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80" alt="Close-up of a graphic tee showing fine print detail" loading="lazy" />
+            <figcaption>600 DPI DTG printing captures every detail of your original artwork, including fine lines, gradients, and photographic textures.</figcaption>
+          </figure>
+          
+          <h2 id="artwork">Preparing Your Artwork for DTG</h2>
+          <p>The quality of your DTG print is directly tied to the quality of your artwork file. Follow these guidelines to ensure the best possible result:</p>
+          <ul>
+            <li><strong>Resolution:</strong> Minimum 300 DPI at full print size. 600 DPI is ideal and matches our printer's output resolution.</li>
+            <li><strong>File Formats:</strong> PNG (with transparent background preferred), AI, EPS, PDF, SVG. Avoid JPEG for artwork with fine details or text.</li>
+            <li><strong>Color Mode:</strong> Use sRGB color profile. Avoid CMYK files — our RIP software converts them, but sRGB produces more accurate results.</li>
+            <li><strong>Transparency:</strong> Use transparent backgrounds when printing on colored garments to prevent unwanted white areas around your design.</li>
+            <li><strong>Text:</strong> Make sure all text is rasterized or outlined before submitting. Minimum readable font size is 8pt.</li>
+          </ul>
+          
+          <h2 id="fabrics">Best Fabrics for DTG Printing</h2>
+          <p>DTG works best on natural fiber fabrics, particularly cotton. Here's how different fabric compositions affect print quality:</p>
+          <ul>
+            <li><strong>100% Cotton:</strong> The gold standard for DTG. Ink bonds perfectly with cotton fibers for vivid colors and exceptional durability.</li>
+            <li><strong>Cotton/Poly Blends:</strong> 60/40 or 50/50 blends produce good results. The higher the cotton content, the better the print quality.</li>
+            <li><strong>Tri-Blends:</strong> Produce a slight "vintage" texture that many brands use intentionally for a soft, worn aesthetic.</li>
+            <li><strong>100% Polyester:</strong> DTG is not ideal for synthetic fabrics — sublimation is a better choice for polyester garments.</li>
+          </ul>
+          
+          <div class="callout">
+            <p><i class="fa-solid fa-lightbulb" style="color:var(--pc-accent);"></i> <strong>Pro tip:</strong> For your best results, always choose 100% ringspun cotton garments at 4.5–6.0 oz weight. Lighter shirts can show print through the back; heavier ones are sturdier but take longer to cure.</p>
+          </div>
+          
+          <h2 id="colors">Printing on Dark vs. Light Colored Garments</h2>
+          <p>One of the most common questions we get is about printing on dark-colored shirts. Here's what you need to know:</p>
+          <p><strong>Light garments</strong> (white, cream, pastels): The simplest and most cost-effective DTG prints. CMYK inks print directly onto the fabric without needing a white underbase.</p>
+          <p><strong>Dark garments</strong> (black, navy, dark colors): Require a white ink underbase to be printed first — essentially a white "canvas" for the colors to sit on. This adds a small cost (+$2/piece at PRINTCRAFT) but produces vivid, accurate colors on dark fabrics.</p>
+          
+          <figure>
+            <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=800&q=80" alt="Comparison of vibrant print colors on apparel" loading="lazy" />
+            <figcaption>DTG printing on dark garments requires a white underbase layer — the results are stunning when done correctly.</figcaption>
+          </figure>
+          
+          <h2 id="care">Wash Care Instructions for DTG Printed Garments</h2>
+          <p>With proper care, DTG prints can last 50+ wash cycles while maintaining color vibrancy. Follow these guidelines:</p>
+          <ul>
+            <li>Wash inside-out in cold water (30°C / 86°F max)</li>
+            <li>Use a gentle or delicate wash cycle</li>
+            <li>Use mild, non-bleach detergent</li>
+            <li>Tumble dry on LOW heat or hang to dry</li>
+            <li>Do not iron directly on the print — iron the reverse side or use a pressing cloth</li>
+            <li>Do not dry clean or use bleach</li>
+            <li>Do not wring or twist the garment</li>
+          </ul>
+          
+          <h2 id="vs-screen">DTG vs. Screen Printing</h2>
+          <p>The two most popular methods for custom t-shirt printing each have their strengths. Here's how they compare:</p>
+          <ul>
+            <li><strong>Colors:</strong> DTG handles unlimited colors at no extra cost. Screen printing charges per color (max ~12 colors).</li>
+            <li><strong>Minimums:</strong> DTG has no minimums. Screen printing typically requires 12+ pieces to be economical.</li>
+            <li><strong>Detail:</strong> DTG excels at photographic detail. Screen printing is best for bold, solid designs.</li>
+            <li><strong>Cost at volume:</strong> Screen printing becomes cheaper per piece at 100+ units. DTG is more cost-effective for small runs.</li>
+            <li><strong>Durability:</strong> Both methods produce excellent wash durability when done correctly.</li>
+          </ul>
+          
+          <h2 id="choosing">When to Choose DTG Printing</h2>
+          <p>Choose DTG when you need:</p>
+          <ul>
+            <li>Complex artwork, photographs, or designs with gradients</li>
+            <li>Small quantities (1–50 pieces) without setup costs</li>
+            <li>Quick turnaround on one-off or sample pieces</li>
+            <li>Print-on-demand for e-commerce without holding inventory</li>
+            <li>Unlimited color designs without per-color pricing</li>
+          </ul>
+        </div>
+        
+        <!-- Tags -->
+        <div class="blog-tags reveal">
+          <span class="blog-tag-item">DTG Printing</span>
+          <span class="blog-tag-item">Print Guide</span>
+          <span class="blog-tag-item">Artwork Prep</span>
+          <span class="blog-tag-item">Wash Care</span>
+          <span class="blog-tag-item">Cotton Fabric</span>
+          <span class="blog-tag-item">Custom Apparel</span>
+        </div>
+        
+        <!-- Share Bar -->
+        <div class="share-bar reveal">
+          <span class="share-label">Share:</span>
+          <a href="#" class="share-btn" style="background:#1877F2;color:white;border-color:#1877F2;" aria-label="Share on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="share-btn" style="background:#000;color:white;border-color:#000;" aria-label="Share on X/Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="share-btn" style="background:#0A66C2;color:white;border-color:#0A66C2;" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="share-btn" style="background:#E1306C;color:white;border-color:#E1306C;" aria-label="Share on Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="share-btn" id="copy-link-btn" aria-label="Copy link" onclick="event.preventDefault();navigator.clipboard.writeText(location.href).then(()=>showToast('Link copied!','success'));"><i class="fa-solid fa-link"></i></a>
+        </div>
+        
+        <!-- Author Box -->
+        <div class="author-box reveal">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=160&q=70" alt="Marcus Lee, Co-Founder of PRINTCRAFT Studio" class="author-box-img" id="authorbox-img" loading="lazy" />
+          <div>
+            <div class="author-box-name" id="authorbox-name">Marcus Lee</div>
+            <div class="author-box-role" id="authorbox-role">Co-Founder &amp; CEO, PRINTCRAFT Studio</div>
+            <p class="author-box-bio" id="authorbox-bio">Marcus has been in the custom printing industry since 2012, starting as a screen printer and building PRINTCRAFT into one of the most respected digital printing studios in North America. He writes about printing technology, streetwear culture, and the business of custom apparel.</p>
+          </div>
+        </div>
+        
+        <!-- Related Posts -->
+        <div class="reveal">
+          <h3 style="font-family:var(--font-heading);font-size:22px;font-weight:800;color:var(--text-primary);margin-bottom:20px;">Related Articles</h3>
+          <div class="related-posts-grid">
+            <a href="blog-detail.html?post=post-1" class="related-post-card" id="related-1">
+              <div class="related-post-img"><img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?w=400&q=70" alt="Screen printing vs DTG article" loading="lazy" /></div>
+              <div class="related-post-body">
+                <div class="related-post-title">Screen Printing vs DTG: Which Is Right for Your Order?</div>
+                <div class="related-post-meta">Jan 20, 2026 · 9 min read</div>
+              </div>
+            </a>
+            <a href="blog-detail.html?post=post-5" class="related-post-card" id="related-2">
+              <div class="related-post-img"><img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=400&q=70" alt="Embroidery vs DTG article" loading="lazy" /></div>
+              <div class="related-post-body">
+                <div class="related-post-title">Embroidery vs DTG for Logo Apparel: The Definitive Comparison</div>
+                <div class="related-post-meta">Jan 7, 2026 · 8 min read</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Sticky Sidebar -->
+      <aside aria-label="Blog detail sidebar" style="display:flex;flex-direction:column;gap:24px;">
+        <!-- Article CTA -->
+        <div style="background:linear-gradient(135deg,var(--pc-black),#1A0A0A);border-radius:var(--radius-xl);padding:28px;text-align:center;position:sticky;top:96px;" class="reveal">
+          <div style="font-size:36px;margin-bottom:12px;color:var(--pc-purple);"><i class="fa-solid fa-palette"></i></div>
+          <h3 style="font-family:var(--font-heading);font-size:18px;font-weight:800;color:white;margin-bottom:10px;">Ready to Try DTG?</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:20px;line-height:1.6;">Start your first order today. No minimums, no setup fees.</p>
+          <a href="design-studio.html" class="btn btn-primary w-full" style="justify-content:center;margin-bottom:10px;" id="article-design-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Start Designing</a>
+          <a href="pricing.html" class="btn btn-outline w-full" style="justify-content:center;border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);" id="article-pricing-btn">View Pricing</a>
+        </div>
+        <!-- Reading Progress -->
+        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:24px;" class="reveal">
+          <h4 style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:16px;">In This Article</h4>
+          <ol style="list-style:decimal;margin-left:16px;display:flex;flex-direction:column;gap:8px;">
+            <li><a href="#what-is-dtg" style="font-size:13px;color:var(--pc-primary);">What Is DTG Printing?</a></li>
+            <li><a href="#how-it-works" style="font-size:13px;color:var(--text-muted);">How It Works</a></li>
+            <li><a href="#artwork" style="font-size:13px;color:var(--text-muted);">Preparing Artwork</a></li>
+            <li><a href="#fabrics" style="font-size:13px;color:var(--text-muted);">Best Fabrics</a></li>
+            <li><a href="#colors" style="font-size:13px;color:var(--text-muted);">Dark vs. Light Colors</a></li>
+            <li><a href="#care" style="font-size:13px;color:var(--text-muted);">Wash Care</a></li>
+            <li><a href="#vs-screen" style="font-size:13px;color:var(--text-muted);">DTG vs. Screen Print</a></li>
+            <li><a href="#choosing" style="font-size:13px;color:var(--text-muted);">When to Choose DTG</a></li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="container-pc">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="PRINTCRAFT Studio"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+        <p>Premium custom T-shirt printing &amp; design studio. Helping brands, teams, and creators wear their stories since 2018.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="service-detail.html">DTG Printing</a></li><li><a href="service-detail.html">Screen Printing</a></li><li><a href="service-detail.html">Embroidery</a></li><li><a href="service-detail.html">Sublimation</a></li><li><a href="service-detail.html">Heat Transfer</a></li><li><a href="bulk-orders.html">Bulk Orders</a></li></ul></div>
+      <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact Us</h4><ul class="footer-links"><li><a href="tel:+18005551234"><i class="fa-solid fa-phone"></i> +1 (800) 555-1234</a></li><li><a href="mailto:hello@printcraft.studio"><i class="fa-solid fa-envelope"></i> hello@printcraft.studio</a></li><li><a href="#"><i class="fa-solid fa-location-dot"></i> 123 Print Ave, NY 10001</a></li></ul>
+        <div style="margin-top:20px;">
+          <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:white;margin-bottom:10px;">Newsletter</div>
+          <div style="display:flex;gap:8px;">
+            <input type="email" placeholder="your@email.com" class="form-control" style="border-radius:8px;padding:10px 12px;font-size:13px;" aria-label="Newsletter email" />
+            <button class="btn btn-primary btn-sm" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2026 PRINTCRAFT Studio. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div><p style="font-size:12px;color:#5A5A5A;">Secure Payments: Visa · Mastercard · PayPal · Apple Pay</p></div>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="assets/js/main.js"></script>
+<script>
+// Dynamic article header: shows the clicked blog card's image, title & author (?post=post-1..6)
+(function () {
+  var POSTS = {
+    'post-1': {
+      img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=1200&q=85',
+      imgAlt: 'Screen printing vs DTG comparison article',
+      title: 'Screen Printing vs DTG: Which Is Right for Your Order?',
+      excerpt: 'We break down the key differences between screen printing and DTG so you can choose the best method every time.',
+      badge: '<i class="fa-solid fa-file-lines"></i> Print Guide',
+      badgeClass: 'badge badge-primary',
+      date: 'January 20, 2026', read: '9 min read',
+      author: 'Marcus Lee', authorImg: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=70',
+      role: 'Co-Founder & CEO, PRINTCRAFT', boxRole: 'Co-Founder & CEO, PRINTCRAFT Studio',
+      boxImg: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=160&q=70',
+      bio: 'Marcus has been in the custom printing industry since 2012, starting as a screen printer and building PRINTCRAFT into one of the most respected digital printing studios in North America. He writes about printing technology, streetwear culture, and the business of custom apparel.'
+    },
+    'post-2': {
+      img: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200&q=85',
+      imgAlt: 'Color theory for custom apparel design guide',
+      title: "Color Theory for Custom Apparel: A Designer's Playbook",
+      excerpt: 'Master the color wheel, complementary palettes, and contrast ratios to create t-shirt designs that pop on any fabric color.',
+      badge: '<i class="fa-solid fa-palette"></i> Design Tips',
+      badgeClass: 'badge badge-primary',
+      date: 'January 18, 2026', read: '7 min read',
+      author: 'Priya Sharma', authorImg: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=70',
+      role: 'Head of Design, PRINTCRAFT', boxRole: 'Head of Design, PRINTCRAFT Studio',
+      boxImg: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&q=70',
+      bio: 'Former graphic designer for Nike and Adidas. Priya leads our design studio and creative team of 12, covering color theory, typography, and print-ready artwork.'
+    },
+    'post-3': {
+      img: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=1200&q=85',
+      imgAlt: 'Vintage streetwear aesthetic revival 2026',
+      title: 'Why Vintage Streetwear is Back and Bigger Than Ever',
+      excerpt: 'From oversized silhouettes to distressed prints — the vintage streetwear revival is reshaping how brands design their collections.',
+      badge: '<i class="fa-solid fa-crown"></i> Streetwear',
+      badgeClass: 'badge badge-accent',
+      date: 'January 14, 2026', read: '5 min read',
+      author: 'James Chen', authorImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=70',
+      role: 'Production Director, PRINTCRAFT', boxRole: 'Production Director, PRINTCRAFT Studio',
+      boxImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160&q=70',
+      bio: '15 years in garment manufacturing. James ensures every order meets our impossibly high quality standards, from streetwear drops to corporate uniforms.'
+    },
+    'post-4': {
+      img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=85',
+      imgAlt: 'How to start a t-shirt business guide',
+      title: 'How to Start a T-Shirt Business in 2026: Complete Guide',
+      excerpt: 'From niche selection and design to pricing, marketing, and finding your first customers — the complete blueprint for your apparel brand.',
+      badge: '<i class="fa-solid fa-briefcase"></i> Business',
+      badgeClass: 'badge badge-primary',
+      date: 'January 10, 2026', read: '15 min read',
+      author: 'Sofia Martinez', authorImg: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=70',
+      role: 'Customer Success Lead, PRINTCRAFT', boxRole: 'Customer Success Lead, PRINTCRAFT Studio',
+      boxImg: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=160&q=70',
+      bio: "Sofia's team ensures every customer has an exceptional experience from first quote to final delivery, guiding new brands through their first bulk orders."
+    },
+    'post-5': {
+      img: 'https://images.unsplash.com/photo-1608234807905-4466023792f5?w=1200&q=85',
+      imgAlt: 'Embroidery vs DTG printing for logos comparison',
+      title: 'Embroidery vs DTG for Logo Apparel: The Definitive Comparison',
+      excerpt: 'Corporate logo on a polo or hoodie? We compare embroidery and DTG head-to-head across quality, durability, and cost.',
+      badge: '<i class="fa-solid fa-file-lines"></i> Print Guide',
+      badgeClass: 'badge badge-primary',
+      date: 'January 7, 2026', read: '8 min read',
+      author: 'Marcus Lee', authorImg: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=70',
+      role: 'Co-Founder & CEO, PRINTCRAFT', boxRole: 'Co-Founder & CEO, PRINTCRAFT Studio',
+      boxImg: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=160&q=70',
+      bio: 'Marcus has been in the custom printing industry since 2012, starting as a screen printer and building PRINTCRAFT into one of the most respected digital printing studios in North America. He writes about printing technology, streetwear culture, and the business of custom apparel.'
+    },
+    'post-6': {
+      img: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1200&q=85',
+      imgAlt: 'Sustainable printing industry news 2026',
+      title: 'The Rise of Sustainable Printing: Eco-Inks and Organic Blanks',
+      excerpt: 'The custom apparel industry is going green. We explore the latest sustainable printing technologies and what they mean for brands.',
+      badge: '<i class="fa-solid fa-earth-americas"></i> Industry News',
+      badgeClass: 'badge badge-primary',
+      date: 'January 3, 2026', read: '6 min read',
+      author: 'Priya Sharma', authorImg: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=70',
+      role: 'Head of Design, PRINTCRAFT', boxRole: 'Head of Design, PRINTCRAFT Studio',
+      boxImg: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&q=70',
+      bio: 'Former graphic designer for Nike and Adidas. Priya leads our design studio and creative team of 12, covering color theory, typography, and print-ready artwork.'
+    }
+  };
+  function setText(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; }
+  function setImg(id, src, alt) { var el = document.getElementById(id); if (el) { el.src = src; if (alt) el.alt = alt; } }
+  try {
+    var key = new URLSearchParams(window.location.search).get('post');
+    var p = POSTS[key];
+    if (!p) return;
+    document.title = p.title + ' | PRINTCRAFT Blog';
+    var badge = document.getElementById('article-badge');
+    if (badge) { badge.className = p.badgeClass; badge.innerHTML = p.badge; }
+    setText('article-readtime', p.read);
+    var dateEl = document.getElementById('article-date');
+    if (dateEl) dateEl.innerHTML = '<i class="fa-solid fa-calendar-days"></i> ' + p.date;
+    setText('article-title', p.title);
+    setText('article-excerpt', p.excerpt);
+    setImg('article-author-img', p.authorImg, p.author);
+    setText('article-author-name', p.author);
+    setText('article-author-role', p.role);
+    setImg('article-hero-img', p.img, p.imgAlt);
+    setImg('authorbox-img', p.boxImg, p.author);
+    setText('authorbox-name', p.author);
+    setText('authorbox-role', p.boxRole);
+    setText('authorbox-bio', p.bio);
+  } catch (e) { /* keep default article on any error */ }
+})();
+// Reading progress bar
+window.addEventListener('scroll', () => {
+  const article = document.querySelector('.blog-article');
+  if (!article) return;
+  const rect = article.getBoundingClientRect();
+  const total = article.offsetHeight;
+  const read = Math.max(0, -rect.top);
+  const progress = Math.min(1, read / total);
+  const bar = document.getElementById('reading-progress');
+  if (bar) bar.style.transform = `scaleX(${progress})`;
+});
+</script>
+</body>
+</html>

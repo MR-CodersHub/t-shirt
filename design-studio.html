@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>Design Your Own T-Shirt – Online Studio | PRINTCRAFT</title>
+  <meta name="description" content="Design your custom t-shirt online. Upload artwork, choose apparel, colors, sizes, placement and print options with live preview. Start free today." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    body { background: var(--bg-secondary); }
+    .studio-wrapper { display: grid; grid-template-columns: 360px minmax(0,1fr) 320px; gap: 0; min-height: calc(100vh - 72px); margin-top: 0; align-items: start; }
+    .studio-sidebar-left, .studio-sidebar-right, .studio-preview-panel { min-width: 0; min-height: 0; }
+    
+    /* Left Sidebar */
+    .studio-sidebar-left { background: var(--bg-card); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; overflow-y: auto; max-height: calc(100vh - 72px); position: sticky; top: 72px; }
+    .studio-sidebar-header { padding: 20px; border-bottom: 1px solid var(--border-color); }
+    .studio-sidebar-header h2 { font-family: var(--font-heading); font-size: 18px; font-weight: 800; color: var(--text-primary); }
+    .studio-sidebar-header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .studio-tabs { display: flex; border-bottom: 1px solid var(--border-color); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .studio-tabs::-webkit-scrollbar { display: none; }
+    .studio-tab { flex: 1 0 auto; min-width: 0; white-space: nowrap; padding: 12px 8px; text-align: center; font-family: var(--font-heading); font-size: 12px; font-weight: 700; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all var(--transition-fast); text-transform: uppercase; letter-spacing: 0.04em; }
+    .studio-tab.active { color: var(--pc-primary); border-bottom-color: var(--pc-primary); }
+    .studio-panel { padding: 20px; display: none; }
+    .studio-panel.active { display: block; }
+    .studio-section-title { font-family: var(--font-heading); font-size: 13px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+    
+    /* Preview Panel — height MUST stay auto so controls + quality card are never clipped */
+    .studio-preview-panel { background: var(--bg-secondary); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; position: relative; overflow-x: clip; padding: 40px 20px; }
+    .shirt-preview-container { position: relative; width: 380px; max-width: 100%; min-width: 0; }
+    .shirt-preview-bg { width: 100%; max-width: 100%; aspect-ratio: 3/4; background: linear-gradient(135deg, #f0f0f0, #e0e0e0); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; box-shadow: var(--shadow-xl); transition: background var(--transition-base); }
+    .shirt-img { width: 100%; height: 100%; object-fit: contain; transition: all var(--transition-base); }
+    .design-overlay-area { position: absolute; width: 40%; height: 35%; top: 22%; left: 30%; border: 2px dashed rgba(255,59,48,0.4); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all var(--transition-base); cursor: pointer; }
+    .design-overlay-area:hover { border-color: var(--pc-primary); background: rgba(255,59,48,0.05); }
+    .design-overlay-area img { width: 100%; height: 100%; object-fit: contain; display: none; }
+    .design-overlay-placeholder { font-size: 12px; color: rgba(255,59,48,0.6); font-weight: 600; text-align: center; pointer-events: none; }
+    .preview-controls { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; justify-content: center; max-width: 100%; }
+    .studio-toolbar { margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; max-width: 100%; }
+    .studio-toolbar .btn { flex-shrink: 0; }
+    .quality-card { margin-top: 20px; padding: 16px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); width: 100%; max-width: 380px; min-width: 0; }
+    .preview-view-btn { padding: 8px 20px; border: 1.5px solid var(--border-color); border-radius: var(--radius-full); font-family: var(--font-heading); font-size: 12px; font-weight: 700; color: var(--text-muted); cursor: pointer; background: var(--bg-card); transition: all var(--transition-fast); }
+    .preview-view-btn.active { background: var(--pc-primary); border-color: var(--pc-primary); color: white; }
+    
+    /* Right Sidebar */
+    .studio-sidebar-right { background: var(--bg-card); border-left: 1px solid var(--border-color); padding: 20px; overflow-y: auto; max-height: calc(100vh - 72px); position: sticky; top: 72px; }
+    .order-summary { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; }
+    .order-summary-title { font-family: var(--font-heading); font-size: 16px; font-weight: 800; color: var(--text-primary); margin-bottom: 16px; }
+    .order-line { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--text-secondary); margin-bottom: 10px; }
+    .order-line.total { font-family: var(--font-heading); font-size: 18px; font-weight: 800; color: var(--text-primary); border-top: 1px solid var(--border-color); padding-top: 12px; margin-top: 12px; }
+    .order-breakdown { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .order-breakdown-tag { padding: 4px 10px; background: rgba(255,59,48,0.1); border-radius: 999px; font-size: 11px; font-weight: 700; color: var(--pc-primary); white-space: nowrap; }
+    .size-table-wrap { width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 16px; border-radius: 8px; }
+    .size-qty-table { width: 100%; min-width: 240px; border-collapse: collapse; margin-bottom: 0; }
+    .size-qty-table th { text-align: left; padding: 8px 10px; background: var(--bg-tertiary); font-family: var(--font-heading); font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .size-qty-table td { padding: 8px 10px; border-top: 1px solid var(--border-color); font-size: 14px; color: var(--text-secondary); }
+    .size-qty-table .qty-input { width: 60px; padding: 4px 8px; border: 1px solid var(--border-color); border-radius: 6px; text-align: center; font-size: 13px; background: var(--bg-card); color: var(--text-primary); }
+    
+    /* Apparel Selector */
+    .apparel-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .apparel-type-btn { border: 1.5px solid var(--border-color); border-radius: var(--radius-md); padding: 12px 10px; text-align: center; cursor: pointer; transition: all var(--transition-fast); background: var(--bg-secondary); }
+    .apparel-type-btn:hover { border-color: var(--pc-primary); }
+    .apparel-type-btn.active { border-color: var(--pc-primary); background: rgba(255,59,48,0.06); }
+    .apparel-type-btn img { width: 50px; height: 50px; object-fit: contain; margin: 0 auto 8px; }
+    .apparel-type-btn span { display: block; font-family: var(--font-heading); font-size: 11px; font-weight: 700; color: var(--text-primary); }
+    .apparel-type-btn .price { font-size: 11px; color: var(--pc-primary); font-weight: 600; }
+    
+    /* Print placement */
+    .placement-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+    .placement-btn { border: 1.5px solid var(--border-color); border-radius: var(--radius-md); padding: 12px 8px; text-align: center; cursor: pointer; transition: all var(--transition-fast); background: var(--bg-secondary); font-family: var(--font-heading); font-size: 11px; font-weight: 700; color: var(--text-muted); }
+    .placement-btn:hover { border-color: var(--pc-primary); color: var(--pc-primary); }
+    .placement-btn.active { border-color: var(--pc-primary); background: rgba(255,59,48,0.08); color: var(--pc-primary); }
+    .placement-btn .icon { font-size: 20px; display: block; margin-bottom: 6px; line-height: 1; }
+    .placement-btn .icon i { font-size: 20px; }
+    
+    /* Print tech selector */
+    .print-tech-option { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 10px; cursor: pointer; transition: all var(--transition-fast); background: var(--bg-secondary); }
+    .print-tech-option:hover { border-color: var(--pc-primary); }
+    .print-tech-option.active { border-color: var(--pc-primary); background: rgba(255,59,48,0.06); }
+    .print-tech-option input[type="radio"] { accent-color: var(--pc-primary); }
+    .print-tech-info { flex: 1; }
+    .print-tech-name { font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--text-primary); }
+    .print-tech-desc { font-size: 12px; color: var(--text-muted); }
+    .print-tech-price { font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--pc-primary); }
+    
+    /* Upload Area Compact */
+    .upload-compact { border: 2px dashed var(--border-color); border-radius: var(--radius-lg); padding: 24px; text-align: center; cursor: pointer; transition: all var(--transition-base); position: relative; background: var(--bg-secondary); margin-bottom: 16px; }
+    .upload-compact:hover { border-color: var(--pc-primary); background: rgba(255,59,48,0.04); }
+    .upload-compact input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .upload-compact .icon { font-size: 32px; margin-bottom: 8px; color: var(--pc-primary); line-height: 1; }
+    .upload-compact p { font-size: 13px; color: var(--text-muted); }
+    .upload-compact strong { color: var(--text-primary); }
+    
+    /* Step progress — scrolls on small screens, never forces page overflow */
+    .studio-progress { display: flex; gap: 0; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); padding: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; max-width: 100%; }
+    .studio-progress::-webkit-scrollbar { display: none; }
+    .studio-step { flex: 1 0 auto; white-space: nowrap; display: flex; align-items: center; gap: 8px; padding: 12px 16px; font-family: var(--font-heading); font-size: 12px; font-weight: 700; color: var(--text-muted); border-bottom: 2px solid transparent; }
+    .studio-step.active { color: var(--pc-primary); border-bottom-color: var(--pc-primary); }
+    .studio-step.done { color: var(--pc-green); }
+    .studio-step-num { width: 22px; height: 22px; border-radius: 50%; background: var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+    .studio-step.active .studio-step-num { background: var(--pc-primary); color: white; }
+    .studio-step.done .studio-step-num { background: var(--pc-green); color: white; }
+    
+    /* Color picker options */
+    .shirt-color-options { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .shirt-color-dot { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: all var(--transition-fast); }
+    .shirt-color-dot:hover, .shirt-color-dot.active { border-color: var(--pc-primary); transform: scale(1.2); }
+    
+    /* Design text tool */
+    .btn-outline.active { background:var(--pc-primary); border-color:var(--pc-primary); color:#fff; }
+    .text-tool-row { display: flex; gap: 8px; margin-bottom: 12px; max-width: 100%; }
+    .text-tool-row input { flex: 1; min-width: 0; padding: 10px 12px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); font-size: 14px; background: var(--bg-secondary); color: var(--text-primary); outline: none; }
+    .text-tool-row input:focus { border-color: var(--pc-primary); }
+    .print-tech-info { flex: 1; min-width: 0; }
+    select.form-control, input.form-control { max-width: 100%; }
+    
+    /* Mobile sticky CTA */
+    .mobile-order-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-card); border-top: 1px solid var(--border-color); padding: 16px; padding-bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 100; max-width: 100%; }
+    @media(max-width:1200px){ .mobile-order-cta{ display: flex; gap: 12px; align-items: center; } }
+    .mobile-order-cta .btn { flex: 1; min-width: 0; white-space: nowrap; }
+    .mobile-price { font-family: var(--font-heading); font-size: 20px; font-weight: 800; color: var(--text-primary); white-space: nowrap; }
+    .mobile-price span { font-size: 13px; color: var(--text-muted); font-weight: 400; }
+
+    /* Responsive fixes — tablet and below */
+    @media(max-width:1200px){
+      .studio-wrapper{ grid-template-columns: minmax(0,1fr); }
+      .studio-preview-panel{ order:-1; height:auto; min-height:0; }
+      .studio-sidebar-right{ order:3; }
+      /* Stacked sidebars must not trap scroll in sticky boxes */
+      .studio-sidebar-left, .studio-sidebar-right{ position:static; max-height:none; overflow:visible; }
+      .studio-sidebar-left{ border-right:none; border-bottom:1px solid var(--border-color); }
+      .studio-sidebar-right{ border-left:none; border-top:1px solid var(--border-color); }
+      body{ padding-bottom:96px; } /* room for fixed mobile order CTA */
+      .back-to-top{ bottom:110px !important; } /* sit above mobile CTA */
+    }
+    @media(max-width:768px){
+      /* Nav shrinks to 64px — keep progress offset in sync */
+      .studio-progress{ margin-top:64px !important; }
+      .studio-sidebar-left, .studio-sidebar-right{ max-height:none; }
+      .studio-step{ padding:10px 12px; font-size:11px; }
+      .studio-preview-panel{ height:auto; min-height:0; padding:28px 16px; }
+      .shirt-preview-container{ width:min(380px, 100%); }
+      .studio-toolbar .btn{ padding:10px 14px; font-size:12px; }
+      /* Undo global full-width btn-lg rule inside the fixed CTA */
+      .mobile-order-cta .btn-lg{ width:auto !important; flex:1; }
+    }
+    @media(max-width:480px){
+      .studio-preview-panel{ padding:24px 12px; }
+      .shirt-preview-container{ width:100%; }
+      .studio-panel{ padding:16px; }
+      .studio-sidebar-header{ padding:16px; }
+      .studio-sidebar-header h2{ font-size:16px; }
+      .studio-sidebar-right{ padding:16px; }
+      .studio-tab{ padding:10px 4px; font-size:11px; }
+      .placement-grid{ grid-template-columns:1fr 1fr; }
+      .placement-btn{ padding:10px 4px; font-size:10px; min-width:0; }
+      .print-tech-option{ padding:12px; gap:10px; }
+      .print-tech-price{ flex-shrink:0; }
+      .upload-compact{ padding:16px; }
+      .mobile-order-cta{ padding:12px; gap:8px; }
+      .mobile-order-cta > div:first-child{ flex-shrink:0; min-width:0; }
+      .mobile-price{ font-size:17px; }
+      .order-summary{ padding:16px; }
+      body{ padding-bottom:110px; }
+    }
+    @media(max-width:360px){
+      .studio-progress{ padding:0; }
+      .studio-step{ padding:8px 10px; font-size:10px; gap:6px; }
+      .studio-step-num{ width:20px; height:20px; font-size:10px; }
+      .studio-preview-panel{ padding:24px 12px; }
+      .apparel-type-grid{ gap:8px; }
+      .apparel-type-btn{ padding:10px 6px; min-width:0; }
+      .apparel-type-btn img{ width:40px; height:40px; }
+      .mobile-price{ font-size:16px; }
+    }
+    @media(max-width:320px){
+      .studio-step{ padding:8px 8px; font-size:9px; }
+      .studio-preview-panel{ padding:20px 10px; }
+      .studio-panel{ padding:12px; }
+      .studio-sidebar-right{ padding:12px; }
+      .size-qty-table th, .size-qty-table td{ padding:6px 8px; font-size:12px; }
+      .order-line{ font-size:13px; }
+      .order-line.total{ font-size:16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="home2.html">Home2</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="design-studio.html" class="active">Design Studio</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+      <div class="profile-dropdown">
+        <button class="profile-btn" aria-label="Account menu" aria-expanded="false" aria-haspopup="true"><i class="fa-regular fa-circle-user"></i></button>
+        <div class="profile-menu" role="menu">
+          <a href="login.html" role="menuitem"><i class="fa-solid fa-right-to-bracket"></i><span>Login / Sign Up<small>Access your account</small></span></a>
+          <div class="profile-menu-divider"></div>
+          <a href="dashboard.html" role="menuitem"><i class="fa-solid fa-gauge"></i><span>User Dashboard<small>Orders, designs &amp; tracking</small></span></a>
+          <a href="admin.html" role="menuitem"><i class="fa-solid fa-user-shield"></i><span>Admin Dashboard<small>Manage store &amp; orders</small></span></a>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li><li><a href="design-studio.html">Design Studio</a></li>
+    <li><a href="bulk-orders.html">Bulk Orders</a></li><li><a href="pricing.html">Pricing</a></li>
+    <li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Studio Progress Bar -->
+<div class="studio-progress" role="navigation" aria-label="Design studio steps" style="margin-top:72px;">
+  <div class="studio-step active" id="step-1" aria-current="step">
+    <div class="studio-step-num">1</div> Choose Apparel
+  </div>
+  <div class="studio-step" id="step-2">
+    <div class="studio-step-num">2</div> Upload Design
+  </div>
+  <div class="studio-step" id="step-3">
+    <div class="studio-step-num">3</div> Customize
+  </div>
+  <div class="studio-step" id="step-4">
+    <div class="studio-step-num">4</div> Sizes &amp; Qty
+  </div>
+  <div class="studio-step" id="step-5">
+    <div class="studio-step-num">5</div> Review &amp; Order
+  </div>
+</div>
+
+<!-- Studio Layout -->
+<div class="studio-wrapper">
+
+  <!-- LEFT SIDEBAR: Design Tools -->
+  <aside class="studio-sidebar-left" aria-label="Design tools">
+    <div class="studio-sidebar-header">
+      <h2><i class="fa-solid fa-paintbrush" style="color:var(--pc-primary);margin-right:8px;" aria-hidden="true"></i>Design Tools</h2>
+      <p>Customize every detail of your garment</p>
+    </div>
+    
+    <!-- Studio Tabs -->
+    <div class="studio-tabs" role="tablist">
+      <div class="studio-tab active" role="tab" aria-selected="true" data-tab="apparel" tabindex="0">Apparel</div>
+      <div class="studio-tab" role="tab" aria-selected="false" data-tab="design" tabindex="0">Design</div>
+      <div class="studio-tab" role="tab" aria-selected="false" data-tab="text" tabindex="0">Text</div>
+      <div class="studio-tab" role="tab" aria-selected="false" data-tab="options" tabindex="0">Options</div>
+    </div>
+    
+    <!-- Apparel Tab -->
+    <div class="studio-panel active" data-panel="apparel">
+      <p class="studio-section-title">Choose Your Apparel</p>
+      <div class="apparel-type-grid">
+        <div class="apparel-type-btn active" id="apparel-tee" onclick="selectApparel(this,'tee')">
+          <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=100&q=80" alt="T-Shirt option" />
+          <span>T-Shirt</span>
+          <span class="price">from $8.99</span>
+        </div>
+        <div class="apparel-type-btn" id="apparel-hoodie" onclick="selectApparel(this,'hoodie')">
+          <img src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=100&q=80" alt="Hoodie option" />
+          <span>Hoodie</span>
+          <span class="price">from $24.99</span>
+        </div>
+        <div class="apparel-type-btn" id="apparel-polo" onclick="selectApparel(this,'polo')">
+          <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=100&q=80" alt="Polo option" />
+          <span>Polo</span>
+          <span class="price">from $16.99</span>
+        </div>
+        <div class="apparel-type-btn" id="apparel-tank" onclick="selectApparel(this,'tank')">
+          <img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=100&q=80" alt="Tank top option" />
+          <span>Tank Top</span>
+          <span class="price">from $7.99</span>
+        </div>
+      </div>
+      
+      <p class="studio-section-title">Shirt Color</p>
+      <div class="shirt-color-options" id="shirt-colors" role="group" aria-label="Shirt color selection">
+        <div class="shirt-color-dot active" style="background:#FFFFFF;box-shadow:0 0 0 1px #ddd;" title="White" data-color="white" onclick="selectShirtColor(this,'#FFFFFF')" role="button" aria-label="White shirt" tabindex="0"></div>
+        <div class="shirt-color-dot" style="background:#0A0A0A;" title="Black" data-color="black" onclick="selectShirtColor(this,'#0A0A0A')" role="button" aria-label="Black shirt" tabindex="0"></div>
+        <div class="shirt-color-dot" style="background:#FF3B30;" title="Red" data-color="red" onclick="selectShirtColor(this,'#FF3B30')" role="button" aria-label="Red shirt" tabindex="0"></div>
+        <div class="shirt-color-dot" style="background:#1D4ED8;" title="Navy" data-color="navy" onclick="selectShirtColor(this,'#1D4ED8')" role="button" aria-label="Navy shirt" tabindex="0"></div>
+        <div class="shirt-color-dot" style="background:#059669;" title="Forest" data-color="forest" onclick="selectShirtColor(this,'#059669')" role="button" aria-label="Forest green shirt" tabindex="0"></div>
+        <div class="shirt-color-dot" style="background:#7C3AED;" title="Purple" data-color="purple" onclick="selectShirtColor(this,'#7C3AED')" role="button" aria-label="Purple shirt" tabindex="0"></div>
+        <div class="shirt-color-dot" style="background:#F97316;" title="Orange" data-color="orange" onclick="selectShirtColor(this,'#F97316')" role="button" aria-label="Orange shirt" tabindex="0"></div>
+        <div class="shirt-color-dot" style="background:#FFD60A;" title="Yellow" data-color="yellow" onclick="selectShirtColor(this,'#FFD60A')" role="button" aria-label="Yellow shirt" tabindex="0"></div>
+        <div class="shirt-color-dot" style="background:#6B7280;" title="Gray" data-color="gray" onclick="selectShirtColor(this,'#6B7280')" role="button" aria-label="Gray shirt" tabindex="0"></div>
+        <div class="shirt-color-dot" style="background:#F9FAFB;box-shadow:0 0 0 1px #ddd;" title="White Heather" data-color="heather" onclick="selectShirtColor(this,'#F1F3F6')" role="button" aria-label="Heather shirt" tabindex="0"></div>
+      </div>
+      
+      <p class="studio-section-title">Print Location</p>
+      <div class="placement-grid" id="placement-btns">
+        <button class="placement-btn active" data-placement="front-center" onclick="selectPlacement(this,'front-center')">
+          <span class="icon"><i class="fa-solid fa-shirt" aria-hidden="true"></i></span>Front Center
+        </button>
+        <button class="placement-btn" data-placement="back-center" onclick="selectPlacement(this,'back-center')">
+          <span class="icon"><i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i></span>Back Center
+        </button>
+        <button class="placement-btn" data-placement="left-chest" onclick="selectPlacement(this,'left-chest')">
+          <span class="icon"><i class="fa-solid fa-heart" aria-hidden="true"></i></span>Left Chest
+        </button>
+        <button class="placement-btn" data-placement="full-front" onclick="selectPlacement(this,'full-front')">
+          <span class="icon"><i class="fa-solid fa-expand" aria-hidden="true"></i></span>Full Front
+        </button>
+        <button class="placement-btn" data-placement="sleeve" onclick="selectPlacement(this,'sleeve')">
+          <span class="icon"><i class="fa-solid fa-tag" aria-hidden="true"></i></span>Sleeve
+        </button>
+        <button class="placement-btn" data-placement="all-over" onclick="selectPlacement(this,'all-over')">
+          <span class="icon"><i class="fa-solid fa-fill-drip" aria-hidden="true"></i></span>All-Over
+        </button>
+      </div>
+    </div>
+    
+    <!-- Design Tab -->
+    <div class="studio-panel" data-panel="design">
+      <p class="studio-section-title">Upload Your Artwork</p>
+      <div class="upload-compact upload-zone" id="main-upload-zone">
+        <input type="file" accept="image/*,.ai,.eps,.pdf,.svg" id="design-upload" aria-label="Upload design file" />
+        <div class="upload-placeholder">
+          <div class="icon"><i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i></div>
+          <p><strong>Click or drag to upload</strong><br>PNG, JPG, AI, EPS, SVG, PDF<br><small>Max 50MB · Min 300 DPI recommended</small></p>
+        </div>
+        <img class="upload-preview" src="" alt="Uploaded design preview" style="display:none;max-height:120px;margin:0 auto;" />
+      </div>
+      
+      <p class="studio-section-title">Design Scale</p>
+      <div style="margin-bottom:16px;">
+        <input type="range" min="50" max="150" value="100" style="width:100%;accent-color:var(--pc-primary);" id="design-scale" aria-label="Design scale" oninput="setScale(this.value)" onchange="pushHistory()" />
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-top:4px;"><span>50%</span><span id="scale-val">100%</span><span>150%</span></div>
+      </div>
+      
+      <p class="studio-section-title">Design Position</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+        <div class="form-group" style="margin:0;">
+          <label class="form-label" for="design-x">X Position</label>
+          <input type="number" class="form-control" id="design-x" value="0" style="padding:8px 12px;font-size:13px;" aria-label="Design X position" oninput="setPos()" onchange="pushHistory()" />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label class="form-label" for="design-y">Y Position</label>
+          <input type="number" class="form-control" id="design-y" value="0" style="padding:8px 12px;font-size:13px;" aria-label="Design Y position" oninput="setPos()" onchange="pushHistory()" />
+        </div>
+      </div>
+      
+      <p class="studio-section-title">Quick Templates</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <div onclick="loadTemplate('bolt')" style="cursor:pointer;border:1px solid var(--border-color);border-radius:8px;padding:12px;text-align:center;font-size:24px;transition:all var(--transition-fast);color:var(--pc-primary);" class="template-thumb" role="button" aria-label="Lightning bolt template" tabindex="0"><i class="fa-solid fa-bolt" aria-hidden="true"></i></div>
+        <div onclick="loadTemplate('star')" style="cursor:pointer;border:1px solid var(--border-color);border-radius:8px;padding:12px;text-align:center;font-size:24px;transition:all var(--transition-fast);color:var(--pc-primary);" class="template-thumb" role="button" aria-label="Star template" tabindex="0"><i class="fa-solid fa-star" aria-hidden="true"></i></div>
+        <div onclick="loadTemplate('flame')" style="cursor:pointer;border:1px solid var(--border-color);border-radius:8px;padding:12px;text-align:center;font-size:24px;transition:all var(--transition-fast);color:var(--pc-primary);" class="template-thumb" role="button" aria-label="Flame template" tabindex="0"><i class="fa-solid fa-fire" aria-hidden="true"></i></div>
+        <div onclick="loadTemplate('crown')" style="cursor:pointer;border:1px solid var(--border-color);border-radius:8px;padding:12px;text-align:center;font-size:24px;transition:all var(--transition-fast);color:var(--pc-primary);" class="template-thumb" role="button" aria-label="Crown template" tabindex="0"><i class="fa-solid fa-crown" aria-hidden="true"></i></div>
+        <div onclick="loadTemplate('diamond')" style="cursor:pointer;border:1px solid var(--border-color);border-radius:8px;padding:12px;text-align:center;font-size:24px;transition:all var(--transition-fast);color:var(--pc-primary);" class="template-thumb" role="button" aria-label="Diamond template" tabindex="0"><i class="fa-solid fa-gem" aria-hidden="true"></i></div>
+        <div onclick="loadTemplate('skull')" style="cursor:pointer;border:1px solid var(--border-color);border-radius:8px;padding:12px;text-align:center;font-size:24px;transition:all var(--transition-fast);color:var(--pc-primary);" class="template-thumb" role="button" aria-label="Skull template" tabindex="0"><i class="fa-solid fa-skull" aria-hidden="true"></i></div>
+      </div>
+    </div>
+    
+    <!-- Text Tab -->
+    <div class="studio-panel" data-panel="text">
+      <p class="studio-section-title">Add Custom Text</p>
+      <div class="text-tool-row">
+        <input type="text" placeholder="Enter your text..." id="custom-text-input" aria-label="Custom text to add to design" />
+        <button class="btn btn-primary btn-sm" onclick="addText()" id="add-text-btn" aria-label="Add text to design"><i class="fa-solid fa-plus"></i></button>
+      </div>
+      
+      <p class="studio-section-title">Font Family</p>
+      <select class="form-control" style="margin-bottom:16px;" id="text-font" aria-label="Select font" onchange="changeTextFont(this.value)">
+        <option>Bebas Neue (Display)</option>
+        <option>Outfit Bold</option>
+        <option>Inter Black</option>
+        <option>Arial Black</option>
+        <option>Impact</option>
+        <option>Courier New</option>
+      </select>
+      
+      <p class="studio-section-title">Text Color</p>
+      <div class="shirt-color-options" role="group" aria-label="Text color selection" id="text-colors">
+        <div class="shirt-color-dot active" style="background:#000000;" title="Black" role="button" aria-label="Black text" tabindex="0" onclick="selectTextColor(this,'#000000')"></div>
+        <div class="shirt-color-dot" style="background:#FFFFFF;box-shadow:0 0 0 1px #ddd;" title="White" role="button" aria-label="White text" tabindex="0" onclick="selectTextColor(this,'#FFFFFF')"></div>
+        <div class="shirt-color-dot" style="background:#FF3B30;" title="Red" role="button" aria-label="Red text" tabindex="0" onclick="selectTextColor(this,'#FF3B30')"></div>
+        <div class="shirt-color-dot" style="background:#FFD60A;" title="Yellow" role="button" aria-label="Yellow text" tabindex="0" onclick="selectTextColor(this,'#FFD60A')"></div>
+        <div class="shirt-color-dot" style="background:#1D4ED8;" title="Blue" role="button" aria-label="Blue text" tabindex="0" onclick="selectTextColor(this,'#1D4ED8')"></div>
+      </div>
+      
+      <p class="studio-section-title">Text Size</p>
+      <input type="range" min="12" max="72" value="36" style="width:100%;accent-color:var(--pc-primary);" id="text-size" aria-label="Text size" oninput="setTextSize(this.value)" onchange="pushHistory()" />
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-top:4px;margin-bottom:16px;"><span>12px</span><span id="text-size-val">36px</span><span>72px</span></div>
+      
+      <p class="studio-section-title">Text Style</p>
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <button class="btn btn-outline btn-sm" id="text-bold" aria-label="Bold text" style="font-weight:900;" onclick="toggleTextStyle('bold')">B</button>
+        <button class="btn btn-outline btn-sm" id="text-italic" aria-label="Italic text" style="font-style:italic;" onclick="toggleTextStyle('italic')">I</button>
+        <button class="btn btn-outline btn-sm" id="text-underline" aria-label="Underlined text" style="text-decoration:underline;" onclick="toggleTextStyle('underline')">U</button>
+        <button class="btn btn-outline btn-sm" id="text-shadow" aria-label="Text shadow" onclick="toggleTextStyle('shadow')"><i class="fa-solid fa-clone" aria-hidden="true"></i></button>
+      </div>
+      
+      <p class="studio-section-title">Text Arch</p>
+      <div class="placement-grid" style="grid-template-columns:1fr 1fr 1fr;" id="arch-btns">
+        <button class="placement-btn active" aria-label="Straight text" onclick="selectArch(this,'straight')">
+          <span class="icon"><i class="fa-solid fa-minus" aria-hidden="true"></i></span>Straight
+        </button>
+        <button class="placement-btn" aria-label="Arched text" onclick="selectArch(this,'up')">
+          <span class="icon"><i class="fa-solid fa-chevron-up" aria-hidden="true"></i></span>Arch Up
+        </button>
+        <button class="placement-btn" aria-label="Curved down text" onclick="selectArch(this,'down')">
+          <span class="icon"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>Arch Dn
+        </button>
+      </div>
+    </div>
+    
+    <!-- Options Tab -->
+    <div class="studio-panel" data-panel="options">
+      <p class="studio-section-title">Print Technology</p>
+      <div class="print-tech-option active" id="tech-dtg" onclick="selectTech(this,'dtg')">
+        <input type="radio" name="print-tech" id="tech-dtg-radio" checked aria-label="DTG Printing" />
+        <div class="print-tech-info">
+          <div class="print-tech-name">DTG Printing</div>
+          <div class="print-tech-desc">Best for photos &amp; complex art</div>
+        </div>
+        <div class="print-tech-price">+$0</div>
+      </div>
+      <div class="print-tech-option" id="tech-screen" onclick="selectTech(this,'screen')">
+        <input type="radio" name="print-tech" id="tech-screen-radio" aria-label="Screen Printing" />
+        <div class="print-tech-info">
+          <div class="print-tech-name">Screen Print</div>
+          <div class="print-tech-desc">Best for bulk &amp; bold designs</div>
+        </div>
+        <div class="print-tech-price">+$2/pc</div>
+      </div>
+      <div class="print-tech-option" id="tech-embroidery" onclick="selectTech(this,'embroidery')">
+        <input type="radio" name="print-tech" id="tech-embroidery-radio" aria-label="Embroidery" />
+        <div class="print-tech-info">
+          <div class="print-tech-name">Embroidery</div>
+          <div class="print-tech-desc">Premium stitched logos</div>
+        </div>
+        <div class="print-tech-price">+$6/pc</div>
+      </div>
+      
+      <p class="studio-section-title" style="margin-top:20px;">Special Finishes</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+          <input type="checkbox" style="accent-color:var(--pc-primary);" id="finish-gloss" onchange="updateTotal()" /> UV Gloss Coat (+$3/pc)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+          <input type="checkbox" style="accent-color:var(--pc-primary);" id="finish-foil" onchange="updateTotal()" /> Metallic Foil (+$5/pc)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+          <input type="checkbox" style="accent-color:var(--pc-primary);" id="finish-puff" onchange="updateTotal()" /> Puff Ink (+$4/pc)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+          <input type="checkbox" style="accent-color:var(--pc-primary);" id="finish-glow" onchange="updateTotal()" /> Glow-in-Dark (+$4/pc)
+        </label>
+      </div>
+      
+      <p class="studio-section-title">Packaging Options</p>
+      <select class="form-control" style="margin-bottom:16px;" id="packaging-option" aria-label="Select packaging option" onchange="updateTotal()">
+        <option>Standard Polybag</option>
+        <option>Kraft Paper Bag (+$1.50/pc)</option>
+        <option>Premium Gift Box (+$4/pc)</option>
+        <option>Custom Branded Bag (+$3/pc)</option>
+      </select>
+      
+      <p class="studio-section-title">Rush Options</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+          <input type="radio" name="rush" style="accent-color:var(--pc-primary);" id="rush-standard" checked onchange="updateTotal()" /> Standard (5-7 days, FREE)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+          <input type="radio" name="rush" style="accent-color:var(--pc-primary);" id="rush-express" onchange="updateTotal()" /> Express (3 days, +$25)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+          <input type="radio" name="rush" style="accent-color:var(--pc-primary);" id="rush-48h" onchange="updateTotal()" /> Rush 48h (+$50)
+        </label>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CENTER: Preview -->
+  <main class="studio-preview-panel" aria-label="Live design preview">
+    <div style="text-align:center;margin-bottom:16px;">
+      <span style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Live Preview</span>
+    </div>
+    
+    <div class="shirt-preview-container">
+      <div class="shirt-preview-bg" id="shirt-preview-bg" style="background:#F0F0F0;">
+        <img id="shirt-preview-img" src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80" alt="Custom t-shirt live preview" style="width:100%;height:100%;object-fit:contain;position:absolute;inset:0;" />
+        <!-- Design overlay placeholder -->
+        <div class="design-overlay-area" id="design-overlay" role="button" aria-label="Design placement area - click to upload" tabindex="0" onclick="document.getElementById('design-upload').click()">
+          <div class="design-overlay-placeholder">
+            <div style="font-size:24px;margin-bottom:4px;color:rgba(255,59,48,0.6);"><i class="fa-solid fa-image" aria-hidden="true"></i></div>
+            <div>Your Design<br>Goes Here</div>
+          </div>
+          <img src="" alt="Your uploaded design" id="preview-design-img" style="display:none;width:100%;height:100%;object-fit:contain;" />
+          <div id="preview-text" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center;pointer-events:none;padding:8px;overflow:hidden;"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="preview-controls" role="group" aria-label="View shirt from different angles">
+      <button class="preview-view-btn active" id="view-front" onclick="switchView('front',this)">Front</button>
+      <button class="preview-view-btn" id="view-back" onclick="switchView('back',this)">Back</button>
+      <button class="preview-view-btn" id="view-left" onclick="switchView('left',this)">Left</button>
+      <button class="preview-view-btn" id="view-right" onclick="switchView('right',this)">Right</button>
+    </div>
+    
+    <div class="studio-toolbar">
+      <button class="btn btn-outline btn-sm" id="undo-btn" aria-label="Undo last action" onclick="studioUndo()"><i class="fa-solid fa-rotate-left"></i> Undo</button>
+      <button class="btn btn-outline btn-sm" id="redo-btn" aria-label="Redo last action" onclick="studioRedo()"><i class="fa-solid fa-rotate-right"></i> Redo</button>
+      <button class="btn btn-outline btn-sm" id="zoom-in-btn" aria-label="Zoom in" onclick="studioZoom(0.25)"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+      <button class="btn btn-outline btn-sm" id="zoom-out-btn" aria-label="Zoom out" onclick="studioZoom(-0.25)"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+      <button class="btn btn-outline btn-sm" id="save-design-btn" aria-label="Save design"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+    </div>
+    
+    <div class="quality-card" style="margin-top:20px;padding:16px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);width:100%;max-width:380px;">
+      <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">Design Quality Check</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--pc-green);">
+          <i class="fa-solid fa-check-circle"></i> Print size: Optimal
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--pc-green);">
+          <i class="fa-solid fa-check-circle"></i> Resolution: 300+ DPI
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--pc-accent);">
+          <i class="fa-solid fa-triangle-exclamation"></i> Upload your artwork to continue
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- RIGHT SIDEBAR: Order Summary -->
+  <aside class="studio-sidebar-right" aria-label="Order summary">
+    <div class="order-summary">
+      <div class="order-summary-title">Order Summary</div>
+      
+      <div style="display:flex;gap:10px;margin-bottom:16px;align-items:center;">
+        <div style="width:64px;height:64px;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border-color);">
+          <img src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=100&q=80" alt="Selected apparel" id="summary-img" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+        <div>
+          <div style="font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--text-primary);" id="summary-apparel">Classic Tee</div>
+          <div style="font-size:12px;color:var(--text-muted);" id="summary-tech-place">DTG Printing · Front Center</div>
+          <div style="font-size:12px;color:var(--text-muted);" id="summary-color-line">Color: White</div>
+        </div>
+      </div>
+      
+      <div class="order-breakdown">
+        <span class="order-breakdown-tag" id="summary-tech-tag">DTG</span>
+        <span class="order-breakdown-tag" id="summary-placement-tag">Front</span>
+        <span class="order-breakdown-tag" id="summary-color-tag">White</span>
+      </div>
+    </div>
+    
+    <p class="studio-section-title">Sizes &amp; Quantities</p>
+    <div class="size-table-wrap">
+    <table class="size-qty-table" aria-label="Size and quantity table">
+      <thead>
+        <tr><th>Size</th><th>Qty</th><th>Price</th></tr>
+      </thead>
+      <tbody id="size-qty-body">
+        <tr><td>XS</td><td><input type="number" class="qty-input" min="0" value="0" aria-label="XS quantity" style="width:60px;max-width:100%;padding:4px 8px;border:1px solid var(--border-color);border-radius:6px;text-align:center;font-size:13px;background:var(--bg-card);color:var(--text-primary);" oninput="updateTotal()" /></td><td>$8.99</td></tr>
+        <tr><td>S</td><td><input type="number" class="qty-input" min="0" value="2" aria-label="S quantity" style="width:60px;max-width:100%;padding:4px 8px;border:1px solid var(--border-color);border-radius:6px;text-align:center;font-size:13px;background:var(--bg-card);color:var(--text-primary);" oninput="updateTotal()" /></td><td>$8.99</td></tr>
+        <tr><td>M</td><td><input type="number" class="qty-input" min="0" value="3" aria-label="M quantity" style="width:60px;max-width:100%;padding:4px 8px;border:1px solid var(--border-color);border-radius:6px;text-align:center;font-size:13px;background:var(--bg-card);color:var(--text-primary);" oninput="updateTotal()" /></td><td>$8.99</td></tr>
+        <tr><td>L</td><td><input type="number" class="qty-input" min="0" value="3" aria-label="L quantity" style="width:60px;max-width:100%;padding:4px 8px;border:1px solid var(--border-color);border-radius:6px;text-align:center;font-size:13px;background:var(--bg-card);color:var(--text-primary);" oninput="updateTotal()" /></td><td>$8.99</td></tr>
+        <tr><td>XL</td><td><input type="number" class="qty-input" min="0" value="2" aria-label="XL quantity" style="width:60px;max-width:100%;padding:4px 8px;border:1px solid var(--border-color);border-radius:6px;text-align:center;font-size:13px;background:var(--bg-card);color:var(--text-primary);" oninput="updateTotal()" /></td><td>$8.99</td></tr>
+        <tr><td>2XL</td><td><input type="number" class="qty-input" min="0" value="0" aria-label="2XL quantity" style="width:60px;max-width:100%;padding:4px 8px;border:1px solid var(--border-color);border-radius:6px;text-align:center;font-size:13px;background:var(--bg-card);color:var(--text-primary);" oninput="updateTotal()" /></td><td>$10.99</td></tr>
+      </tbody>
+    </table>
+    </div>
+    
+    <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:var(--radius-md);padding:12px;margin-bottom:16px;font-size:13px;color:var(--pc-green);display:flex;align-items:center;gap:8px;">
+      <i class="fa-solid fa-tag"></i> Bulk discount applied: 10+ pieces save 15%
+    </div>
+    
+    <div class="order-line"><span id="order-pcs-label">Shirts (10 pcs)</span><span id="order-shirts-cost">$89.90</span></div>
+    <div class="order-line"><span id="order-tech-label">DTG Printing</span><span id="order-tech-cost">Included</span></div>
+    <div class="order-line"><span>Setup fee</span><span>FREE</span></div>
+    <div class="order-line"><span>Shipping</span><span id="order-ship-cost">$9.99</span></div>
+    <div class="order-line total"><span>Total</span><span id="order-total">$99.89</span></div>
+    
+    <div style="margin:20px 0 12px;">
+      <button class="btn btn-primary w-full" id="add-to-cart-btn" style="justify-content:center;" onclick="addToCart()">
+        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+      </button>
+    </div>
+    <a href="bulk-orders.html" class="btn btn-outline w-full" style="justify-content:center;" id="request-quote-btn">
+      <i class="fa-solid fa-file-invoice"></i> Request Custom Quote
+    </a>
+    
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border-color);">
+      <div style="font-family:var(--font-heading);font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">Guarantees</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);"><i class="fa-solid fa-shield-halved" style="color:var(--pc-green);"></i> 100% Satisfaction Guarantee</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);"><i class="fa-solid fa-truck" style="color:var(--pc-green);"></i> Free Shipping Over $100</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);"><i class="fa-solid fa-redo" style="color:var(--pc-green);"></i> Free Reprints on Defects</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);"><i class="fa-solid fa-lock" style="color:var(--pc-green);"></i> Secure Checkout</div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- Mobile Order CTA -->
+<div class="mobile-order-cta" role="complementary" aria-label="Mobile order summary">
+  <div>
+    <div class="mobile-price"><span id="mobile-total">$99.89</span> <span id="mobile-pcs">/ 10 pcs</span></div>
+    <div style="font-size:12px;color:var(--text-muted);">Standard delivery, 5-7 days</div>
+  </div>
+  <button class="btn btn-primary btn-lg" style="flex:1;" id="mobile-add-cart" onclick="addToCart()">
+    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+  </button>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+  // Studio-specific JS
+  var studio = {
+    apparel: 'tee',
+    base: {tee: 8.99, hoodie: 24.99, polo: 16.99, tank: 7.99},
+    tech: 'dtg',
+    techAdd: {dtg: 0, screen: 2, embroidery: 6},
+    techNames: {dtg: 'DTG', screen: 'Screen', embroidery: 'Embroidery'},
+    finishAdd: {'finish-gloss': 3, 'finish-foil': 5, 'finish-puff': 4, 'finish-glow': 4},
+    packAdd: {'Standard Polybag': 0, 'Kraft Paper Bag (+$1.50/pc)': 1.5, 'Premium Gift Box (+$4/pc)': 4, 'Custom Branded Bag (+$3/pc)': 3},
+    rushFee: {'rush-standard': 0, 'rush-express': 25, 'rush-48h': 50},
+    scale: 100, x: 0, y: 0, zoom: 1,
+    text: {content: '', font: 'Bebas Neue (Display)', color: '#000000', size: 36, bold: false, italic: false, underline: false, shadow: false, arch: 'straight'},
+    history: [], hIndex: -1
+  };
+  var FONT_MAP = {'Bebas Neue (Display)': '"Bebas Neue", sans-serif', 'Outfit Bold': '"Outfit", sans-serif', 'Inter Black': '"Inter", sans-serif', 'Arial Black': '"Arial Black", sans-serif', 'Impact': 'Impact, sans-serif', 'Courier New': '"Courier New", monospace'};
+  var APPAREL_IMG = {tee: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=100&q=80', hoodie: 'https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?w=100&q=80', polo: 'https://images.unsplash.com/photo-1562157873-818bc0726f68?w=100&q=80', tank: 'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=100&q=80'};
+
+  function money(n) { return '$' + n.toFixed(2); }
+
+  function selectApparel(btn, type) {
+    document.querySelectorAll('.apparel-type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    studio.apparel = type;
+    const names = {tee:'Classic Tee', hoodie:'Hoodie', polo:'Polo Shirt', tank:'Tank Top'};
+    document.getElementById('summary-apparel').textContent = names[type] || 'Classic Tee';
+    var sImg = document.getElementById('summary-img');
+    if (sImg && APPAREL_IMG[type]) sImg.src = APPAREL_IMG[type];
+    document.querySelectorAll('#size-qty-body tr').forEach(tr => {
+      const size = tr.cells[0].textContent.trim();
+      const base = studio.base[studio.apparel] + (size === '2XL' ? 2 : 0);
+      tr.cells[2].textContent = money(base);
+    });
+    updateTotal();
+    showToast('Apparel updated to ' + (names[type] || type), 'success');
+  }
+
+  function selectShirtColor(dot, color) {
+    document.querySelectorAll('#shirt-colors .shirt-color-dot').forEach(d => d.classList.remove('active'));
+    dot.classList.add('active');
+    document.getElementById('shirt-preview-bg').style.background = color;
+    const name = dot.getAttribute('title');
+    document.getElementById('summary-color-tag').textContent = name;
+    var line = document.getElementById('summary-color-line');
+    if (line) line.textContent = 'Color: ' + name;
+    showToast('Color changed to ' + name, 'success');
+  }
+
+  function selectPlacement(btn, placement) {
+    document.querySelectorAll('#placement-btns .placement-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const names = {'front-center':'Front','back-center':'Back','left-chest':'L.Chest','full-front':'Full','sleeve':'Sleeve','all-over':'All-Over'};
+    const short = names[placement] || placement;
+    document.getElementById('summary-placement-tag').textContent = short;
+    refreshTechPlaceLine();
+  }
+
+  function selectTech(option, tech) {
+    document.querySelectorAll('.print-tech-option').forEach(o => o.classList.remove('active'));
+    option.classList.add('active');
+    option.querySelector('input[type="radio"]').checked = true;
+    studio.tech = tech;
+    document.getElementById('summary-tech-tag').textContent = studio.techNames[tech] || tech;
+    refreshTechPlaceLine();
+    updateTotal();
+  }
+
+  function refreshTechPlaceLine() {
+    const techLabel = {dtg: 'DTG Printing', screen: 'Screen Printing', embroidery: 'Embroidery'}[studio.tech] || 'DTG Printing';
+    const place = document.getElementById('summary-placement-tag').textContent;
+    var line = document.getElementById('summary-tech-place');
+    if (line) line.textContent = techLabel + ' · ' + place;
+  }
+  
+  function switchView(view, btn) {
+    document.querySelectorAll('.preview-view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const urls = {
+      front:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80',
+      back:'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500&q=80',
+      left:'https://images.unsplash.com/photo-1562157873-818bc0726f68?w=500&q=80',
+      right:'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=500&q=80'
+    };
+    document.getElementById('shirt-preview-img').src = urls[view] || urls.front;
+  }
+  
+  function escXml(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+  function renderText() {
+    const t = studio.text;
+    const box = document.getElementById('preview-text');
+    if (!box) return;
+    if (!t.content) { box.style.display = 'none'; box.innerHTML = ''; applyOverlayTransform(); return; }
+    box.style.display = 'flex';
+    const fam = FONT_MAP[t.font] || '"Bebas Neue", sans-serif';
+    const deco = t.underline ? 'underline' : 'none';
+    const tStyle = 'font-family:' + fam + ';font-weight:' + (t.bold ? '900' : '400') + ';font-style:' + (t.italic ? 'italic' : 'normal') + ';text-decoration:' + deco + ';' + (t.shadow ? 'text-shadow:2px 2px 0 rgba(0,0,0,0.35);' : '');
+    if (t.arch === 'straight') {
+      box.innerHTML = '';
+      const span = document.createElement('span');
+      span.textContent = t.content;
+      span.style.cssText = 'color:' + t.color + ';font-size:' + t.size + 'px;line-height:1.2;max-width:100%;word-break:break-word;' + tStyle;
+      box.appendChild(span);
+    } else {
+      const d = t.arch === 'up' ? 'M8,52 Q75,4 142,52' : 'M8,12 Q75,60 142,12';
+      const fs = Math.min(t.size, 34);
+      box.innerHTML = '<svg viewBox="0 0 150 64" style="width:100%;height:100%;" preserveAspectRatio="xMidYMid meet">'
+        + '<defs><path id="archPath" d="' + d + '" fill="none"/></defs>'
+        + '<text style="' + tStyle + '" font-size="' + fs + '" fill="' + t.color + '"><textPath href="#archPath" startOffset="50%" text-anchor="middle">' + escXml(t.content) + '</textPath></text></svg>';
+    }
+    applyOverlayTransform();
+  }
+
+  function applyOverlayTransform() {
+    const s = (studio.scale / 100) * studio.zoom;
+    const tf = 'translate(' + studio.x + 'px,' + studio.y + 'px) scale(' + s + ')';
+    const dImg = document.getElementById('preview-design-img');
+    const tBox = document.getElementById('preview-text');
+    if (dImg) { dImg.style.transform = tf; dImg.style.transformOrigin = 'center'; }
+    if (tBox) { tBox.style.transform = tf; tBox.style.transformOrigin = 'center'; }
+    const sImg = document.getElementById('shirt-preview-img');
+    if (sImg) { sImg.style.transform = 'scale(' + studio.zoom + ')'; sImg.style.transformOrigin = 'center'; }
+  }
+
+  function setScale(v) {
+    studio.scale = parseInt(v, 10) || 100;
+    document.getElementById('scale-val').textContent = studio.scale + '%';
+    applyOverlayTransform();
+  }
+
+  function setPos() {
+    studio.x = parseInt(document.getElementById('design-x').value || 0, 10);
+    studio.y = parseInt(document.getElementById('design-y').value || 0, 10);
+    applyOverlayTransform();
+  }
+
+  function addText() {
+    const txt = document.getElementById('custom-text-input').value.trim();
+    if (!txt) { showToast('Please enter some text first.', 'error'); return; }
+    studio.text.content = txt;
+    renderText();
+    pushHistory();
+    showToast('Text added to preview!', 'success');
+  }
+  // NOTE: user text is rendered via textContent/SVG-escaped paths only — never injected as HTML.
+
+  function selectTextColor(dot, color) {
+    document.querySelectorAll('#text-colors .shirt-color-dot').forEach(d => d.classList.remove('active'));
+    dot.classList.add('active');
+    studio.text.color = color;
+    renderText();
+    pushHistory();
+  }
+
+  function changeTextFont(fontLabel) {
+    studio.text.font = fontLabel;
+    renderText();
+    pushHistory();
+  }
+
+  function setTextSize(v) {
+    studio.text.size = parseInt(v, 10) || 36;
+    var lbl = document.getElementById('text-size-val');
+    if (lbl) lbl.textContent = studio.text.size + 'px';
+    renderText();
+  }
+
+  function toggleTextStyle(prop) {
+    studio.text[prop] = !studio.text[prop];
+    const map = {bold: 'text-bold', italic: 'text-italic', underline: 'text-underline', shadow: 'text-shadow'};
+    var btn = document.getElementById(map[prop]);
+    if (btn) btn.classList.toggle('active', studio.text[prop]);
+    renderText();
+    pushHistory();
+  }
+
+  function selectArch(btn, arch) {
+    document.querySelectorAll('#arch-btns .placement-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    studio.text.arch = arch;
+    renderText();
+    pushHistory();
+    showToast(arch === 'straight' ? 'Straight text applied' : 'Arch text applied', 'success');
+  }
+
+  function loadTemplate(name) {
+    showToast('Template "' + name + '" applied to design!', 'success');
+  }
+
+  function addToCart() {
+    showToast('Added to cart! Redirecting to checkout...', 'success');
+  }
+
+  function snapshot() {
+    return {text: Object.assign({}, studio.text), designSrc: document.getElementById('preview-design-img').src || '', designShown: document.getElementById('preview-design-img').style.display === 'block', scale: studio.scale, x: studio.x, y: studio.y, zoom: studio.zoom};
+  }
+
+  function applySnapshot(s) {
+    studio.text = Object.assign({}, s.text);
+    studio.scale = s.scale; studio.x = s.x; studio.y = s.y; studio.zoom = s.zoom;
+    var dImg = document.getElementById('preview-design-img');
+    var ph = document.querySelector('#design-overlay .design-overlay-placeholder');
+    if (s.designShown && s.designSrc) { dImg.src = s.designSrc; dImg.style.display = 'block'; if (ph) ph.style.display = 'none'; }
+    else { dImg.removeAttribute('src'); dImg.style.display = 'none'; if (ph) ph.style.display = ''; }
+    document.getElementById('design-scale').value = s.scale;
+    document.getElementById('scale-val').textContent = s.scale + '%';
+    document.getElementById('design-x').value = s.x;
+    document.getElementById('design-y').value = s.y;
+    document.getElementById('custom-text-input').value = s.text.content;
+    document.getElementById('text-font').value = s.text.font;
+    document.getElementById('text-size').value = s.text.size;
+    var sv = document.getElementById('text-size-val');
+    if (sv) sv.textContent = s.text.size + 'px';
+    var map = {bold: 'text-bold', italic: 'text-italic', underline: 'text-underline', shadow: 'text-shadow'};
+    Object.keys(map).forEach(k => { var b = document.getElementById(map[k]); if (b) b.classList.toggle('active', !!s.text[k]); });
+    renderText();
+    applyOverlayTransform();
+  }
+
+  function pushHistory() {
+    studio.history = studio.history.slice(0, studio.hIndex + 1);
+    studio.history.push(snapshot());
+    if (studio.history.length > 50) studio.history.shift();
+    studio.hIndex = studio.history.length - 1;
+  }
+
+  function studioUndo() {
+    if (studio.hIndex > 0) { studio.hIndex--; applySnapshot(studio.history[studio.hIndex]); showToast('Undone', 'info'); }
+    else showToast('Nothing to undo', 'info');
+  }
+
+  function studioRedo() {
+    if (studio.hIndex < studio.history.length - 1) { studio.hIndex++; applySnapshot(studio.history[studio.hIndex]); showToast('Redone', 'info'); }
+    else showToast('Nothing to redo', 'info');
+  }
+
+  function studioZoom(step) {
+    studio.zoom = Math.min(2, Math.max(1, Math.round((studio.zoom + step) * 100) / 100));
+    applyOverlayTransform();
+  }
+
+  function updateTotal() {
+    const perPcExtras = studio.techAdd[studio.tech] || 0
+      + (document.getElementById('finish-gloss').checked ? 3 : 0)
+      + (document.getElementById('finish-foil').checked ? 5 : 0)
+      + (document.getElementById('finish-puff').checked ? 4 : 0)
+      + (document.getElementById('finish-glow').checked ? 4 : 0)
+      + (studio.packAdd[document.getElementById('packaging-option').value] || 0);
+    let qty = 0, shirts = 0;
+    document.querySelectorAll('#size-qty-body tr').forEach(tr => {
+      const size = tr.cells[0].textContent.trim();
+      const q = parseInt(tr.cells[1].querySelector('input').value || 0, 10) || 0;
+      const perPc = studio.base[studio.apparel] + (size === '2XL' ? 2 : 0) + perPcExtras;
+      qty += q; shirts += q * perPc;
+    });
+    let rush = 0;
+    if (document.getElementById('rush-express').checked) rush = 25;
+    else if (document.getElementById('rush-48h').checked) rush = 50;
+    if (qty >= 10) shirts = shirts * 0.85;
+    const ship = qty === 0 ? 0 : (shirts >= 100 ? 0 : 9.99);
+    const total = shirts + rush + ship;
+    document.getElementById('order-pcs-label').textContent = 'Shirts (' + qty + ' pcs)';
+    document.getElementById('order-shirts-cost').textContent = money(shirts);
+    const techLabel = {dtg: 'DTG Printing', screen: 'Screen Printing', embroidery: 'Embroidery'}[studio.tech];
+    document.getElementById('order-tech-label').textContent = techLabel;
+    document.getElementById('order-tech-cost').textContent = (studio.techAdd[studio.tech] || 0) === 0 ? 'Included' : '+' + money(studio.techAdd[studio.tech]) + '/pc';
+    document.getElementById('order-ship-cost').textContent = ship === 0 ? (qty > 0 ? 'FREE' : money(0)) : money(ship);
+    document.getElementById('order-total').textContent = money(total);
+    var mt = document.getElementById('mobile-total');
+    if (mt) mt.textContent = money(total);
+    var mp = document.getElementById('mobile-pcs');
+    if (mp) mp.textContent = '/ ' + qty + ' pcs';
+  }
+  
+  // Studio tabs
+  document.querySelectorAll('.studio-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.studio-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.studio-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const panel = document.querySelector(`.studio-panel[data-panel="${tab.dataset.tab}"]`);
+      if (panel) panel.classList.add('active');
+    });
+  });
+  
+  // Design upload preview
+  document.getElementById('design-upload').addEventListener('change', function() {
+    if (this.files && this.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const previewImg = document.getElementById('preview-design-img');
+        const placeholder = document.querySelector('#design-overlay .design-overlay-placeholder');
+        previewImg.src = e.target.result;
+        previewImg.style.display = 'block';
+        if (placeholder) placeholder.style.display = 'none';
+        applyOverlayTransform();
+        pushHistory();
+        showToast('Design uploaded! Looking great!', 'success');
+      };
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+
+  // Save design
+  document.getElementById('save-design-btn').addEventListener('click', () => {
+    showToast('Design saved to your account!', 'success');
+  });
+
+  // Init pricing + undo baseline
+  window.addEventListener('load', () => { updateTotal(); pushHistory(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>About Us – PRINTCRAFT Studio | Premium Custom Printing Since 2018</title>
+  <meta name="description" content="Learn about PRINTCRAFT Studio – our story, mission, team, values, and commitment to premium custom T-shirt printing quality." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .about-hero-img { border-radius: var(--radius-xl); overflow: hidden; position: relative; }
+    .about-hero-img img { width: 100%; height: 100%; object-fit: cover; }
+    .mission-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 40px; }
+    .mission-card h3 { font-family: var(--font-heading); font-size: 22px; font-weight: 800; color: var(--text-primary); margin-bottom: 16px; }
+    .mission-card p { color: var(--text-secondary); line-height: 1.8; }
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--pc-primary), var(--pc-accent)); }
+    .timeline-item { position: relative; margin-bottom: 40px; }
+    .timeline-dot { position: absolute; left: -28px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--pc-primary); border: 3px solid var(--bg-primary); }
+    .timeline-year { font-family: var(--font-display); font-size: 28px; color: var(--pc-primary); line-height: 1; margin-bottom: 8px; }
+    .timeline-title { font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+    .timeline-desc { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+    .team-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); overflow: hidden; transition: all var(--transition-base); text-align: center; }
+    .team-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-6px); }
+    .team-card-img { height: 300px; overflow: hidden; background: var(--bg-secondary); }
+    .team-card-img img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 0.5s ease; display: block; }
+    .team-card:hover .team-card-img img { transform: scale(1.05); }
+    .team-card-body { padding: 24px; }
+    .team-card-name { font-family: var(--font-heading); font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .team-card-role { font-size: 13px; font-weight: 600; color: var(--pc-primary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+    .team-card-bio { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+    .team-card-socials { display: flex; justify-content: center; gap: 8px; }
+    .team-social-btn { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-secondary); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; transition: all var(--transition-fast); }
+    .team-social-btn:hover { background: var(--pc-primary); border-color: var(--pc-primary); color: white; }
+    .value-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 32px; transition: all var(--transition-base); }
+    .value-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-4px); border-color: var(--pc-primary); }
+    .value-icon { font-size: 40px; margin-bottom: 16px; }
+    .value-card h3 { font-family: var(--font-heading); font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 12px; }
+    .value-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .awards-strip { display: flex; gap: 32px; flex-wrap: wrap; align-items: center; }
+    .award-item { display: flex; align-items: center; gap: 12px; padding: 16px 24px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); }
+    .award-icon { font-size: 28px; }
+    .award-text strong { font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--text-primary); display: block; }
+    .award-text span { font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+      <div class="profile-dropdown">
+        <button class="profile-btn" aria-label="Account menu" aria-expanded="false" aria-haspopup="true"><i class="fa-regular fa-circle-user"></i></button>
+        <div class="profile-menu" role="menu">
+          <a href="login.html" role="menuitem"><i class="fa-solid fa-right-to-bracket"></i><span>Login / Sign Up<small>Access your account</small></span></a>
+          <div class="profile-menu-divider"></div>
+          <a href="dashboard.html" role="menuitem"><i class="fa-solid fa-gauge"></i><span>User Dashboard<small>Orders, designs &amp; tracking</small></span></a>
+          <a href="admin.html" role="menuitem"><i class="fa-solid fa-user-shield"></i><span>Admin Dashboard<small>Manage store &amp; orders</small></span></a>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About Us</a></li>
+    <li><a href="services.html">Services</a></li><li><a href="design-studio.html">Design Studio</a></li>
+    <li><a href="bulk-orders.html">Bulk Orders</a></li><li><a href="pricing.html">Pricing</a></li>
+    <li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero" aria-labelledby="about-hero-heading" style="--page-hero-bg: url('https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?w=1600&q=80');">
+  <div class="page-hero-bg-text" aria-hidden="true">ABOUT</div>
+  <div class="container-pc page-hero-content">
+    <h1 class="page-hero-title" id="about-hero-heading">OUR<br><span style="color:var(--pc-primary);">STORY</span></h1>
+    <p class="page-hero-desc">From a small garage operation to printing millions of garments — the PRINTCRAFT story is one of passion, craft, and relentless quality.</p>
+  </div>
+</section>
+
+<!-- ====== SECTION 1: ABOUT INTRO ====== -->
+<section class="section-py" aria-labelledby="about-intro-heading">
+  <div class="container-pc">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;" class="about-grid">
+      <div class="reveal-left">
+        <div class="about-hero-img" style="height:540px;">
+          <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=700&q=80" alt="Stacks of fresh print stock at the PRINTCRAFT production facility" loading="lazy" />
+          <div style="position:absolute;bottom:24px;left:24px;background:var(--pc-primary);color:white;border-radius:12px;padding:16px 20px;box-shadow:0 8px 32px rgba(255,59,48,0.4);">
+            <div style="font-family:var(--font-display);font-size:36px;line-height:1;">2018</div>
+            <div style="font-size:12px;font-weight:600;opacity:0.85;">Founded in New York</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="section-label" style="display:inline-flex;"><i class="fa-solid fa-circle-info"></i>Our Story</div>
+        <h2 class="section-title" id="about-intro-heading" style="text-align:left;margin:16px 0 24px;">We Started With<br>One <span class="text-gradient">Big Dream</span></h2>
+        <p class="body-lg" style="margin-bottom:20px;">In 2018, three friends with a passion for streetwear culture and a single direct-to-garment printer started PRINTCRAFT in a Brooklyn garage. The dream was simple: make premium custom printing accessible to everyone — from indie creators to global brands.</p>
+        <p class="body-md" style="margin-bottom:32px;">Fast forward to 2026 — we've grown into a state-of-the-art facility with 50+ production staff, 12 print technologies, and over 2 million garments shipped to customers in 40+ countries. But our core values haven't changed: quality, creativity, and community.</p>
+        <div style="display:flex;gap:32px;flex-wrap:wrap;margin-bottom:32px;">
+          <div style="text-align:center;"><div style="font-family:var(--font-display);font-size:52px;color:var(--pc-primary);line-height:1;">8+</div><div style="font-size:13px;color:var(--text-muted);font-weight:600;">Years in Business</div></div>
+          <div style="text-align:center;"><div style="font-family:var(--font-display);font-size:52px;color:var(--pc-primary);line-height:1;">50+</div><div style="font-size:13px;color:var(--text-muted);font-weight:600;">Team Members</div></div>
+          <div style="text-align:center;"><div style="font-family:var(--font-display);font-size:52px;color:var(--pc-primary);line-height:1;">40+</div><div style="font-size:13px;color:var(--text-muted);font-weight:600;">Countries Served</div></div>
+        </div>
+        <a href="design-studio.html" class="btn btn-primary btn-lg" id="about-design-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Start Creating</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 2: MISSION / VALUES ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="values-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-heart"></i> Our DNA</div>
+      <h2 class="section-title reveal" id="values-heading">What We Stand For</h2>
+      <p class="section-desc reveal">Three pillars guide everything we do — from the inks we choose to the way we answer the phone.</p>
+    </div>
+    <div class="grid-3">
+      <div class="value-card reveal" data-delay="0">
+        <div class="value-icon"><i class="fa-solid fa-star"></i></div>
+        <h3>Uncompromising Quality</h3>
+        <p>We'd rather lose money on a reprint than ship something that falls short of your expectations. Every order is quality-checked by human eyes before it leaves our facility.</p>
+      </div>
+      <div class="value-card reveal" data-delay="100">
+        <div class="value-icon"><i class="fa-solid fa-bolt"></i></div>
+        <h3>Speed Without Sacrifice</h3>
+        <p>Fast doesn't mean careless. We've engineered our production workflow to be both rapid and precise. 48-hour express is our badge of honor, not a compromise.</p>
+      </div>
+      <div class="value-card reveal" data-delay="200">
+        <div class="value-icon"><i class="fa-solid fa-globe"></i></div>
+        <h3>Community &amp; Sustainability</h3>
+        <p>We use water-based, eco-friendly inks and ethically-sourced blanks. We support local artist communities and donate 1% of profits to arts education programs.</p>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top:24px;">
+      <div class="value-card reveal" data-delay="300">
+        <div class="value-icon"><i class="fa-solid fa-lightbulb"></i></div>
+        <h3>Creative Freedom</h3>
+        <p>Your design is sacred. We're here to execute your vision faithfully — and when you need inspiration, our creative team is always ready to help you find it.</p>
+      </div>
+      <div class="value-card reveal" data-delay="400">
+        <div class="value-icon"><i class="fa-solid fa-tag"></i></div>
+        <h3>Transparent Pricing</h3>
+        <p>No hidden fees, no bait-and-switch. What you see in our quote is exactly what you pay. We believe honest pricing builds lasting relationships.</p>
+      </div>
+      <div class="value-card reveal" data-delay="500">
+        <div class="value-icon"><i class="fa-solid fa-handshake"></i></div>
+        <h3>Customer First</h3>
+        <p>24/7 support, dedicated account managers for bulk clients, and a rock-solid satisfaction guarantee. If something's wrong, we make it right — no questions asked.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 3: TIMELINE / MILESTONES ====== -->
+<section class="section-py" aria-labelledby="timeline-heading">
+  <div class="container-pc">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;" class="about-grid">
+      <div class="reveal-left">
+        <div class="section-label" style="display:inline-flex;"><i class="fa-solid fa-timeline"></i>Our Journey</div>
+        <h2 class="section-title" id="timeline-heading" style="text-align:left;margin:16px 0 40px;">Milestones That<br><span class="text-gradient">Shaped Us</span></h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2018</div>
+            <div class="timeline-title">The Garage Beginning</div>
+            <div class="timeline-desc">PRINTCRAFT launches out of a Brooklyn garage with one DTG printer and three founders who believe great printing shouldn't cost a fortune.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2019</div>
+            <div class="timeline-title">First 10,000 Orders</div>
+            <div class="timeline-desc">We hit 10,000 orders and moved into our first real production facility. Added screen printing and embroidery capabilities.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2021</div>
+            <div class="timeline-title">Online Design Studio Launch</div>
+            <div class="timeline-desc">We launched our web-based design studio, making it possible for anyone to create custom apparel from their laptop — no design experience needed.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2023</div>
+            <div class="timeline-title">1 Million Garments Shipped</div>
+            <div class="timeline-desc">We celebrate shipping our 1 millionth garment and expand internationally. New facility opens in Austin, Texas.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--pc-accent);"></div>
+            <div class="timeline-year" style="color:var(--pc-accent);">2026</div>
+            <div class="timeline-title">The Future is Bold</div>
+            <div class="timeline-desc">2M+ garments printed, 50+ team members, and the most advanced design-to-delivery platform in the industry. Just getting started.</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch;" class="about-mosaic">
+          <div style="height:280px;border-radius:var(--radius-xl);overflow:hidden;">
+            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&q=80" alt="Fresh printed tee coming off production" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          </div>
+          <div style="height:280px;border-radius:var(--radius-xl);overflow:hidden;">
+            <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?w=400&q=80" alt="Team working on creative design projects" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          </div>
+          <div style="height:280px;border-radius:var(--radius-xl);overflow:hidden;">
+            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&q=80" alt="Folded premium garments ready for shipping" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          </div>
+          <div style="height:280px;border-radius:var(--radius-xl);overflow:hidden;">
+            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&q=80" alt="Vibrant abstract print design" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 4: TEAM ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="team-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-people-group"></i> The Team</div>
+      <h2 class="section-title reveal" id="team-heading">Meet the People Behind<br><span class="text-gradient">Every Print</span></h2>
+      <p class="section-desc reveal">Our diverse team of designers, print technicians, and customer advocates share one obsession: making your shirts look incredible.</p>
+    </div>
+    <div class="grid-4">
+      <div class="team-card reveal" data-delay="0">
+        <div class="team-card-img">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80" alt="Marcus Lee, Co-Founder and CEO of PRINTCRAFT Studio" loading="lazy" />
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-name">Marcus Lee</div>
+          <div class="team-card-role">Co-Founder &amp; CEO</div>
+          <p class="team-card-bio">Streetwear obsessive turned print entrepreneur. Marcus leads our vision and customer relationships.</p>
+          <div class="team-card-socials">
+            <a href="#" class="team-social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="team-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal" data-delay="100">
+        <div class="team-card-img">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80" alt="Priya Sharma, Head of Design at PRINTCRAFT" loading="lazy" />
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-name">Priya Sharma</div>
+          <div class="team-card-role">Head of Design</div>
+          <p class="team-card-bio">Former graphic designer for Nike and Adidas. Priya leads our design studio and creative team of 12.</p>
+          <div class="team-card-socials">
+            <a href="#" class="team-social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="team-social-btn" aria-label="Dribbble"><i class="fa-brands fa-dribbble"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal" data-delay="200">
+        <div class="team-card-img">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="James Chen, Production Director at PRINTCRAFT" loading="lazy" />
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-name">James Chen</div>
+          <div class="team-card-role">Production Director</div>
+          <p class="team-card-bio">15 years in garment manufacturing. James ensures every order meets our impossibly high quality standards.</p>
+          <div class="team-card-socials">
+            <a href="#" class="team-social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal" data-delay="300">
+        <div class="team-card-img">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" alt="Sofia Martinez, Customer Success Lead at PRINTCRAFT" loading="lazy" />
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-name">Sofia Martinez</div>
+          <div class="team-card-role">Customer Success Lead</div>
+          <p class="team-card-bio">Sofia's team ensures every customer has an exceptional experience from first quote to final delivery.</p>
+          <div class="team-card-socials">
+            <a href="#" class="team-social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="team-social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 5: AWARDS & CERTIFICATIONS ====== -->
+<section class="section-py" aria-labelledby="awards-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-trophy"></i> Recognition</div>
+      <h2 class="section-title reveal" id="awards-heading">Industry Awards &amp;<br><span class="text-gradient">Certifications</span></h2>
+    </div>
+    <div class="awards-strip reveal" style="justify-content:center;margin-bottom:64px;">
+      <div class="award-item"><div class="award-icon"><i class="fa-solid fa-trophy"></i></div><div class="award-text"><strong>Print Industry Award 2024</strong><span>Best DTG Quality</span></div></div>
+      <div class="award-item"><div class="award-icon"><i class="fa-solid fa-building-columns"></i></div><div class="award-text"><strong>ISO 9001:2015</strong><span>Quality Certified</span></div></div>
+      <div class="award-item"><div class="award-icon"><i class="fa-solid fa-leaf"></i></div><div class="award-text"><strong>Eco-Certified</strong><span>Sustainable Inks</span></div></div>
+      <div class="award-item"><div class="award-icon"><i class="fa-solid fa-star"></i></div><div class="award-text"><strong>4.9/5 Stars</strong><span>50,000+ Reviews</span></div></div>
+    </div>
+    <div style="background:linear-gradient(135deg,var(--pc-black) 0%,#1A0A0A 100%);border-radius:var(--radius-xl);padding:64px;display:flex;gap:48px;align-items:center;flex-wrap:wrap;position:relative;overflow:hidden;" class="reveal-scale">
+      <div class="orb orb-red" style="width:400px;height:400px;top:-100px;right:-100px;" aria-hidden="true"></div>
+      <div style="flex:1;min-width:280px;position:relative;z-index:1;">
+        <div style="font-family:var(--font-display);font-size:clamp(48px,6vw,80px);color:white;line-height:0.95;margin-bottom:16px;">JOIN THE<br><span style="color:var(--pc-primary);">MOVEMENT</span></div>
+        <p style="color:rgba(255,255,255,0.6);font-size:17px;line-height:1.7;">Become part of the PRINTCRAFT community. Whether you're ordering your first custom tee or your 10,000th, we're honored to be your print partner.</p>
+      </div>
+      <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:16px;">
+        <a href="design-studio.html" class="btn btn-primary btn-lg" id="awards-design-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Start Designing</a>
+        <a href="contact.html" class="btn btn-white btn-lg" id="awards-contact-btn"><i class="fa-solid fa-envelope"></i> Contact Our Team</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 6: FACILITY TOUR ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="facility-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-industry"></i> Our Facility</div>
+      <h2 class="section-title reveal" id="facility-heading">State-of-the-Art<br><span class="text-gradient">Production</span></h2>
+      <p class="section-desc reveal">Take a peek inside our 25,000 sq ft printing facility — where craft meets technology.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:280px 280px;gap:16px;" class="facility-gallery">
+      <div style="grid-row:1/3;border-radius:var(--radius-xl);overflow:hidden;" class="reveal-left">
+        <img src="https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?w=700&q=80" alt="Modern automated print production floor" loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius-xl);overflow:hidden;" class="reveal" data-delay="100">
+        <img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=400&q=80" alt="Inspected folded garments ready to ship" loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius-xl);overflow:hidden;" class="reveal" data-delay="200">
+        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&q=80" alt="Screen printing production line" loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius-xl);overflow:hidden;" class="reveal" data-delay="300">
+        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&q=80" alt="Finished garment product ready for packaging" loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius-xl);overflow:hidden;" class="reveal" data-delay="400">
+        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&q=80" alt="Custom garment styled for display" loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;" class="reveal about-stats">
+      <div style="text-align:center;padding:32px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);">
+        <div style="font-family:var(--font-display);font-size:52px;color:var(--pc-primary);">25K</div>
+        <div style="font-family:var(--font-heading);font-size:14px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Sq Ft Facility</div>
+      </div>
+      <div style="text-align:center;padding:32px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);">
+        <div style="font-family:var(--font-display);font-size:52px;color:var(--pc-primary);">12</div>
+        <div style="font-family:var(--font-heading);font-size:14px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Print Technologies</div>
+      </div>
+      <div style="text-align:center;padding:32px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);">
+        <div style="font-family:var(--font-display);font-size:52px;color:var(--pc-primary);">50+</div>
+        <div style="font-family:var(--font-heading);font-size:14px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Expert Staff</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="container-pc">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="PRINTCRAFT Studio"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+        <p>Premium custom T-shirt printing &amp; design studio. Helping brands, teams, and creators wear their stories since 2018.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="service-detail.html">DTG Printing</a></li><li><a href="service-detail.html">Screen Printing</a></li><li><a href="service-detail.html">Embroidery</a></li><li><a href="service-detail.html">Sublimation</a></li><li><a href="service-detail.html">Heat Transfer</a></li><li><a href="bulk-orders.html">Bulk Orders</a></li></ul></div>
+      <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact Us</h4><ul class="footer-links"><li><a href="tel:+18005551234"><i class="fa-solid fa-phone"></i> +1 (800) 555-1234</a></li><li><a href="mailto:hello@printcraft.studio"><i class="fa-solid fa-envelope"></i> hello@printcraft.studio</a></li><li><a href="#"><i class="fa-solid fa-location-dot"></i> 123 Print Ave, NY 10001</a></li></ul>
+        <div style="margin-top:20px;">
+          <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:white;margin-bottom:10px;">Newsletter</div>
+          <div style="display:flex;gap:8px;">
+            <input type="email" placeholder="your@email.com" class="form-control" style="border-radius:8px;padding:10px 12px;font-size:13px;" aria-label="Newsletter email" />
+            <button class="btn btn-primary btn-sm" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2026 PRINTCRAFT Studio. All rights reserved.</p>
+      <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div>
+      <p style="font-size:12px;color:#5A5A5A;">Secure Payments: Visa · Mastercard · PayPal · Apple Pay</p>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<style>
+@media(max-width:1024px){
+  .about-grid{ grid-template-columns:1fr !important; gap:40px !important; }
+  .facility-gallery{ grid-template-columns:1fr 1fr !important; grid-template-rows:auto !important; }
+  .facility-gallery>div:first-child{ grid-row:auto; }
+}
+@media(max-width:640px){
+  .awards-strip{ flex-direction:column; }
+  .facility-gallery{ grid-template-columns:1fr !important; }
+  .about-stats{ grid-template-columns:1fr !important; gap:16px !important; margin-top:32px !important; }
+  .about-mosaic{ grid-template-columns:1fr !important; }
+  .about-mosaic>div{ margin-top:0 !important; height:260px !important; }
+}
+</style>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

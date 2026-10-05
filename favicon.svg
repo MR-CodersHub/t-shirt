@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#FF3B30"/>
+  <g transform="translate(32 30)" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-14 -8 L-8 -12 L8 -12 L14 -8 L10 -6 L10 12 L-10 12 L-10 -6 Z"/>
+    <path d="M-10 -6 L-16 4 M10 -6 L16 4"/>
+  </g>
+  <text x="32" y="58" font-size="14" fill="#fff" font-family="Arial, sans-serif" font-weight="900" text-anchor="middle">P</text>
+</svg>

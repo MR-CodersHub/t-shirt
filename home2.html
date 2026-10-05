@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>Custom Printing for Events, Teams & Brands – PRINTCRAFT Studio</title>
+  <meta name="description" content="Niche-specific custom T-shirt printing for events, sports teams, colleges, businesses, brands, and creators. Bulk discounts and fast turnaround." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    /* Niche Hero */
+    .niche-hero {
+      min-height: auto;
+      background: var(--pc-black);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding-top: 72px;
+    }
+    .niche-hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(255,59,48,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(255,214,10,0.1) 0%, transparent 50%),
+        linear-gradient(rgba(10,10,10,0.8), rgba(10,10,10,0.88)),
+        url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600&q=80') center/cover no-repeat;
+    }
+    .niche-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .niche-hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 52px 24px 44px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: center;
+      text-align: center;
+    }
+    .niche-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(255,59,48,0.15);
+      border: 1px solid rgba(255,59,48,0.3);
+      border-radius: 999px;
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--pc-primary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .niche-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 84px);
+      line-height: 0.92;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .niche-title .purple { color: var(--pc-primary); }
+    .niche-title .cyan { color: var(--pc-accent); }
+    .niche-right-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      text-align: left;
+    }
+    @media(max-width:1024px){
+      .niche-right-grid { grid-template-columns: 1fr 1fr; max-width: 640px; }
+    }
+    @media(max-width:480px){
+      .niche-right-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    }
+    .niche-card-mini {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 14px;
+      transition: all var(--transition-base);
+    }
+    .niche-card-mini:hover { background: rgba(255,255,255,0.08); transform: translateY(-4px); }
+    .niche-card-mini img { width: 100%; height: 90px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+    .niche-card-mini h4 { font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: white; }
+    .niche-card-mini p { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+    /* Niche Cards Section */
+    .niche-section { background: var(--bg-secondary); }
+    .niche-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    @media(max-width:1024px){ .niche-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:640px){ .niche-grid{ grid-template-columns:1fr; } }
+    .niche-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: all var(--transition-base);
+      position: relative;
+    }
+    .niche-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-8px); }
+    .niche-card-img { height: 260px; overflow: hidden; position: relative; }
+    .niche-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .niche-card:hover .niche-card-img img { transform: scale(1.08); }
+    .niche-card-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent 60%);
+    }
+    .niche-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .niche-card-body { padding: 24px; }
+    .niche-card-title { font-family: var(--font-heading); font-size: 22px; font-weight: 800; color: var(--text-primary); margin-bottom: 10px; }
+    .niche-card-desc { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+    .niche-card-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .niche-card-features li { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-secondary); }
+    .niche-card-features li i { color: var(--pc-green); font-size: 12px; }
+
+    /* Why Us Section */
+    .why-us-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    @media(max-width:1024px){ .why-us-grid{ grid-template-columns:1fr; } }
+    .why-us-img-stack { position: relative; height: 580px; }
+    .why-img-1 { position: absolute; top: 0; left: 0; width: 65%; height: 380px; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); }
+    .why-img-2 { position: absolute; bottom: 0; right: 0; width: 55%; height: 300px; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); border: 4px solid var(--bg-primary); }
+    .why-img-1 img, .why-img-2 img { width: 100%; height: 100%; object-fit: cover; }
+    .why-stat-card {
+      position: absolute;
+      top: 200px;
+      right: -20px;
+      background: var(--pc-primary);
+      color: white;
+      border-radius: 16px;
+      padding: 20px 24px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(255,59,48,0.4);
+      animation: float 4s ease-in-out infinite;
+    }
+    .why-stat-card .num { font-family: var(--font-display); font-size: 42px; line-height: 1; }
+    .why-stat-card .lbl { font-size: 12px; font-weight: 600; opacity: 0.85; }
+    .why-feature { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 32px; }
+    .why-feature-icon { width: 52px; height: 52px; border-radius: var(--radius-md); background: linear-gradient(135deg, rgba(255,59,48,0.1), rgba(255,214,10,0.08)); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .why-feature-title { font-family: var(--font-heading); font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+    .why-feature-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+    /* Niche Marquee */
+    .niche-marquee { background: var(--pc-black); padding: 20px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .niche-marquee .marquee-track { animation-duration: 28s; }
+    .niche-marquee .marquee-item { font-size: 24px; color: rgba(255,255,255,0.85); letter-spacing: 0.06em; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+    .niche-marquee .marquee-item .sep { background: var(--pc-accent); opacity: 1; }
+
+    /* Inspiration Grid */
+    .inspiration-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 300px 300px;
+      gap: 16px;
+    }
+    @media(max-width:1024px){ .inspiration-grid{ grid-template-columns:1fr 1fr; grid-template-rows:auto; } }
+    @media(max-width:640px){ .inspiration-grid{ grid-template-columns:1fr; } }
+    .inspiration-item { border-radius: var(--radius-xl); overflow: hidden; position: relative; }
+    .inspiration-item:first-child { grid-row: 1 / 3; }
+    @media(max-width:1024px){ .inspiration-item:first-child{ grid-row:auto; } }
+    .inspiration-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .inspiration-item:hover img { transform: scale(1.05); }
+    .inspiration-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%); display: flex; align-items: flex-end; padding: 24px; }
+    .inspiration-label { font-family: var(--font-display); font-size: 28px; color: white; }
+
+    /* Niche CTA */
+    .niche-cta {
+      background: linear-gradient(135deg, var(--pc-black) 0%, #1A0A0A 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .niche-cta .orb-red { width: 800px; height: 800px; top: -300px; right: -200px; }
+    .niche-cta .orb-yellow { width: 400px; height: 400px; bottom: -150px; left: -100px; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo" aria-label="PRINTCRAFT Studio">
+      <div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>
+      PRINT<span>CRAFT</span>
+    </a>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="home2.html" class="active">Home2</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+      <div class="profile-dropdown">
+        <button class="profile-btn" aria-label="Account menu" aria-expanded="false" aria-haspopup="true"><i class="fa-regular fa-circle-user"></i></button>
+        <div class="profile-menu" role="menu">
+          <a href="login.html" role="menuitem"><i class="fa-solid fa-right-to-bracket"></i><span>Login / Sign Up<small>Access your account</small></span></a>
+          <div class="profile-menu-divider"></div>
+          <a href="dashboard.html" role="menuitem"><i class="fa-solid fa-gauge"></i><span>User Dashboard<small>Orders, designs &amp; tracking</small></span></a>
+          <a href="admin.html" role="menuitem"><i class="fa-solid fa-user-shield"></i><span>Admin Dashboard<small>Manage store &amp; orders</small></span></a>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="home2.html">Home2</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="design-studio.html">Design Your Own</a></li>
+    <li><a href="bulk-orders.html">Bulk &amp; Event Orders</a></li>
+    <li><a href="pricing.html">Pricing Guide</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+  </ul>
+</div>
+
+<!-- ====== SECTION 1: NICHE HERO ====== -->
+<section class="niche-hero" aria-label="Home 2 Hero – Niche Printing">
+  <div class="niche-hero-bg" aria-hidden="true"></div>
+  <div class="niche-hero-grid" aria-hidden="true"></div>
+  <div class="niche-hero-inner">
+    <div>
+      <div class="niche-eyebrow"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Niche-Specific Solutions</div>
+      <h1 class="niche-title">
+        PRINT FOR<br><span class="purple">EVERY</span><br><span class="cyan">NICHE</span>
+      </h1>
+      <p style="font-size:17px;color:rgba(255,255,255,0.6);line-height:1.6;max-width:560px;margin:0 auto 28px;">
+        From championship sports teams to sold-out music festivals, college spirit wear to billion-dollar brand merch — PRINTCRAFT delivers custom printing for every corner of the culture.
+      </p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+        <a href="design-studio.html" class="btn btn-primary btn-lg" id="h2-design-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Get a Custom Quote</a>
+        <a href="bulk-orders.html" class="btn btn-lg" style="border:2px solid rgba(255,255,255,0.15);color:white;background:transparent;" id="h2-bulk-btn"><i class="fa-solid fa-boxes-stacked"></i> Bulk Pricing</a>
+      </div>
+      <div style="display:flex;gap:24px;margin-top:28px;flex-wrap:wrap;justify-content:center;">
+        <div>
+          <div style="font-family:var(--font-display);font-size:36px;color:var(--pc-primary);line-height:1;">6</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.4);font-weight:500;">Niche Categories</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,0.08);"></div>
+        <div>
+          <div style="font-family:var(--font-display);font-size:36px;color:var(--pc-accent);line-height:1;">500+</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.4);font-weight:500;">Satisfied Partners</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,0.08);"></div>
+        <div>
+          <div style="font-family:var(--font-display);font-size:36px;color:var(--pc-accent);line-height:1;">72H</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.4);font-weight:500;">Standard Turnaround</div>
+        </div>
+      </div>
+    </div>
+    <div class="niche-right-grid" aria-hidden="true">
+      <div class="niche-card-mini">
+        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&q=80" alt="Event printing" loading="lazy" />
+        <h4>Events</h4><p>Concerts &amp; Festivals</p>
+      </div>
+      <div class="niche-card-mini">
+        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=300&q=80" alt="Sports team printing" loading="lazy" />
+        <h4>Sports Teams</h4><p>Jerseys &amp; Uniforms</p>
+      </div>
+      <div class="niche-card-mini">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=300&q=80" alt="Business corporate printing" loading="lazy" />
+        <h4>Businesses</h4><p>Corporate Merch</p>
+      </div>
+      <div class="niche-card-mini">
+        <img src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=300&q=80" alt="College spirit wear" loading="lazy" />
+        <h4>Colleges</h4><p>Spirit Wear</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Niche Marquee -->
+<div class="niche-marquee" aria-hidden="true">
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item"><span>EVENTS</span><span class="sep"></span></div>
+      <div class="marquee-item"><span>SPORTS TEAMS</span><span class="sep"></span></div>
+      <div class="marquee-item"><span>BRANDS</span><span class="sep"></span></div>
+      <div class="marquee-item"><span>COLLEGES</span><span class="sep"></span></div>
+      <div class="marquee-item"><span>BUSINESSES</span><span class="sep"></span></div>
+      <div class="marquee-item"><span>CREATORS</span><span class="sep"></span></div>
+      <div class="marquee-item"><span>EVENTS</span><span class="sep"></span></div>
+      <div class="marquee-item"><span>SPORTS TEAMS</span><span class="sep"></span></div>
+      <div class="marquee-item"><span>BRANDS</span><span class="sep"></span></div>
+      <div class="marquee-item"><span>COLLEGES</span><span class="sep"></span></div>
+      <div class="marquee-item"><span>BUSINESSES</span><span class="sep"></span></div>
+      <div class="marquee-item"><span>CREATORS</span><span class="sep"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== SECTION 2: NICHE CARDS ====== -->
+<section class="niche-section section-py" aria-labelledby="niches-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-bullseye"></i> Specialized Solutions</div>
+      <h2 class="section-title reveal" id="niches-heading">Custom Printing for<br><span class="text-gradient">Your Industry</span></h2>
+      <p class="section-desc reveal">Tailored printing packages for every niche — with industry-specific pricing, timelines, and design support.</p>
+    </div>
+    <div class="niche-grid">
+      <!-- Events -->
+      <div class="niche-card reveal" data-delay="0">
+        <div class="niche-card-img">
+          <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80" alt="Concert and festival event custom t-shirt printing" loading="lazy" />
+          <div class="niche-card-overlay">
+            <span class="niche-card-badge" style="background:var(--pc-primary);"><i class="fa-solid fa-ticket"></i> Events</span>
+          </div>
+        </div>
+        <div class="niche-card-body">
+          <h3 class="niche-card-title">Events &amp; Festivals</h3>
+          <p class="niche-card-desc">Concert merch, festival staff tees, VIP gifts, charity run shirts — we handle high-volume event printing at lightning speed.</p>
+          <ul class="niche-card-features">
+            <li><i class="fa-solid fa-check"></i> 500–10,000+ unit runs</li>
+            <li><i class="fa-solid fa-check"></i> Express 48-hour option available</li>
+            <li><i class="fa-solid fa-check"></i> Event-day delivery coordination</li>
+          </ul>
+          <a href="bulk-orders.html" class="btn btn-primary w-full" style="justify-content:center;" id="events-niche-cta">Get Event Quote</a>
+        </div>
+      </div>
+      <!-- Sports -->
+      <div class="niche-card reveal" data-delay="100">
+        <div class="niche-card-img">
+          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80" alt="Sports team custom jersey and uniform printing" loading="lazy" />
+          <div class="niche-card-overlay">
+            <span class="niche-card-badge" style="background:var(--pc-orange);"><i class="fa-solid fa-futbol"></i> Sports Teams</span>
+          </div>
+        </div>
+        <div class="niche-card-body">
+          <h3 class="niche-card-title">Sports &amp; Teams</h3>
+          <p class="niche-card-desc">Professional jerseys, coaching staff uniforms, fan gear, and training kits — custom numbered with player names.</p>
+          <ul class="niche-card-features">
+            <li><i class="fa-solid fa-check"></i> Individual name &amp; number printing</li>
+            <li><i class="fa-solid fa-check"></i> Performance moisture-wicking fabrics</li>
+            <li><i class="fa-solid fa-check"></i> Youth and adult sizing available</li>
+          </ul>
+          <a href="bulk-orders.html" class="btn btn-primary w-full" style="justify-content:center;" id="sports-niche-cta">Get Team Quote</a>
+        </div>
+      </div>
+      <!-- Brands -->
+      <div class="niche-card reveal" data-delay="200">
+        <div class="niche-card-img">
+          <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80" alt="Streetwear brand custom clothing line" loading="lazy" />
+          <div class="niche-card-overlay">
+            <span class="niche-card-badge" style="background:var(--pc-purple);"><i class="fa-solid fa-crown"></i> Brands</span>
+          </div>
+        </div>
+        <div class="niche-card-body">
+          <h3 class="niche-card-title">Streetwear &amp; Brands</h3>
+          <p class="niche-card-desc">Launch your clothing line with premium DTG and screen printing. White-label, private label, and branded packaging available.</p>
+          <ul class="niche-card-features">
+            <li><i class="fa-solid fa-check"></i> Private label &amp; white-label options</li>
+            <li><i class="fa-solid fa-check"></i> Branded hang tags &amp; packaging</li>
+            <li><i class="fa-solid fa-check"></i> Low MOQ for limited drops</li>
+          </ul>
+          <a href="bulk-orders.html" class="btn btn-primary w-full" style="justify-content:center;" id="brand-niche-cta">Start Your Brand</a>
+        </div>
+      </div>
+      <!-- Colleges -->
+      <div class="niche-card reveal" data-delay="300">
+        <div class="niche-card-img">
+          <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&q=80" alt="College university spirit wear custom printing" loading="lazy" />
+          <div class="niche-card-overlay">
+            <span class="niche-card-badge" style="background:#0891B2;"><i class="fa-solid fa-graduation-cap"></i> Colleges</span>
+          </div>
+        </div>
+        <div class="niche-card-body">
+          <h3 class="niche-card-title">Colleges &amp; Universities</h3>
+          <p class="niche-card-desc">Greek life, student clubs, varsity sports, orientation events — full campus spirit wear from design to delivery.</p>
+          <ul class="niche-card-features">
+            <li><i class="fa-solid fa-check"></i> Student organization discounts</li>
+            <li><i class="fa-solid fa-check"></i> Rush orders for on-campus events</li>
+            <li><i class="fa-solid fa-check"></i> Licensed design templates available</li>
+          </ul>
+          <a href="bulk-orders.html" class="btn btn-primary w-full" style="justify-content:center;" id="college-niche-cta">Get Campus Quote</a>
+        </div>
+      </div>
+      <!-- Businesses -->
+      <div class="niche-card reveal" data-delay="400">
+        <div class="niche-card-img">
+          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80" alt="Business corporate branded apparel printing" loading="lazy" />
+          <div class="niche-card-overlay">
+            <span class="niche-card-badge" style="background:#059669;"><i class="fa-solid fa-briefcase"></i> Businesses</span>
+          </div>
+        </div>
+        <div class="niche-card-body">
+          <h3 class="niche-card-title">Businesses &amp; Corporate</h3>
+          <p class="niche-card-desc">Employee uniforms, trade show swag, client gifts, company retreats — professional branding at every touchpoint.</p>
+          <ul class="niche-card-features">
+            <li><i class="fa-solid fa-check"></i> Net-30 invoicing available</li>
+            <li><i class="fa-solid fa-check"></i> Dedicated account manager</li>
+            <li><i class="fa-solid fa-check"></i> Multi-location shipping</li>
+          </ul>
+          <a href="bulk-orders.html" class="btn btn-primary w-full" style="justify-content:center;" id="biz-niche-cta">Corporate Inquiry</a>
+        </div>
+      </div>
+      <!-- Creators -->
+      <div class="niche-card reveal" data-delay="500">
+        <div class="niche-card-img">
+          <img src="https://images.unsplash.com/photo-1562564055-71e051d33c19?w=600&q=80" alt="Creator planning a new merch collection" loading="lazy" />
+          <div class="niche-card-overlay">
+            <span class="niche-card-badge" style="background:#DB2777;"><i class="fa-solid fa-star"></i> Creators</span>
+          </div>
+        </div>
+        <div class="niche-card-body">
+          <h3 class="niche-card-title">Creators &amp; Influencers</h3>
+          <p class="niche-card-desc">Launch merch drops for your audience. YouTube, TikTok, Twitch, Podcast — we help you build a brand your fans will love.</p>
+          <ul class="niche-card-features">
+            <li><i class="fa-solid fa-check"></i> Low minimum of just 1 piece</li>
+            <li><i class="fa-solid fa-check"></i> Merch store integration support</li>
+            <li><i class="fa-solid fa-check"></i> Social-ready unboxing packaging</li>
+          </ul>
+          <a href="design-studio.html" class="btn btn-primary w-full" style="justify-content:center;" id="creator-niche-cta">Launch Your Merch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 3: WHY US ====== -->
+<section class="section-py" aria-labelledby="why-heading">
+  <div class="container-pc">
+    <div class="why-us-grid">
+      <div class="why-us-img-stack reveal-left">
+        <div class="why-img-1">
+          <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&q=80" alt="Precision production work at PRINTCRAFT" loading="lazy" />
+        </div>
+        <div class="why-img-2">
+          <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80" alt="Garments awaiting quality inspection" loading="lazy" />
+        </div>
+        <div class="why-stat-card" aria-label="10 million garments printed">
+          <div class="num">10M+</div>
+          <div class="lbl">Garments Printed</div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="section-label" style="display:inline-flex;"><i class="fa-solid fa-medal"></i>Why Choose Us</div>
+        <h2 class="section-title" id="why-heading" style="text-align:left;margin:16px 0 32px;">The PRINTCRAFT<br><span class="text-gradient">Difference</span></h2>
+        <div class="why-feature">
+          <div class="why-feature-icon"><i class="fa-solid fa-bullseye"></i></div>
+          <div>
+            <div class="why-feature-title">Industry-Specific Expertise</div>
+            <div class="why-feature-desc">Our team has deep experience in every niche we serve. We understand the unique requirements of event merch vs. sports uniforms vs. corporate gifts.</div>
+          </div>
+        </div>
+        <div class="why-feature">
+          <div class="why-feature-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div>
+            <div class="why-feature-title">Lightning-Fast Production</div>
+            <div class="why-feature-desc">Most orders ship within 3–5 business days. Our 48-hour express service ensures you never miss a deadline — no matter the size of the order.</div>
+          </div>
+        </div>
+        <div class="why-feature">
+          <div class="why-feature-icon"><i class="fa-solid fa-star"></i></div>
+          <div>
+            <div class="why-feature-title">Unmatched Print Quality</div>
+            <div class="why-feature-desc">We use premium inks and state-of-the-art equipment across all print technologies. Every order is quality-checked before shipping.</div>
+          </div>
+        </div>
+        <div class="why-feature">
+          <div class="why-feature-icon"><i class="fa-solid fa-tag"></i></div>
+          <div>
+            <div class="why-feature-title">Transparent, Competitive Pricing</div>
+            <div class="why-feature-desc">Volume discounts up to 60% off for bulk orders. No hidden fees. Instant quotes available online — what you see is what you pay.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 4: INSPIRATION GALLERY ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="inspiration-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-photo-film"></i> Design Inspiration</div>
+      <h2 class="section-title reveal" id="inspiration-heading">See What's<br><span class="text-gradient">Possible</span></h2>
+    </div>
+    <div class="inspiration-grid reveal-scale">
+      <div class="inspiration-item">
+        <img src="https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=700&q=80" alt="Bold streetwear event shirt design" loading="lazy" />
+        <div class="inspiration-overlay"><span class="inspiration-label">EVENT MERCH</span></div>
+      </div>
+      <div class="inspiration-item">
+        <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&q=80" alt="Sports team uniform custom printing" loading="lazy" />
+        <div class="inspiration-overlay"><span class="inspiration-label">TEAM KITS</span></div>
+      </div>
+      <div class="inspiration-item">
+        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&q=80" alt="Corporate brand t-shirt print" loading="lazy" />
+        <div class="inspiration-overlay"><span class="inspiration-label">BRAND MERCH</span></div>
+      </div>
+      <div class="inspiration-item">
+        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&q=80" alt="Original merch artwork design" loading="lazy" />
+        <div class="inspiration-overlay"><span class="inspiration-label">CREATOR DROPS</span></div>
+      </div>
+      <div class="inspiration-item">
+        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=400&q=80" alt="College graduates celebrating campus spirit" loading="lazy" />
+        <div class="inspiration-overlay"><span class="inspiration-label">CAMPUS SPIRIT</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 5: FAQ ====== -->
+<section class="section-py" aria-labelledby="faq-heading">
+  <div class="container-pc">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;" class="responsive-faq-grid">
+      <div class="reveal-left">
+        <div class="section-label" style="display:inline-flex;"><i class="fa-solid fa-circle-question"></i>FAQ</div>
+        <h2 class="section-title" id="faq-heading" style="text-align:left;margin:16px 0 24px;">Frequently Asked<br><span class="text-gradient">Questions</span></h2>
+        <p class="body-md" style="margin-bottom:32px;">Everything you need to know about our niche-specific printing services. Can't find your answer?</p>
+        <a href="contact.html" class="btn btn-primary" id="faq-contact-btn"><i class="fa-solid fa-headset"></i> Talk to an Expert</a>
+      </div>
+      <div class="reveal-right">
+        <div class="faq-item">
+          <div class="faq-question">What is the minimum order quantity for bulk printing?<div class="faq-icon">+</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">We have NO minimum order requirement. You can order as few as 1 piece or as many as 100,000+. Bulk pricing tiers kick in at 12, 50, 100, and 500+ units.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How fast can you produce event shirts?<div class="faq-icon">+</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Our standard turnaround is 3–5 business days. We offer 48-hour and same-day rush options for urgent event needs. Rush fees apply based on quantity.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can you print player names and numbers on jerseys?<div class="faq-icon">+</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Absolutely! We specialize in individual customization for sports teams. Upload your roster spreadsheet and we handle all the naming and numbering automatically.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do you offer white-label services for clothing brands?<div class="faq-icon">+</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes! We offer full white-label and private label services including custom hang tags, inside labels, and branded packaging — perfect for streetwear and creator brands.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What file format should I submit for printing?<div class="faq-icon">+</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">We accept AI, EPS, PDF, PNG (300+ DPI), and SVG files. Our design team will review every file and notify you of any quality issues before printing.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 6: NICHE CTA ====== -->
+<section class="niche-cta section-py noise-overlay" aria-labelledby="niche-cta-heading">
+  <div class="orb orb-red" aria-hidden="true"></div>
+  <div class="orb orb-yellow" aria-hidden="true"></div>
+  <div class="container-pc" style="position:relative;z-index:1;text-align:center;">
+    <div class="section-label reveal" style="display:inline-flex;background:rgba(255,59,48,0.15);border-color:rgba(255,59,48,0.3);color:var(--pc-primary);">
+      <i class="fa-solid fa-rocket"></i>Let's Create Together
+    </div>
+    <h2 class="reveal" id="niche-cta-heading" style="font-family:var(--font-display);font-size:clamp(52px,8vw,110px);line-height:0.92;color:white;margin:24px 0;">
+      BUILT FOR<br><span style="color:var(--pc-primary);">YOUR</span><br>NICHE
+    </h2>
+    <p class="reveal" style="font-size:18px;color:rgba(255,255,255,0.6);max-width:560px;margin:0 auto 40px;line-height:1.7;">
+      Tell us your industry, your vision, your deadline. We'll make it happen — beautifully, reliably, and on time.
+    </p>
+    <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="contact.html" class="btn btn-primary btn-lg" id="niche-cta-contact"><i class="fa-solid fa-paper-plane"></i> Get a Custom Quote</a>
+      <a href="index.html" class="btn btn-white btn-lg" id="niche-cta-back">Explore General Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="container-pc">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="PRINTCRAFT Studio">
+          <div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>
+          PRINT<span>CRAFT</span>
+        </a>
+        <p>Premium custom T-shirt printing &amp; design studio. Helping brands, teams, and creators wear their stories since 2018.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="service-detail.html">DTG Printing</a></li>
+          <li><a href="service-detail.html">Screen Printing</a></li>
+          <li><a href="service-detail.html">Embroidery</a></li>
+          <li><a href="service-detail.html">Sublimation</a></li>
+          <li><a href="service-detail.html">Heat Transfer</a></li>
+          <li><a href="bulk-orders.html">Bulk Orders</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="home2.html">Home2</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <ul class="footer-links">
+          <li><a href="tel:+18005551234"><i class="fa-solid fa-phone"></i> +1 (800) 555-1234</a></li>
+          <li><a href="mailto:hello@printcraft.studio"><i class="fa-solid fa-envelope"></i> hello@printcraft.studio</a></li>
+          <li><a href="#"><i class="fa-solid fa-location-dot"></i> 123 Print Ave, NY 10001</a></li>
+        </ul>
+        <div style="margin-top:20px;">
+          <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:white;margin-bottom:10px;">Newsletter</div>
+          <div style="display:flex;gap:8px;">
+            <input type="email" placeholder="your@email.com" class="form-control" style="border-radius:8px;padding:10px 12px;font-size:13px;" aria-label="Newsletter email" />
+            <button class="btn btn-primary btn-sm" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2026 PRINTCRAFT Studio. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a>
+      </div>
+      <p style="font-size:12px;color:#5A5A5A;">Secure Payments: Visa · Mastercard · PayPal · Apple Pay</p>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<style>
+@media(max-width:768px){
+  .responsive-faq-grid{ grid-template-columns:1fr !important; gap:40px !important; }
+  .inspiration-grid{ grid-template-columns:1fr 1fr !important; grid-template-rows:auto !important; }
+  .why-us-img-stack{ height:auto; display:flex; flex-direction:column; gap:16px; }
+  .why-img-1,.why-img-2{ position:static; width:100%; height:240px; }
+  .why-stat-card{ display:none; }
+}
+@media(max-width:480px){
+  .inspiration-grid{ grid-template-columns:1fr !important; }
+  .responsive-faq-grid{ gap:24px !important; }
+}
+</style>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

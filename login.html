@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>Login / Register – PRINTCRAFT Studio</title>
+  <meta name="description" content="Sign in to your PRINTCRAFT account or create a new account to track orders, save designs and access exclusive member pricing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    body { min-height:100vh; background:var(--bg-secondary); }
+    .auth-page { display:grid; grid-template-columns:1fr 1fr; min-height:100vh; }
+    @media(max-width:900px){ .auth-page{ grid-template-columns:1fr; } .auth-visual{ display:none; } }
+    .auth-visual { position:relative; overflow:hidden; background:var(--pc-black); display:flex; align-items:center; justify-content:center; }
+    .auth-visual-bg { position:absolute;inset:0; }
+    .auth-visual-bg img { width:100%;height:100%;object-fit:cover;opacity:0.35; }
+    .auth-visual-overlay { position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,0.8),rgba(255,59,48,0.15)); }
+    .auth-visual-content { position:relative;z-index:1;text-align:center;padding:60px 40px; }
+    .auth-visual-logo { font-family:var(--font-display);font-size:64px;color:white;line-height:0.9;margin-bottom:20px; }
+    .auth-visual-logo span { color:var(--pc-primary); }
+    .auth-visual-tagline { font-size:18px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:380px;margin-bottom:32px; }
+    .auth-visual-features { display:flex;flex-direction:column;gap:12px;text-align:left;max-width:300px;margin:0 auto; }
+    .auth-visual-feature { display:flex;align-items:center;gap:12px;font-size:14px;color:rgba(255,255,255,0.8); }
+    .auth-visual-feature i { color:var(--pc-green); }
+    .auth-form-side { display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 40px; }
+    @media(max-width:640px){ .auth-form-side{padding:40px 20px;} }
+    .auth-box { width:100%;max-width:440px; }
+    .auth-nav-logo { display:inline-flex;align-items:center;gap:10px;font-family:var(--font-heading);font-size:22px;font-weight:900;letter-spacing:0.04em;color:var(--text-primary);text-decoration:none;margin-bottom:40px; }
+    .auth-nav-logo div { width:36px;height:36px;border-radius:var(--radius-md);background:var(--pc-primary);display:flex;align-items:center;justify-content:center;color:white;font-size:16px; }
+    .auth-nav-logo span { color:var(--pc-primary); }
+    .auth-tabs { display:flex;gap:0;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-full);padding:4px;margin-bottom:32px; }
+    .auth-tab { flex:1;padding:10px;text-align:center;border-radius:var(--radius-full);font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-muted);cursor:pointer;transition:all var(--transition-fast); }
+    .auth-tab.active { background:var(--bg-card);color:var(--text-primary);box-shadow:var(--shadow-sm); }
+    .auth-panel { display:none; }
+    .auth-panel.active { display:block; }
+    .auth-title { font-family:var(--font-heading);font-size:28px;font-weight:900;color:var(--text-primary);margin-bottom:6px; }
+    .auth-subtitle { font-size:14px;color:var(--text-muted);margin-bottom:28px;line-height:1.6; }
+    .social-auth { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px; }
+    .social-btn { display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border:1.5px solid var(--border-color);border-radius:var(--radius-md);font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-primary);background:var(--bg-card);cursor:pointer;transition:all var(--transition-fast); }
+    .social-btn:hover { border-color:var(--pc-primary);background:rgba(255,59,48,0.04); }
+    .auth-divider { display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--text-muted);font-size:12px;font-weight:600; }
+    .auth-divider::before, .auth-divider::after { content:'';flex:1;height:1px;background:var(--border-color); }
+    .password-field { position:relative; }
+    .password-toggle { position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:pointer;background:none;border:none;font-size:14px;padding:4px; }
+    .remember-row { display:flex;align-items:center;justify-content:space-between;margin-bottom:20px; }
+    .remember-row label { display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);cursor:pointer; }
+    .forgot-link { font-size:13px;color:var(--pc-primary);font-weight:600; }
+    .auth-submit { width:100%;padding:14px;background:var(--pc-primary);color:white;border:none;border-radius:var(--radius-md);font-family:var(--font-heading);font-size:16px;font-weight:700;cursor:pointer;transition:all var(--transition-fast);display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px; }
+    .auth-submit:hover { background:var(--pc-primary-dark);transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,59,48,0.3); }
+    .auth-terms { font-size:12px;color:var(--text-muted);text-align:center;line-height:1.7; }
+    .auth-terms a { color:var(--pc-primary); }
+    .strength-meter { height:4px;border-radius:999px;background:var(--bg-secondary);margin-top:6px;overflow:hidden; }
+    .strength-fill { height:100%;border-radius:999px;transition:width 0.3s ease,background 0.3s ease;width:0%; }
+    .strength-label { font-size:11px;font-weight:600;margin-top:4px;height:16px; }
+    @media(max-width:480px){ .auth-name-row{ grid-template-columns:1fr !important; } .social-auth{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+<div class="auth-page">
+  <!-- Visual Side -->
+  <div class="auth-visual" aria-hidden="true">
+    <div class="auth-visual-bg">
+      <img src="https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=800&q=80" alt="" />
+    </div>
+    <div class="auth-visual-overlay"></div>
+    <div class="auth-visual-content">
+      <div class="auth-visual-logo">PRINT<span>CRAFT</span></div>
+      <p class="auth-visual-tagline">Your premium custom printing studio. Join 50,000+ creators, brands &amp; teams.</p>
+      <div class="auth-visual-features">
+        <div class="auth-visual-feature"><i class="fa-solid fa-check-circle"></i> Track all your orders in one place</div>
+        <div class="auth-visual-feature"><i class="fa-solid fa-check-circle"></i> Save and reorder your designs instantly</div>
+        <div class="auth-visual-feature"><i class="fa-solid fa-check-circle"></i> Access exclusive member pricing</div>
+        <div class="auth-visual-feature"><i class="fa-solid fa-check-circle"></i> Get priority support &amp; faster turnaround</div>
+        <div class="auth-visual-feature"><i class="fa-solid fa-check-circle"></i> Earn rewards on every order</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Side -->
+  <div class="auth-form-side">
+    <div class="auth-box">
+      <a href="index.html" class="auth-nav-logo"><div><i class="fa-solid fa-shirt" aria-hidden="true"></i></div>PRINT<span>CRAFT</span></a>
+      
+      <!-- Auth Tabs -->
+      <div class="auth-tabs" role="tablist" aria-label="Login or Register">
+        <div class="auth-tab active" role="tab" aria-selected="true" data-auth-tab="login" id="auth-tab-login">Sign In</div>
+        <div class="auth-tab" role="tab" aria-selected="false" data-auth-tab="register" id="auth-tab-register">Create Account</div>
+      </div>
+
+      <!-- Login Panel -->
+      <div class="auth-panel active" data-auth-panel="login" id="auth-panel-login">
+        <h1 class="auth-title">Welcome back!</h1>
+        <p class="auth-subtitle">Sign in to your PRINTCRAFT account to manage orders and designs.</p>
+        
+        <div class="social-auth">
+          <button class="social-btn" id="login-google-btn" onclick="socialAuth('Google','in')"><img src="https://www.google.com/favicon.ico" width="16" alt="Google" /> Google</button>
+          <button class="social-btn" id="login-facebook-btn" onclick="socialAuth('Facebook','in')"><i class="fa-brands fa-facebook" style="color:#1877F2;font-size:16px;"></i> Facebook</button>
+        </div>
+        <div class="auth-divider">or sign in with email</div>
+        
+        <form id="login-form" novalidate data-validate>
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email Address</label>
+            <input type="email" class="form-control" id="login-email" placeholder="you@example.com" required aria-required="true" autocomplete="email" />
+            <div class="form-error">Please enter a valid email address.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <div class="password-field">
+              <input type="password" class="form-control" id="login-password" placeholder="••••••••" required aria-required="true" autocomplete="current-password" style="padding-right:48px;" />
+              <button type="button" class="password-toggle" id="login-pwd-toggle" aria-label="Toggle password visibility" onclick="togglePassword('login-password','login-pwd-toggle')"><i class="fa-regular fa-eye"></i></button>
+            </div>
+            <div class="form-error">Please enter your password.</div>
+          </div>
+          <div class="remember-row">
+            <label><input type="checkbox" id="login-remember" style="accent-color:var(--pc-primary);" /> Remember me</label>
+            <a href="#" class="forgot-link" id="forgot-password-link">Forgot password?</a>
+          </div>
+          <button type="submit" class="auth-submit" id="login-submit-btn">
+            <i class="fa-solid fa-arrow-right-to-bracket" aria-hidden="true"></i> Sign In
+          </button>
+          <p class="auth-terms">Protected by reCAPTCHA. <a href="#">Privacy Policy</a> &amp; <a href="#">Terms of Service</a> apply.</p>
+        </form>
+      </div>
+
+      <!-- Register Panel -->
+      <div class="auth-panel" data-auth-panel="register" id="auth-panel-register">
+        <h1 class="auth-title">Join PRINTCRAFT</h1>
+        <p class="auth-subtitle">Create your free account and start designing in under 2 minutes.</p>
+        
+        <div class="social-auth">
+          <button class="social-btn" id="reg-google-btn" onclick="socialAuth('Google','up')"><img src="https://www.google.com/favicon.ico" width="16" alt="Google" /> Google</button>
+          <button class="social-btn" id="reg-facebook-btn" onclick="socialAuth('Facebook','up')"><i class="fa-brands fa-facebook" style="color:#1877F2;font-size:16px;"></i> Facebook</button>
+        </div>
+        <div class="auth-divider">or register with email</div>
+        
+        <form id="register-form" novalidate data-validate>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" class="auth-name-row">
+            <div class="form-group">
+              <label class="form-label" for="reg-first">First Name</label>
+              <input type="text" class="form-control" id="reg-first" placeholder="John" required aria-required="true" autocomplete="given-name" />
+              <div class="form-error">Required</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reg-last">Last Name</label>
+              <input type="text" class="form-control" id="reg-last" placeholder="Smith" required aria-required="true" autocomplete="family-name" />
+              <div class="form-error">Required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-email">Email Address</label>
+            <input type="email" class="form-control" id="reg-email" placeholder="you@example.com" required aria-required="true" autocomplete="email" />
+            <div class="form-error">Please enter a valid email.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-password">Password</label>
+            <div class="password-field">
+              <input type="password" class="form-control" id="reg-password" placeholder="Create a strong password" required aria-required="true" autocomplete="new-password" style="padding-right:48px;" oninput="checkStrength(this.value)" />
+              <button type="button" class="password-toggle" id="reg-pwd-toggle" aria-label="Toggle password visibility" onclick="togglePassword('reg-password','reg-pwd-toggle')"><i class="fa-regular fa-eye"></i></button>
+            </div>
+            <div class="strength-meter" aria-label="Password strength indicator"><div class="strength-fill" id="strength-fill"></div></div>
+            <div class="strength-label" id="strength-label"></div>
+            <div class="form-error">Please create a password.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-account-type">Account Type</label>
+            <select class="form-control" id="reg-account-type" aria-label="Select account type">
+              <option>Individual / Personal</option>
+              <option>Brand / Business</option>
+              <option>Event Organizer</option>
+              <option>Creator / Influencer</option>
+              <option>Reseller / Wholesale</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text-secondary);">
+              <input type="checkbox" required id="reg-terms" style="accent-color:var(--pc-primary);margin-top:2px;" aria-required="true" />
+              I agree to PRINTCRAFT's <a href="#" style="color:var(--pc-primary);">Terms of Service</a> and <a href="#" style="color:var(--pc-primary);">Privacy Policy</a>.
+            </label>
+          </div>
+          <div class="form-group" style="margin-bottom:20px;">
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text-secondary);">
+              <input type="checkbox" id="reg-marketing" style="accent-color:var(--pc-primary);margin-top:2px;" />
+              Send me exclusive deals, design inspiration, and print tips. (Optional)
+            </label>
+          </div>
+          <button type="submit" class="auth-submit" id="register-submit-btn">
+            <i class="fa-solid fa-user-plus" aria-hidden="true"></i> Create Free Account
+          </button>
+          <p class="auth-terms">By creating an account, you get access to the full PRINTCRAFT Studio platform — always free to use.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+// Auth tabs
+document.querySelectorAll('[data-auth-tab]').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('[data-auth-tab]').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+    document.querySelectorAll('[data-auth-panel]').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected','true');
+    const panel = document.querySelector(`[data-auth-panel="${tab.dataset.authTab}"]`);
+    if (panel) panel.classList.add('active');
+  });
+});
+
+// Password toggle
+function togglePassword(fieldId, btnId) {
+  const field = document.getElementById(fieldId);
+  const btn = document.getElementById(btnId);
+  if (!field || !btn) return;
+  const isPassword = field.type === 'password';
+  field.type = isPassword ? 'text' : 'password';
+  btn.querySelector('i').className = isPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+}
+
+// Password strength
+function checkStrength(val) {
+  const fill = document.getElementById('strength-fill');
+  const label = document.getElementById('strength-label');
+  if (!fill || !label) return;
+  let strength = 0;
+  if (val.length >= 8) strength++;
+  if (/[A-Z]/.test(val)) strength++;
+  if (/[0-9]/.test(val)) strength++;
+  if (/[^A-Za-z0-9]/.test(val)) strength++;
+  const widths = ['0%','30%','55%','80%','100%'];
+  const colors = ['','#EF4444','#F97316','#EAB308','#10B981'];
+  const labels = ['','Weak','Fair','Good','Strong'];
+  fill.style.width = widths[strength];
+  fill.style.background = colors[strength];
+  label.textContent = val ? labels[strength] : '';
+  label.style.color = colors[strength];
+}
+
+// After any successful auth, go home
+function goHome(delay) {
+  setTimeout(() => { location.href = 'index.html'; }, delay || 1200);
+}
+
+// Social sign-in / sign-up (Google & Facebook)
+function socialAuth(provider, mode) {
+  showToast(
+    mode === 'in'
+      ? 'Signed in with ' + provider + '! Taking you home...'
+      : 'Account created with ' + provider + '! Welcome to PRINTCRAFT!',
+    'success'
+  );
+  goHome();
+}
+
+// Form submissions
+document.getElementById('login-form')?.addEventListener('submit', e => {
+  e.preventDefault();
+  showToast('Welcome back! Signing you in...','success');
+  goHome();
+});
+document.getElementById('register-form')?.addEventListener('submit', e => {
+  e.preventDefault();
+  showToast('Account created! Welcome to PRINTCRAFT!','success');
+  goHome();
+});
+
+document.getElementById('forgot-password-link')?.addEventListener('click', e => {
+  e.preventDefault();
+  showToast('Password reset link sent to your email!','info');
+});
+</script>
+</body>
+</html>

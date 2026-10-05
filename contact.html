@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>Contact Us – PRINTCRAFT Studio | Get a Free Quote</title>
+  <meta name="description" content="Contact PRINTCRAFT Studio for custom t-shirt printing quotes, design help, bulk orders and general enquiries. We respond within 2 business hours." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .contact-layout { display:grid; grid-template-columns:1fr 420px; gap:64px; align-items:start; }
+    @media(max-width:1024px){ .contact-layout{ grid-template-columns:1fr; } }
+    .contact-info-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:36px; margin-bottom:24px; }
+    .contact-info-card h3 { font-family:var(--font-heading);font-size:18px;font-weight:800;color:var(--text-primary);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border-color); }
+    .contact-info-item { display:flex;align-items:flex-start;gap:14px;margin-bottom:20px; }
+    .contact-info-item:last-child { margin-bottom:0; }
+    .contact-info-icon { width:44px;height:44px;border-radius:var(--radius-md);background:linear-gradient(135deg,rgba(255,59,48,0.12),rgba(255,214,10,0.08));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0; }
+    .contact-info-label { font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px; }
+    .contact-info-value { font-size:15px;color:var(--text-primary);font-weight:500; }
+    .contact-info-sub { font-size:13px;color:var(--text-muted); }
+    .contact-form-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:40px; }
+    @media(max-width:640px){ .contact-form-card{padding:24px;} }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    @media(max-width:640px){ .form-row{grid-template-columns:1fr;} }
+    .contact-map { border-radius:var(--radius-xl);overflow:hidden;height:320px;background:var(--bg-secondary);border:1px solid var(--border-color);margin-bottom:24px;position:relative; }
+    .contact-map iframe { position:absolute;inset:0;width:100%;height:100%;border:0;display:block; }
+    .map-overlay-card { position:absolute;left:16px;bottom:16px;max-width:calc(100% - 32px);background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:12px 16px;display:flex;gap:12px;align-items:center;box-shadow:var(--shadow-lg); }
+    .map-overlay-icon { width:36px;height:36px;border-radius:var(--radius-md);background:rgba(255,59,48,0.1);color:var(--pc-primary);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0; }
+    .map-overlay-title { font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:6px; }
+    .support-channel { display:flex;align-items:center;gap:16px;padding:20px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-lg);margin-bottom:12px;transition:all var(--transition-base); }
+    .support-channel:hover { border-color:var(--pc-primary);background:rgba(255,59,48,0.04);transform:translateX(4px); }
+    .support-channel-icon { width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0; }
+    .support-channel-name { font-family:var(--font-heading);font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:2px; }
+    .support-channel-desc { font-size:13px;color:var(--text-muted); }
+    .support-channel-badge { margin-left:auto;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;flex-shrink:0; }
+    .hours-grid { display:grid;grid-template-columns:1fr;gap:4px;font-size:14px; }
+    .hours-row { display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:var(--radius-md); }
+    .hours-row:not(:last-child) { border-bottom:1px solid var(--border-color);border-radius:0; }
+    .hours-row.today { background:rgba(255,59,48,0.06);border:1px solid rgba(255,59,48,0.15); }
+    .hours-row.today .day { color:var(--pc-primary);font-weight:700; }
+    .team-quick { display:flex;gap:-8px; }
+    .team-quick-img { width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--bg-card);margin-left:-8px; }
+    .team-quick-img:first-child { margin-left:0; }
+  </style>
+</head>
+<body>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+      <div class="profile-dropdown">
+        <button class="profile-btn" aria-label="Account menu" aria-expanded="false" aria-haspopup="true"><i class="fa-regular fa-circle-user"></i></button>
+        <div class="profile-menu" role="menu">
+          <a href="login.html" role="menuitem"><i class="fa-solid fa-right-to-bracket"></i><span>Login / Sign Up<small>Access your account</small></span></a>
+          <div class="profile-menu-divider"></div>
+          <a href="dashboard.html" role="menuitem"><i class="fa-solid fa-gauge"></i><span>User Dashboard<small>Orders, designs &amp; tracking</small></span></a>
+          <a href="admin.html" role="menuitem"><i class="fa-solid fa-user-shield"></i><span>Admin Dashboard<small>Manage store &amp; orders</small></span></a>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li><li><a href="design-studio.html">Design Studio</a></li>
+    <li><a href="bulk-orders.html">Bulk Orders</a></li><li><a href="pricing.html">Pricing</a></li>
+    <li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero" aria-labelledby="contact-hero-heading" style="--page-hero-bg: url('https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=1600&q=80');">
+  <div class="page-hero-bg-text" aria-hidden="true">HELLO</div>
+  <div class="container-pc page-hero-content">
+    <h1 class="page-hero-title" id="contact-hero-heading">LET'S<br><span style="color:var(--pc-primary);">TALK</span></h1>
+    <p class="page-hero-desc">Questions, quotes, collaborations — our team responds within 2 business hours. We love talking print.</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:24px;flex-wrap:wrap;">
+      <div class="team-quick" aria-label="Team photos">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=72&q=70" alt="Marcus" class="team-quick-img" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=72&q=70" alt="Priya" class="team-quick-img" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=72&q=70" alt="James" class="team-quick-img" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=72&q=70" alt="Sofia" class="team-quick-img" loading="lazy" />
+      </div>
+      <span style="font-size:14px;color:rgba(255,255,255,0.6);">Our team is ready to help you</span>
+      <span style="display:flex;align-items:center;gap:4px;font-size:13px;color:var(--pc-green);font-weight:600;"><span style="width:8px;height:8px;border-radius:50%;background:var(--pc-green);animation:pulse 2s infinite;"></span> Online now</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 1: CONTACT FORM + INFO ====== -->
+<section class="section-py" aria-labelledby="contact-form-heading">
+  <div class="container-pc">
+    <div class="contact-layout">
+      <!-- Form -->
+      <div class="reveal-left">
+        <div class="section-label" style="display:inline-flex;margin-bottom:16px;"><i class="fa-solid fa-paper-plane"></i>Send Us a Message</div>
+        <h2 id="contact-form-heading" class="section-title" style="text-align:left;margin-bottom:8px;">Get in Touch</h2>
+        <p class="body-md" style="margin-bottom:32px;">Fill out the form and a member of our team will get back to you within 2 business hours. We're always happy to discuss your project.</p>
+        <div class="contact-form-card">
+          <form data-validate id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="contact-first">First Name *</label>
+                <input type="text" class="form-control" id="contact-first" placeholder="John" required aria-required="true" />
+                <div class="form-error">Please enter your first name.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contact-last">Last Name *</label>
+                <input type="text" class="form-control" id="contact-last" placeholder="Smith" required aria-required="true" />
+                <div class="form-error">Please enter your last name.</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="contact-email">Email Address *</label>
+                <input type="email" class="form-control" id="contact-email" placeholder="john@example.com" required aria-required="true" />
+                <div class="form-error">Please enter a valid email.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contact-phone">Phone Number</label>
+                <input type="tel" class="form-control" id="contact-phone" placeholder="+1 (555) 000-0000" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-subject">Subject / Enquiry Type *</label>
+              <select class="form-control" id="contact-subject" required aria-required="true">
+                <option value="">Select a subject...</option>
+                <option>Get a Quote</option>
+                <option>Bulk / Event Order</option>
+                <option>Design Help</option>
+                <option>Order Tracking</option>
+                <option>Returns &amp; Reprints</option>
+                <option>Partnership / Collaboration</option>
+                <option>General Enquiry</option>
+              </select>
+              <div class="form-error">Please select a subject.</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-message">Message *</label>
+              <textarea class="form-control" id="contact-message" rows="5" placeholder="Tell us about your project — quantity, timeline, design ideas, or any questions you have..." required aria-required="true"></textarea>
+              <div class="form-error">Please enter your message.</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Attach Files (optional)</label>
+              <div class="upload-zone" style="border:2px dashed var(--border-color);border-radius:var(--radius-lg);padding:24px;text-align:center;cursor:pointer;background:var(--bg-secondary);position:relative;" id="contact-upload-zone">
+                <input type="file" multiple accept="image/*,.ai,.eps,.pdf,.svg" style="position:absolute;inset:0;opacity:0;cursor:pointer;" id="contact-file-upload" aria-label="Upload design files" />
+                <div style="font-size:28px;margin-bottom:8px;color:var(--pc-primary);"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                <p style="font-size:14px;color:var(--text-muted);">Drop files here or <strong>click to upload</strong><br><small>PNG, JPG, AI, PDF, SVG — Max 20MB</small></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+                <input type="checkbox" required style="accent-color:var(--pc-primary);margin-top:2px;" id="contact-consent" aria-required="true" />
+                I agree to PRINTCRAFT's <a href="#" style="color:var(--pc-primary);">Privacy Policy</a> and consent to be contacted about my enquiry.
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" id="contact-submit-btn">
+              <i class="fa-solid fa-paper-plane"></i> Send Message
+            </button>
+            <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:12px;"><i class="fa-solid fa-shield-halved"></i> We typically reply within 2 business hours. Your info is never shared.</p>
+          </form>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="reveal-right">
+        <!-- Contact Info -->
+        <div class="contact-info-card">
+          <h3>Contact Information</h3>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <div class="contact-info-label">Phone</div>
+              <div class="contact-info-value"><a href="tel:+18005551234" style="color:inherit;">+1 (800) 555-1234</a></div>
+              <div class="contact-info-sub">Mon–Fri 9AM–7PM EST</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <div class="contact-info-label">Email</div>
+              <div class="contact-info-value"><a href="mailto:hello@printcraft.studio" style="color:inherit;">hello@printcraft.studio</a></div>
+              <div class="contact-info-sub">Response within 2 hours</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <div class="contact-info-label">Studio Address</div>
+              <div class="contact-info-value">123 Print Avenue, Suite 400</div>
+              <div class="contact-info-sub">Brooklyn, New York 11201</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fa-solid fa-building"></i></div>
+            <div>
+              <div class="contact-info-label">Austin Facility</div>
+              <div class="contact-info-value">456 Creative Blvd, Suite 200</div>
+              <div class="contact-info-sub">Austin, Texas 78701</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Embedded Map -->
+        <div class="contact-map">
+          <iframe title="PRINTCRAFT Studio location map" src="https://www.google.com/maps?q=123%20Print%20Ave%2C%20New%20York%2C%20NY%2010001&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          <div class="map-overlay-card">
+            <div class="map-overlay-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <div class="map-overlay-title">123 Print Avenue, Brooklyn NY</div>
+              <a href="https://maps.google.com/?q=123+Print+Ave,+New+York,+NY+10001" target="_blank" rel="noopener" class="btn btn-primary btn-sm" id="map-directions-btn">Get Directions</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business Hours -->
+        <div class="contact-info-card">
+          <h3>Business Hours</h3>
+          <div class="hours-grid">
+            <div class="hours-row today"><span class="day">Monday</span><span>9AM–7PM</span></div>
+            <div class="hours-row"><span class="day">Tuesday</span><span>9AM–7PM</span></div>
+            <div class="hours-row"><span class="day">Wednesday</span><span>9AM–7PM</span></div>
+            <div class="hours-row"><span class="day">Thursday</span><span>9AM–7PM</span></div>
+            <div class="hours-row"><span class="day">Friday</span><span>9AM–6PM</span></div>
+            <div class="hours-row"><span class="day">Saturday</span><span>10AM–4PM</span></div>
+            <div class="hours-row"><span class="day">Sunday</span><span style="color:var(--text-muted);">Closed</span></div>
+          </div>
+          <div style="margin-top:16px;padding:12px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:var(--radius-md);font-size:13px;color:var(--pc-green);display:flex;align-items:center;gap:8px;">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--pc-green);animation:pulse 2s infinite;flex-shrink:0;"></span>
+            We're open right now — expect a fast response!
+          </div>
+        </div>
+
+        <!-- Social Channels -->
+        <div class="contact-info-card">
+          <h3>Follow &amp; Message Us</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <a href="#" class="btn btn-outline btn-sm" id="contact-instagram" style="justify-content:center;"><i class="fa-brands fa-instagram" style="color:#E1306C;"></i> Instagram</a>
+            <a href="#" class="btn btn-outline btn-sm" id="contact-facebook" style="justify-content:center;"><i class="fa-brands fa-facebook" style="color:#1877F2;"></i> Facebook</a>
+            <a href="#" class="btn btn-outline btn-sm" id="contact-tiktok" style="justify-content:center;"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+            <a href="#" class="btn btn-outline btn-sm" id="contact-twitter" style="justify-content:center;"><i class="fa-brands fa-x-twitter"></i> X / Twitter</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 2: SUPPORT CHANNELS ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="support-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-headset"></i> Support</div>
+      <h2 class="section-title reveal" id="support-heading">Multiple Ways to<br><span class="text-gradient">Reach Us</span></h2>
+    </div>
+    <div style="max-width:760px;margin:0 auto;" class="reveal">
+      <div class="support-channel">
+        <div class="support-channel-icon" style="background:rgba(255,59,48,0.1);"><i class="fa-solid fa-phone"></i></div>
+        <div>
+          <div class="support-channel-name">Phone Support</div>
+          <div class="support-channel-desc"><a href="tel:+18005551234" style="color:var(--pc-primary);">+1 (800) 555-1234</a> · Mon–Fri, 9AM–7PM EST</div>
+        </div>
+        <span class="support-channel-badge" style="background:rgba(16,185,129,0.1);color:var(--pc-green);border:1px solid rgba(16,185,129,0.2);">Live</span>
+      </div>
+      <div class="support-channel">
+        <div class="support-channel-icon" style="background:rgba(255,214,10,0.1);"><i class="fa-solid fa-comments"></i></div>
+        <div>
+          <div class="support-channel-name">Live Chat</div>
+          <div class="support-channel-desc">Chat with our team in real-time via the chat bubble — bottom right of any page</div>
+        </div>
+        <span class="support-channel-badge" style="background:rgba(16,185,129,0.1);color:var(--pc-green);border:1px solid rgba(16,185,129,0.2);">Online</span>
+      </div>
+      <div class="support-channel">
+        <div class="support-channel-icon" style="background:rgba(124,58,237,0.1);"><i class="fa-solid fa-envelope"></i></div>
+        <div>
+          <div class="support-channel-name">Email Support</div>
+          <div class="support-channel-desc"><a href="mailto:hello@printcraft.studio" style="color:var(--pc-primary);">hello@printcraft.studio</a> · Reply within 2 business hours</div>
+        </div>
+        <span class="support-channel-badge" style="background:rgba(255,214,10,0.1);color:#B45309;border:1px solid rgba(255,214,10,0.2);">&lt; 2 hrs</span>
+      </div>
+      <div class="support-channel">
+        <div class="support-channel-icon" style="background:rgba(16,185,129,0.1);"><i class="fa-solid fa-clipboard-list"></i></div>
+        <div>
+          <div class="support-channel-name">Bulk Order Hotline</div>
+          <div class="support-channel-desc">Dedicated line for event and bulk orders: <a href="tel:+18005551235" style="color:var(--pc-primary);">+1 (800) 555-1235</a></div>
+        </div>
+        <span class="support-channel-badge" style="background:rgba(255,59,48,0.1);color:var(--pc-primary);border:1px solid rgba(255,59,48,0.2);">Priority</span>
+      </div>
+      <div class="support-channel">
+        <div class="support-channel-icon" style="background:rgba(8,145,178,0.1);"><i class="fa-solid fa-trophy"></i></div>
+        <div>
+          <div class="support-channel-name">Order Tracking</div>
+          <div class="support-channel-desc">Track your order live via your <a href="dashboard.html" style="color:var(--pc-primary);">customer dashboard</a> — no login needed with order number</div>
+        </div>
+        <span class="support-channel-badge" style="background:rgba(8,145,178,0.1);color:#0891B2;border:1px solid rgba(8,145,178,0.2);">24/7</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 3: FAQ ====== -->
+<section class="section-py" aria-labelledby="contact-faq-heading">
+  <div class="container-pc" style="max-width:800px;">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-circle-question"></i> Quick Answers</div>
+      <h2 class="section-title reveal" id="contact-faq-heading">Before You Reach Out —<br><span class="text-gradient">Check the FAQ</span></h2>
+    </div>
+    <div class="reveal">
+      <div class="faq-item open">
+        <div class="faq-question">How quickly will you respond to my message?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">During business hours, we respond to all enquiries within 2 hours. Outside of business hours, you'll hear from us first thing the next business day. Bulk and event order enquiries are always given priority.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I visit your studio in person?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes! We welcome visits to our Brooklyn studio by appointment. Call or email ahead and we'll arrange a tour of the facility and a consultation with our design team. We're at 123 Print Avenue, Brooklyn, NY 11201.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">I have a custom project with unusual requirements — can you help?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Absolutely. We love challenging projects. Contact us with the details and our team will assess feasibility and provide a custom solution. We've handled everything from glow-in-dark festival merch to embroidered luxury brand jackets.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How do I track my existing order?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Log into your <a href="dashboard.html" style="color:var(--pc-primary);">Customer Dashboard</a> with your email and order number to view real-time production status and tracking information. You'll also receive automatic email updates at each stage.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">My order arrived with a defect. What do I do?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">We're sorry to hear that! Contact us within 30 days of delivery with your order number and photos of the defect. We'll arrange a free reprint and return shipping at no cost to you — no questions asked.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 4: MAP / LOCATIONS ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="locations-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-location-dot"></i> Our Locations</div>
+      <h2 class="section-title reveal" id="locations-heading">Find Us <span class="text-gradient">Near You</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;" class="responsive-2col">
+      <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:32px;" class="reveal" data-delay="0">
+        <div style="font-size:32px;margin-bottom:16px;color:var(--pc-primary);"><i class="fa-solid fa-building"></i></div>
+        <h3 style="font-family:var(--font-heading);font-size:20px;font-weight:800;color:var(--text-primary);margin-bottom:8px;">Brooklyn HQ &amp; Studio</h3>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;line-height:1.7;">123 Print Avenue, Suite 400<br>Brooklyn, New York 11201</p>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:20px;"><i class="fa-solid fa-clock"></i> Mon–Fri: 9AM–7PM · Sat: 10AM–4PM</div>
+        <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-primary btn-sm" id="location-ny-directions"><i class="fa-solid fa-diamond-turn-right"></i> Get Directions</a>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:32px;" class="reveal" data-delay="150">
+        <div style="font-size:32px;margin-bottom:16px;color:var(--pc-primary);"><i class="fa-solid fa-industry"></i></div>
+        <h3 style="font-family:var(--font-heading);font-size:20px;font-weight:800;color:var(--text-primary);margin-bottom:8px;">Austin Production Facility</h3>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;line-height:1.7;">456 Creative Boulevard, Suite 200<br>Austin, Texas 78701</p>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:20px;"><i class="fa-solid fa-clock"></i> Mon–Fri: 8AM–6PM · Production only</div>
+        <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-outline btn-sm" id="location-tx-directions"><i class="fa-solid fa-diamond-turn-right"></i> Get Directions</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="container-pc">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="PRINTCRAFT Studio"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+        <p>Premium custom T-shirt printing &amp; design studio. Helping brands, teams, and creators wear their stories since 2018.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="service-detail.html">DTG Printing</a></li><li><a href="service-detail.html">Screen Printing</a></li><li><a href="service-detail.html">Embroidery</a></li><li><a href="service-detail.html">Sublimation</a></li><li><a href="service-detail.html">Heat Transfer</a></li><li><a href="bulk-orders.html">Bulk Orders</a></li></ul></div>
+      <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact Us</h4><ul class="footer-links"><li><a href="tel:+18005551234"><i class="fa-solid fa-phone"></i> +1 (800) 555-1234</a></li><li><a href="mailto:hello@printcraft.studio"><i class="fa-solid fa-envelope"></i> hello@printcraft.studio</a></li><li><a href="#"><i class="fa-solid fa-location-dot"></i> 123 Print Ave, NY 10001</a></li></ul>
+        <div style="margin-top:20px;">
+          <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:white;margin-bottom:10px;">Newsletter</div>
+          <div style="display:flex;gap:8px;">
+            <input type="email" placeholder="your@email.com" class="form-control" style="border-radius:8px;padding:10px 12px;font-size:13px;" aria-label="Newsletter email" />
+            <button class="btn btn-primary btn-sm" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2026 PRINTCRAFT Studio. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div><p style="font-size:12px;color:#5A5A5A;">Secure Payments: Visa · Mastercard · PayPal · Apple Pay</p></div>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+<style>
+@media(max-width:768px){
+  .responsive-2col{ grid-template-columns:1fr !important; gap:20px !important; }
+  .hours-grid{ grid-template-columns:1fr; }
+}
+</style>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>Blog – Print Tips, Design Guides & Streetwear Trends | PRINTCRAFT</title>
+  <meta name="description" content="Expert tips on custom t-shirt printing, design guides, streetwear trends, and industry insights from the PRINTCRAFT Studio blog." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .blog-featured { display:grid; grid-template-columns:1.4fr 1fr; gap:32px; margin-bottom:64px; }
+    @media(max-width:1024px){ .blog-featured{ grid-template-columns:1fr; } }
+    .blog-feat-main { border-radius:var(--radius-xl); overflow:hidden; position:relative; min-height:480px; cursor:pointer; }
+    .blog-feat-main img { width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform 0.6s ease; }
+    .blog-feat-main:hover img { transform:scale(1.04); }
+    .blog-feat-overlay { position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:36px; }
+    .blog-feat-right { display:grid; grid-template-rows:1fr 1fr; gap:16px; }
+    .blog-feat-side { border-radius:var(--radius-xl); overflow:hidden; position:relative; min-height:220px; cursor:pointer; }
+    .blog-feat-side img { width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform 0.6s ease; }
+    .blog-feat-side:hover img { transform:scale(1.05); }
+    .blog-feat-side-overlay { position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.82) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px; }
+    .blog-cat-tag { display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;align-self:flex-start;color:white; }
+    .blog-feat-title { font-family:var(--font-heading);font-size:26px;font-weight:800;color:white;margin-bottom:10px;line-height:1.2; }
+    .blog-feat-title-sm { font-family:var(--font-heading);font-size:18px;font-weight:800;color:white;margin-bottom:8px;line-height:1.2; }
+    .blog-feat-meta { font-size:12px;color:rgba(255,255,255,0.6); }
+    .blog-filters { display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px; }
+    .blog-filter-btn { padding:8px 20px;border:1.5px solid var(--border-color);border-radius:var(--radius-full);font-family:var(--font-heading);font-size:12px;font-weight:700;color:var(--text-muted);cursor:pointer;background:transparent;transition:all var(--transition-fast);text-transform:uppercase;letter-spacing:0.04em; }
+    .blog-filter-btn.active, .blog-filter-btn:hover { background:var(--pc-primary);border-color:var(--pc-primary);color:white; }
+    .blog-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+    @media(max-width:1024px){ .blog-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:640px){ .blog-grid{ grid-template-columns:1fr; } }
+    .blog-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); overflow:hidden; transition:all var(--transition-base); }
+    .blog-card:hover { box-shadow:var(--shadow-xl); transform:translateY(-6px); }
+    .blog-card-img { height:220px; overflow:hidden; position:relative; }
+    .blog-card-img img { width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease; }
+    .blog-card-img a { display:block; height:100%; }
+    .blog-card:hover .blog-card-img img { transform:scale(1.06); }
+    .blog-card-body { padding:24px; }
+    .blog-card-category { display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px; }
+    .blog-card-title { font-family:var(--font-heading);font-size:19px;font-weight:800;color:var(--text-primary);margin-bottom:10px;line-height:1.3;transition:color var(--transition-fast); }
+    .blog-card:hover .blog-card-title { color:var(--pc-primary); }
+    .blog-card-excerpt { font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:16px; }
+    .blog-card-footer { display:flex;align-items:center;justify-content:space-between; }
+    .blog-card-author { display:flex;align-items:center;gap:8px; }
+    .blog-card-author-img { width:28px;height:28px;border-radius:50%;object-fit:cover; }
+    .blog-card-author-name { font-size:12px;font-weight:600;color:var(--text-secondary); }
+    .blog-card-date { font-size:12px;color:var(--text-muted); }
+    .blog-read-time { font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:4px; }
+    .blog-sidebar { display:flex; flex-direction:column; gap:28px; }
+    .sidebar-widget { background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:28px; }
+    .sidebar-widget h3 { font-family:var(--font-heading);font-size:16px;font-weight:800;color:var(--text-primary);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border-color); }
+    .popular-post { display:flex;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border-color); }
+    .popular-post:last-child { margin-bottom:0;padding-bottom:0;border-bottom:none; }
+    .popular-post-img { width:60px;height:60px;border-radius:var(--radius-md);object-fit:cover;flex-shrink:0; }
+    .popular-post-title { font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-primary);line-height:1.3;margin-bottom:4px;transition:color var(--transition-fast); }
+    .popular-post-title:hover { color:var(--pc-primary); }
+    .popular-post-date { font-size:11px;color:var(--text-muted); }
+    .tag-cloud { display:flex;flex-wrap:wrap;gap:8px; }
+    .tag-btn { padding:5px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:999px;font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all var(--transition-fast); }
+    .tag-btn:hover { background:var(--pc-primary);border-color:var(--pc-primary);color:white; }
+    .newsletter-form { display:flex;flex-direction:column;gap:10px; }
+    .newsletter-form input { padding:10px 14px;border:1.5px solid var(--border-color);border-radius:var(--radius-md);font-size:14px;background:var(--bg-secondary);color:var(--text-primary);outline:none; }
+    .newsletter-form input:focus { border-color:var(--pc-primary); }
+  </style>
+</head>
+<body>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+      <div class="profile-dropdown">
+        <button class="profile-btn" aria-label="Account menu" aria-expanded="false" aria-haspopup="true"><i class="fa-regular fa-circle-user"></i></button>
+        <div class="profile-menu" role="menu">
+          <a href="login.html" role="menuitem"><i class="fa-solid fa-right-to-bracket"></i><span>Login / Sign Up<small>Access your account</small></span></a>
+          <div class="profile-menu-divider"></div>
+          <a href="dashboard.html" role="menuitem"><i class="fa-solid fa-gauge"></i><span>User Dashboard<small>Orders, designs &amp; tracking</small></span></a>
+          <a href="admin.html" role="menuitem"><i class="fa-solid fa-user-shield"></i><span>Admin Dashboard<small>Manage store &amp; orders</small></span></a>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li><li><a href="design-studio.html">Design Studio</a></li>
+    <li><a href="bulk-orders.html">Bulk Orders</a></li><li><a href="pricing.html">Pricing</a></li>
+    <li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero" aria-labelledby="blog-hero-heading" style="--page-hero-bg: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80');">
+  <div class="page-hero-bg-text" aria-hidden="true">BLOG</div>
+  <div class="container-pc page-hero-content">
+    <h1 class="page-hero-title" id="blog-hero-heading">THE<br><span style="color:var(--pc-primary);">PRINTCRAFT</span><br>JOURNAL</h1>
+    <p class="page-hero-desc">Expert print tips, streetwear culture, design inspiration, and industry insights from our creative team.</p>
+  </div>
+</section>
+
+<!-- ====== SECTION 1: FEATURED POSTS ====== -->
+<section class="section-py" aria-labelledby="featured-posts-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-fire"></i> Featured Stories</div>
+      <h2 class="section-title reveal" id="featured-posts-heading">Editor's <span class="text-gradient">Picks</span></h2>
+    </div>
+    <div class="blog-featured reveal-scale">
+      <a href="blog-detail.html" class="blog-feat-main" id="featured-post-main" aria-label="Read featured post: The Ultimate Guide to DTG Printing">
+        <img src="https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?w=800&q=80" alt="Precision print technology close-up for the ultimate guide article" loading="lazy" />
+        <div class="blog-feat-overlay">
+          <div class="blog-cat-tag" style="background:var(--pc-primary);"><i class="fa-solid fa-file-lines"></i> Printing Guide</div>
+          <h2 class="blog-feat-title">The Ultimate Guide to DTG Printing in 2026</h2>
+          <p style="font-size:14px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:16px;">Everything you need to know about direct-to-garment printing — from artwork preparation to wash care — in one definitive guide.</p>
+          <div class="blog-feat-meta">By Marcus Lee &nbsp;·&nbsp; Jan 15, 2026 &nbsp;·&nbsp; 12 min read</div>
+        </div>
+      </a>
+      <div class="blog-feat-right">
+        <a href="blog-detail.html" class="blog-feat-side" id="featured-post-2" aria-label="Read: 10 Streetwear Design Trends Dominating 2026">
+          <img src="https://images.unsplash.com/photo-1517438476312-10d79c077509?w=500&q=80" alt="Bold streetwear fashion trend 2026" loading="lazy" />
+          <div class="blog-feat-side-overlay">
+            <div class="blog-cat-tag" style="background:var(--pc-purple);"><i class="fa-solid fa-crown"></i> Streetwear</div>
+            <div class="blog-feat-title-sm">10 Streetwear Design Trends Dominating 2026</div>
+            <div class="blog-feat-meta">By Priya Sharma &nbsp;·&nbsp; 8 min read</div>
+          </div>
+        </a>
+        <a href="blog-detail.html" class="blog-feat-side" id="featured-post-3" aria-label="Read: How to Launch Your Merch Brand on a Budget">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=80" alt="Creator launching custom merch brand on budget" loading="lazy" />
+          <div class="blog-feat-side-overlay">
+            <div class="blog-cat-tag" style="background:#DB2777;"><i class="fa-solid fa-star"></i> Creator Economy</div>
+            <div class="blog-feat-title-sm">How to Launch Your Merch Brand on a $500 Budget</div>
+            <div class="blog-feat-meta">By Sofia Martinez &nbsp;·&nbsp; 6 min read</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category Filters -->
+    <div class="blog-filters" role="group" aria-label="Filter blog posts by category">
+      <button class="blog-filter-btn active" data-filter="all" id="filter-all">All Posts</button>
+      <button class="blog-filter-btn" data-filter="guide" id="filter-guide">Print Guides</button>
+      <button class="blog-filter-btn" data-filter="design" id="filter-design">Design Tips</button>
+      <button class="blog-filter-btn" data-filter="streetwear" id="filter-streetwear">Streetwear</button>
+      <button class="blog-filter-btn" data-filter="business" id="filter-business">Business</button>
+      <button class="blog-filter-btn" data-filter="news" id="filter-news">Industry News</button>
+    </div>
+
+    <!-- Blog Grid + Sidebar -->
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:48px;" class="blog-layout">
+      <!-- Grid -->
+      <div>
+        <div class="blog-grid" id="blog-grid">
+          <!-- Card 1 -->
+          <article class="blog-card reveal" data-category="guide" data-delay="0">
+            <div class="blog-card-img">
+              <a href="blog-detail.html?post=post-1" aria-label="Read: Screen Printing vs DTG"><img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=500&q=80" alt="Screen printing vs DTG comparison article" loading="lazy" /></a>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-category" style="background:rgba(255,59,48,0.1);color:var(--pc-primary);"><i class="fa-solid fa-file-lines"></i> Print Guide</div>
+              <h3 class="blog-card-title"><a href="blog-detail.html?post=post-1" id="post-1-link">Screen Printing vs DTG: Which Is Right for Your Order?</a></h3>
+              <p class="blog-card-excerpt">We break down the key differences between screen printing and DTG so you can choose the best method every time.</p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&q=60" alt="Marcus Lee" class="blog-card-author-img" loading="lazy" />
+                  <span class="blog-card-author-name">Marcus Lee</span>
+                </div>
+                <span class="blog-card-date">Jan 20, 2026 · 9 min</span>
+              </div>
+            </div>
+          </article>
+          <!-- Card 2 -->
+          <article class="blog-card reveal" data-category="design" data-delay="100">
+            <div class="blog-card-img">
+              <a href="blog-detail.html?post=post-2" aria-label="Read: Color Theory for Custom Apparel"><img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&q=80" alt="Color theory for custom apparel design guide" loading="lazy" /></a>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-category" style="background:rgba(124,58,237,0.1);color:var(--pc-purple);"><i class="fa-solid fa-palette"></i> Design Tips</div>
+              <h3 class="blog-card-title"><a href="blog-detail.html?post=post-2" id="post-2-link">Color Theory for Custom Apparel: A Designer's Playbook</a></h3>
+              <p class="blog-card-excerpt">Master the color wheel, complementary palettes, and contrast ratios to create t-shirt designs that pop on any fabric color.</p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&q=60" alt="Priya Sharma" class="blog-card-author-img" loading="lazy" />
+                  <span class="blog-card-author-name">Priya Sharma</span>
+                </div>
+                <span class="blog-card-date">Jan 18, 2026 · 7 min</span>
+              </div>
+            </div>
+          </article>
+          <!-- Card 3 -->
+          <article class="blog-card reveal" data-category="streetwear" data-delay="200">
+            <div class="blog-card-img">
+              <a href="blog-detail.html?post=post-3" aria-label="Read: Vintage Streetwear is Back"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80" alt="Vintage streetwear aesthetic revival 2026" loading="lazy" /></a>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-category" style="background:rgba(249,115,22,0.1);color:var(--pc-orange);"><i class="fa-solid fa-crown"></i> Streetwear</div>
+              <h3 class="blog-card-title"><a href="blog-detail.html?post=post-3" id="post-3-link">Why Vintage Streetwear is Back and Bigger Than Ever</a></h3>
+              <p class="blog-card-excerpt">From oversized silhouettes to distressed prints — the vintage streetwear revival is reshaping how brands design their collections.</p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&q=60" alt="James Chen" class="blog-card-author-img" loading="lazy" />
+                  <span class="blog-card-author-name">James Chen</span>
+                </div>
+                <span class="blog-card-date">Jan 14, 2026 · 5 min</span>
+              </div>
+            </div>
+          </article>
+          <!-- Card 4 -->
+          <article class="blog-card reveal" data-category="business" data-delay="0">
+            <div class="blog-card-img">
+              <a href="blog-detail.html?post=post-4" aria-label="Read: How to Start a T-Shirt Business"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&q=80" alt="How to start a t-shirt business guide" loading="lazy" /></a>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-category" style="background:rgba(5,150,105,0.1);color:var(--pc-green);"><i class="fa-solid fa-briefcase"></i> Business</div>
+              <h3 class="blog-card-title"><a href="blog-detail.html?post=post-4" id="post-4-link">How to Start a T-Shirt Business in 2026: Complete Guide</a></h3>
+              <p class="blog-card-excerpt">From niche selection and design to pricing, marketing, and finding your first customers — the complete blueprint for your apparel brand.</p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&q=60" alt="Sofia Martinez" class="blog-card-author-img" loading="lazy" />
+                  <span class="blog-card-author-name">Sofia Martinez</span>
+                </div>
+                <span class="blog-card-date">Jan 10, 2026 · 15 min</span>
+              </div>
+            </div>
+          </article>
+          <!-- Card 5 -->
+          <article class="blog-card reveal" data-category="guide" data-delay="100">
+            <div class="blog-card-img">
+              <a href="blog-detail.html?post=post-5" aria-label="Read: Embroidery vs DTG for Logo Apparel"><img src="https://images.unsplash.com/photo-1608234807905-4466023792f5?w=500&q=80" alt="Embroidery vs DTG printing for logos comparison" loading="lazy" /></a>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-category" style="background:rgba(255,59,48,0.1);color:var(--pc-primary);"><i class="fa-solid fa-file-lines"></i> Print Guide</div>
+              <h3 class="blog-card-title"><a href="blog-detail.html?post=post-5" id="post-5-link">Embroidery vs DTG for Logo Apparel: The Definitive Comparison</a></h3>
+              <p class="blog-card-excerpt">Corporate logo on a polo or hoodie? We compare embroidery and DTG head-to-head across quality, durability, and cost.</p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&q=60" alt="Marcus Lee" class="blog-card-author-img" loading="lazy" />
+                  <span class="blog-card-author-name">Marcus Lee</span>
+                </div>
+                <span class="blog-card-date">Jan 7, 2026 · 8 min</span>
+              </div>
+            </div>
+          </article>
+          <!-- Card 6 -->
+          <article class="blog-card reveal" data-category="news" data-delay="200">
+            <div class="blog-card-img">
+              <a href="blog-detail.html?post=post-6" aria-label="Read: The Rise of Sustainable Printing"><img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500&q=80" alt="Sustainable printing industry news 2026" loading="lazy" /></a>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-category" style="background:rgba(8,145,178,0.1);color:#0891B2;"><i class="fa-solid fa-earth-americas"></i> Industry News</div>
+              <h3 class="blog-card-title"><a href="blog-detail.html?post=post-6" id="post-6-link">The Rise of Sustainable Printing: Eco-Inks and Organic Blanks</a></h3>
+              <p class="blog-card-excerpt">The custom apparel industry is going green. We explore the latest sustainable printing technologies and what they mean for brands.</p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&q=60" alt="Priya Sharma" class="blog-card-author-img" loading="lazy" />
+                  <span class="blog-card-author-name">Priya Sharma</span>
+                </div>
+                <span class="blog-card-date">Jan 3, 2026 · 6 min</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="blog-sidebar" aria-label="Blog sidebar">
+        <!-- Search -->
+        <div class="sidebar-widget reveal">
+          <h3>Search Articles</h3>
+          <div style="position:relative;">
+            <input type="search" placeholder="Search posts..." style="width:100%;padding:10px 40px 10px 14px;border:1.5px solid var(--border-color);border-radius:var(--radius-md);font-size:14px;background:var(--bg-secondary);color:var(--text-primary);outline:none;" id="blog-search" aria-label="Search blog posts" />
+            <i class="fa-solid fa-search" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none;" aria-hidden="true"></i>
+          </div>
+        </div>
+        <!-- Popular Posts -->
+        <div class="sidebar-widget reveal">
+          <h3>Popular Posts</h3>
+          <div class="popular-post">
+            <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=120&q=60" alt="DTG guide thumbnail" class="popular-post-img" loading="lazy" />
+            <div><a href="blog-detail.html" class="popular-post-title" id="popular-1">The Ultimate Guide to DTG Printing in 2026</a><div class="popular-post-date">Jan 15, 2026 · 12 min</div></div>
+          </div>
+          <div class="popular-post">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=120&q=60" alt="Start a business thumbnail" class="popular-post-img" loading="lazy" />
+            <div><a href="blog-detail.html" class="popular-post-title" id="popular-2">How to Start a T-Shirt Business in 2026</a><div class="popular-post-date">Jan 10, 2026 · 15 min</div></div>
+          </div>
+          <div class="popular-post">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=120&q=60" alt="Streetwear trends thumbnail" class="popular-post-img" loading="lazy" />
+            <div><a href="blog-detail.html" class="popular-post-title" id="popular-3">10 Streetwear Design Trends Dominating 2026</a><div class="popular-post-date">Jan 12, 2026 · 8 min</div></div>
+          </div>
+          <div class="popular-post">
+            <img src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=120&q=60" alt="Color theory thumbnail" class="popular-post-img" loading="lazy" />
+            <div><a href="blog-detail.html" class="popular-post-title" id="popular-4">Color Theory for Custom Apparel Design</a><div class="popular-post-date">Jan 18, 2026 · 7 min</div></div>
+          </div>
+        </div>
+        <!-- Newsletter -->
+        <div class="sidebar-widget reveal" style="background:linear-gradient(135deg,var(--pc-black),#1A0A0A);border-color:var(--pc-primary);">
+          <h3 style="color:white;">Get Print Tips in Your Inbox</h3>
+          <p style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:16px;line-height:1.6;">Weekly design inspiration and print tips from our creative team.</p>
+          <form class="newsletter-form" id="sidebar-newsletter-form" onsubmit="event.preventDefault();showToast('Subscribed! Welcome to the PRINTCRAFT Journal!','success');">
+            <input type="email" placeholder="your@email.com" required aria-label="Email for newsletter" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:white;" />
+            <button type="submit" class="btn btn-primary" id="sidebar-subscribe-btn">Subscribe Free</button>
+          </form>
+        </div>
+        <!-- Tags -->
+        <div class="sidebar-widget reveal">
+          <h3>Popular Tags</h3>
+          <div class="tag-cloud">
+            <button class="tag-btn" id="tag-dtg">DTG Printing</button>
+            <button class="tag-btn" id="tag-screen">Screen Print</button>
+            <button class="tag-btn" id="tag-streetwear">Streetwear</button>
+            <button class="tag-btn" id="tag-merch">Merch</button>
+            <button class="tag-btn" id="tag-design">Design</button>
+            <button class="tag-btn" id="tag-bulk">Bulk Orders</button>
+            <button class="tag-btn" id="tag-color">Color Theory</button>
+            <button class="tag-btn" id="tag-eco">Eco Printing</button>
+            <button class="tag-btn" id="tag-fonts">Typography</button>
+            <button class="tag-btn" id="tag-events">Events</button>
+          </div>
+        </div>
+        <!-- CTA Widget -->
+        <div class="sidebar-widget reveal" style="text-align:center;background:rgba(255,59,48,0.05);border-color:rgba(255,59,48,0.2);">
+          <div style="font-size:40px;margin-bottom:12px;color:var(--pc-purple);"><i class="fa-solid fa-palette"></i></div>
+          <h3 style="border-bottom:none;padding-bottom:0;margin-bottom:10px;">Ready to Print?</h3>
+          <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">Turn your design ideas into reality in under 5 minutes.</p>
+          <a href="design-studio.html" class="btn btn-primary w-full" style="justify-content:center;" id="sidebar-design-cta"><i class="fa-solid fa-wand-magic-sparkles"></i> Start Designing Free</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 2-6 compressed as elegant additional sections ====== -->
+<!-- Section: Topics We Cover -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="topics-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-compass"></i> Categories</div>
+      <h2 class="section-title reveal" id="topics-heading">Topics We <span class="text-gradient">Cover</span></h2>
+    </div>
+    <div class="capability-grid reveal">
+      <div class="capability-card"><div class="capability-icon"><i class="fa-solid fa-file-lines"></i></div><h4>Printing Guides</h4><p>Deep dives into DTG, screen printing, embroidery, sublimation — technical knowledge that helps you order smarter.</p></div>
+      <div class="capability-card"><div class="capability-icon"><i class="fa-solid fa-palette"></i></div><h4>Design Tips</h4><p>Color theory, typography for apparel, layout best practices — practical advice from professional designers.</p></div>
+      <div class="capability-card"><div class="capability-icon"><i class="fa-solid fa-crown"></i></div><h4>Streetwear Culture</h4><p>Trends, collections, brand stories, and cultural analysis from the world of streetwear and urban fashion.</p></div>
+      <div class="capability-card"><div class="capability-icon"><i class="fa-solid fa-briefcase"></i></div><h4>Business &amp; Growth</h4><p>How to start, scale, and market a custom apparel brand. Real strategies from people who've done it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Full Width -->
+<section style="background:linear-gradient(135deg,var(--pc-primary),var(--pc-orange));padding:80px 0;" aria-labelledby="blog-newsletter-heading">
+  <div class="container-pc" style="text-align:center;max-width:600px;">
+    <div class="reveal">
+      <h2 id="blog-newsletter-heading" style="font-family:var(--font-display);font-size:clamp(48px,6vw,80px);color:white;line-height:0.92;margin-bottom:16px;">STAY<br>INSPIRED</h2>
+      <p style="color:rgba(255,255,255,0.85);font-size:17px;margin-bottom:32px;line-height:1.6;">Join 25,000+ creators getting weekly print tips, design trends, and exclusive discounts.</p>
+      <form style="display:flex;gap:10px;max-width:480px;margin:0 auto;" class="main-newsletter-form" id="main-newsletter-form" onsubmit="event.preventDefault();showToast('You\'re subscribed! Check your inbox.','success');">
+        <input type="email" placeholder="Enter your email address" required aria-label="Email address for newsletter subscription" style="flex:1;padding:14px 18px;border:none;border-radius:var(--radius-full);font-size:15px;outline:none;color:#000;" />
+        <button type="submit" class="btn btn-dark" style="border-radius:var(--radius-full);white-space:nowrap;" id="main-subscribe-btn">Subscribe</button>
+      </form>
+      <p style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:14px;">No spam. Unsubscribe anytime. Read our <a href="#" style="color:white;text-decoration:underline;">Privacy Policy</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="container-pc">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="PRINTCRAFT Studio"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+        <p>Premium custom T-shirt printing &amp; design studio. Helping brands, teams, and creators wear their stories since 2018.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="service-detail.html">DTG Printing</a></li><li><a href="service-detail.html">Screen Printing</a></li><li><a href="service-detail.html">Embroidery</a></li><li><a href="service-detail.html">Sublimation</a></li><li><a href="service-detail.html">Heat Transfer</a></li><li><a href="bulk-orders.html">Bulk Orders</a></li></ul></div>
+      <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact Us</h4><ul class="footer-links"><li><a href="tel:+18005551234"><i class="fa-solid fa-phone"></i> +1 (800) 555-1234</a></li><li><a href="mailto:hello@printcraft.studio"><i class="fa-solid fa-envelope"></i> hello@printcraft.studio</a></li><li><a href="#"><i class="fa-solid fa-location-dot"></i> 123 Print Ave, NY 10001</a></li></ul>
+        <div style="margin-top:20px;">
+          <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:white;margin-bottom:10px;">Newsletter</div>
+          <div style="display:flex;gap:8px;">
+            <input type="email" placeholder="your@email.com" class="form-control" style="border-radius:8px;padding:10px 12px;font-size:13px;" aria-label="Newsletter email" />
+            <button class="btn btn-primary btn-sm" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2026 PRINTCRAFT Studio. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div><p style="font-size:12px;color:#5A5A5A;">Secure Payments: Visa · Mastercard · PayPal · Apple Pay</p></div>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="assets/js/main.js"></script>
+<script>
+// Blog category filter
+document.querySelectorAll('.blog-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.blog-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.blog-card').forEach(card => {
+      if (filter === 'all' || card.dataset.category === filter) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
+<style>
+@media(max-width:1024px){
+  .blog-layout{ grid-template-columns:1fr !important; }
+  .blog-sidebar{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+}
+@media(max-width:640px){ .blog-sidebar{ grid-template-columns:1fr; } .main-newsletter-form{ flex-direction:column !important; } .main-newsletter-form .btn{ width:100%; } }
+</style>
+</body>
+</html>

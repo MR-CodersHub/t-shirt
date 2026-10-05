@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>Services – Custom Printing Technologies | PRINTCRAFT Studio</title>
+  <meta name="description" content="Explore PRINTCRAFT's full range of custom printing services including DTG, screen printing, embroidery, sublimation, heat transfer, and specialty finishes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .tech-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; align-items:stretch; }
+    @media(max-width:1024px){ .tech-grid{ grid-template-columns:1fr; max-width:640px; margin:0 auto; } }
+    .tech-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); overflow:hidden; display:flex; flex-direction:column; transition:all var(--transition-base); }
+    .tech-card:hover { box-shadow:var(--shadow-xl); transform:translateY(-6px); }
+    .tech-card-img { height:200px; overflow:hidden; position:relative; flex-shrink:0; }
+    .tech-card-img img { width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease; }
+    .tech-card:hover .tech-card-img img { transform:scale(1.06); }
+    .tech-card-num { position:absolute;top:12px;left:12px;background:rgba(10,10,10,0.65);backdrop-filter:blur(6px);color:#fff;font-family:var(--font-heading);font-size:12px;font-weight:700;letter-spacing:0.06em;padding:4px 12px;border-radius:999px; }
+    .tech-card-body { padding:22px; display:flex; flex-direction:column; flex:1; }
+    .tech-card-body h3 { font-family:var(--font-heading);font-size:20px;font-weight:800;color:var(--text-primary);margin-bottom:8px; }
+    .tech-card-body > p { font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:12px; }
+    .tech-card-btn { margin-top:auto; padding-top:14px; }
+    .catalog-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; align-items:stretch; }
+    @media(max-width:1024px){ .catalog-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:640px){ .catalog-grid{ grid-template-columns:1fr; max-width:400px; margin:0 auto; } }
+    .catalog-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); overflow:hidden; display:flex; flex-direction:column; transition:all var(--transition-base); }
+    .catalog-card:hover { box-shadow:var(--shadow-xl); transform:translateY(-6px); }
+    .catalog-card-img { height:220px; overflow:hidden; position:relative; flex-shrink:0; background:var(--bg-secondary); }
+    .catalog-card-img img { width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease; }
+    .catalog-card:hover .catalog-card-img img { transform:scale(1.07); }
+    .catalog-badge { position:absolute; top:12px; left:12px; }
+    .catalog-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity var(--transition-base); }
+    .catalog-card:hover .catalog-overlay { opacity:1; }
+    .catalog-card-body { padding:18px 20px; display:flex; flex-direction:column; flex:1; }
+    .catalog-title { font-family:var(--font-heading); font-size:16px; font-weight:700; color:var(--text-primary); margin-bottom:4px; }
+    .catalog-subtitle { font-size:13px; color:var(--text-muted); }
+    .catalog-price-row { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:auto; padding-top:12px; }
+    .catalog-price { font-family:var(--font-heading); font-size:18px; font-weight:800; color:var(--pc-primary); }
+    .catalog-price span { font-size:13px; font-weight:400; color:var(--text-muted); text-decoration:line-through; margin-left:6px; }
+    .catalog-arrow { width:36px; height:36px; border-radius:50%; background:var(--bg-secondary); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; color:var(--text-primary); font-size:14px; flex-shrink:0; transition:all var(--transition-fast); }
+    .catalog-arrow:hover { background:var(--pc-primary); border-color:var(--pc-primary); color:#fff; }
+    .service-feature-list { list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:10px; }
+    .service-feature-list li { display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-secondary); }
+    .service-feature-list li i { color:var(--pc-green);font-size:12px; }
+    .service-spec-tags { display:flex;flex-wrap:wrap;gap:8px; }
+    .service-spec-tag { padding:4px 12px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:999px;font-size:12px;font-weight:600;color:var(--text-muted); }
+    .comparison-table { width:100%;border-collapse:collapse;background:var(--bg-card);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-md); }
+    .comparison-table th { padding:20px 16px;background:var(--pc-black);color:white;font-family:var(--font-heading);font-size:14px;font-weight:700;text-align:left; }
+    .comparison-table td { padding:16px;border-bottom:1px solid var(--border-color);font-size:14px;color:var(--text-secondary); }
+    .comparison-table tr:last-child td { border-bottom:none; }
+    .comparison-table tr:hover td { background:var(--bg-secondary); }
+    .check-yes { color:var(--pc-green);font-weight:600; }
+    .check-limited { color:var(--pc-accent);font-weight:600; }
+    .check-no { color:var(--text-muted); }
+  </style>
+</head>
+<body>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+      <div class="profile-dropdown">
+        <button class="profile-btn" aria-label="Account menu" aria-expanded="false" aria-haspopup="true"><i class="fa-regular fa-circle-user"></i></button>
+        <div class="profile-menu" role="menu">
+          <a href="login.html" role="menuitem"><i class="fa-solid fa-right-to-bracket"></i><span>Login / Sign Up<small>Access your account</small></span></a>
+          <div class="profile-menu-divider"></div>
+          <a href="dashboard.html" role="menuitem"><i class="fa-solid fa-gauge"></i><span>User Dashboard<small>Orders, designs &amp; tracking</small></span></a>
+          <a href="admin.html" role="menuitem"><i class="fa-solid fa-user-shield"></i><span>Admin Dashboard<small>Manage store &amp; orders</small></span></a>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li><li><a href="design-studio.html">Design Studio</a></li>
+    <li><a href="bulk-orders.html">Bulk Orders</a></li><li><a href="pricing.html">Pricing</a></li>
+    <li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero" aria-labelledby="services-hero-heading" style="--page-hero-bg: url('https://images.unsplash.com/photo-1562157873-818bc0726f68?w=1600&q=80');">
+  <div class="page-hero-bg-text" aria-hidden="true">SERVICES</div>
+  <div class="container-pc page-hero-content">
+    <h1 class="page-hero-title" id="services-hero-heading">OUR<br><span style="color:var(--pc-primary);">SERVICES</span></h1>
+    <p class="page-hero-desc">Six premium print technologies. One studio. Infinite possibilities for your custom apparel vision.</p>
+  </div>
+</section>
+
+<!-- ====== SECTION 1: SERVICE CARDS (2-col featured) ====== -->
+<section class="section-py" aria-labelledby="services-main-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-gears"></i> Print Technologies</div>
+      <h2 class="section-title reveal" id="services-main-heading">Every Method, <span class="text-gradient">Mastered</span></h2>
+      <p class="section-desc reveal">From photo-realistic digital prints to classic screen-printed streetwear — we've perfected every technique.</p>
+    </div>
+    
+    <div class="tech-grid">
+      <!-- DTG -->
+      <div class="tech-card reveal" data-delay="0">
+        <div class="tech-card-img">
+          <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=700&q=80" alt="DTG Direct-to-Garment printed black tee with detailed graphic" loading="lazy" />
+          <span class="tech-card-num">01</span>
+        </div>
+        <div class="tech-card-body">
+          <div class="section-label" style="display:inline-flex;margin-bottom:8px;"><i class="fa-solid fa-print"></i>DTG Printing</div>
+          <h3>DTG Printing</h3>
+          <p>The most advanced digital printing technology, DTG prints directly onto fabric fibers for unmatched detail, photographic quality, and unlimited color options — ideal for complex artwork and small runs.</p>
+          <ul class="service-feature-list">
+            <li><i class="fa-solid fa-check"></i> Photographic-quality, unlimited colors</li>
+            <li><i class="fa-solid fa-check"></i> No setup fees, no minimums</li>
+            <li><i class="fa-solid fa-check"></i> Perfect for gradients and photos</li>
+            <li><i class="fa-solid fa-check"></i> Eco-friendly water-based inks</li>
+          </ul>
+          <div class="service-spec-tags">
+            <span class="service-spec-tag">600 DPI</span>
+            <span class="service-spec-tag">1-500 pcs</span>
+            <span class="service-spec-tag">100% Cotton</span>
+            <span class="service-spec-tag">From $12/pc</span>
+          </div>
+          <div class="tech-card-btn">
+            <a href="service-detail.html" class="btn btn-primary w-full" style="justify-content:center;" id="dtg-detail-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Screen Printing -->
+      <div class="tech-card reveal" data-delay="100">
+        <div class="tech-card-img">
+          <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=700&q=80" alt="Vibrant screen printed custom apparel designs" loading="lazy" />
+          <span class="tech-card-num">02</span>
+        </div>
+        <div class="tech-card-body">
+          <div class="section-label" style="display:inline-flex;margin-bottom:8px;"><i class="fa-solid fa-layer-group"></i>Screen Printing</div>
+          <h3>Screen Printing</h3>
+          <p>The iconic printing method that defines streetwear culture. Screen printing pushes pure pigment through mesh screens for vibrant, ultra-durable prints that outlast the garment itself.</p>
+          <ul class="service-feature-list">
+            <li><i class="fa-solid fa-check"></i> The most vibrant, durable prints</li>
+            <li><i class="fa-solid fa-check"></i> Best price-per-piece at volume</li>
+            <li><i class="fa-solid fa-check"></i> Works on all fabric types</li>
+            <li><i class="fa-solid fa-check"></i> Specialty inks: puff, metallic, neon</li>
+          </ul>
+          <div class="service-spec-tags">
+            <span class="service-spec-tag">Up to 12 colors</span>
+            <span class="service-spec-tag">12+ pcs</span>
+            <span class="service-spec-tag">All fabrics</span>
+            <span class="service-spec-tag">From $6/pc</span>
+          </div>
+          <div class="tech-card-btn">
+            <a href="service-detail.html" class="btn btn-primary w-full" style="justify-content:center;" id="screen-detail-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Embroidery -->
+      <div class="tech-card reveal" data-delay="200">
+        <div class="tech-card-img">
+          <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=700&q=80" alt="Premium embroidered polo shirt with custom logo" loading="lazy" />
+          <span class="tech-card-num">03</span>
+        </div>
+        <div class="tech-card-body">
+          <div class="section-label" style="display:inline-flex;margin-bottom:8px;"><i class="fa-solid fa-scissors"></i>Embroidery</div>
+          <h3>Premium Embroidery</h3>
+          <p>Nothing says luxury like embroidery. Thousands of precision stitches create textured, dimensional logos that feel as premium as they look. Perfect for corporate wear, caps, and high-end merchandise.</p>
+          <ul class="service-feature-list">
+            <li><i class="fa-solid fa-check"></i> Textured, 3D dimensional finish</li>
+            <li><i class="fa-solid fa-check"></i> Lasts the lifetime of the garment</li>
+            <li><i class="fa-solid fa-check"></i> Works on caps, polos, jackets</li>
+            <li><i class="fa-solid fa-check"></i> Free digitizing included</li>
+          </ul>
+          <div class="service-spec-tags">
+            <span class="service-spec-tag">15,000 stitches</span>
+            <span class="service-spec-tag">1+ pcs</span>
+            <span class="service-spec-tag">All garments</span>
+            <span class="service-spec-tag">From $14/pc</span>
+          </div>
+          <div class="tech-card-btn">
+            <a href="service-detail.html" class="btn btn-primary w-full" style="justify-content:center;" id="embroidery-detail-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 2: ADDITIONAL SERVICES ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="more-services-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-plus"></i> More Options</div>
+      <h2 class="section-title reveal" id="more-services-heading">Additional <span class="text-gradient">Print Techniques</span></h2>
+    </div>
+    <div class="capability-grid">
+      <div class="capability-card reveal" data-delay="0">
+        <div class="capability-icon"><i class="fa-solid fa-fill-drip" aria-hidden="true"></i></div>
+        <h4>Sublimation</h4>
+        <p>All-over, edge-to-edge printing for sportswear and performance gear. Permanently bonded to polyester fabric — wash after wash.</p>
+        <div style="margin-top:16px;font-size:13px;color:var(--pc-primary);font-weight:600;">From $18/pc · All-Over Coverage</div>
+      </div>
+      <div class="capability-card reveal" data-delay="100">
+        <div class="capability-icon"><i class="fa-solid fa-temperature-high" aria-hidden="true"></i></div>
+        <h4>Heat Transfer</h4>
+        <p>Fast, versatile, and great for personalization. Perfect for names, numbers, and specialty designs on any fabric type.</p>
+        <div style="margin-top:16px;font-size:13px;color:var(--pc-primary);font-weight:600;">From $8/pc · 1+ pieces</div>
+      </div>
+      <div class="capability-card reveal" data-delay="200">
+        <div class="capability-icon"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i></div>
+        <h4>UV Gloss &amp; Foil</h4>
+        <p>Add dimension with UV gloss coat, metallic foil, or holographic effects. Transform your design into something truly tactile.</p>
+        <div style="margin-top:16px;font-size:13px;color:var(--pc-primary);font-weight:600;">+$3–6/pc add-on</div>
+      </div>
+      <div class="capability-card reveal" data-delay="300">
+        <div class="capability-icon"><i class="fa-solid fa-moon" aria-hidden="true"></i></div>
+        <h4>Glow-in-Dark</h4>
+        <p>Phosphorescent inks that glow in low-light conditions. Incredible for events, clubs, and streetwear that makes a statement after dark.</p>
+        <div style="margin-top:16px;font-size:13px;color:var(--pc-primary);font-weight:600;">+$4/pc add-on</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 3: COMPARISON TABLE ====== -->
+<section class="section-py" aria-labelledby="compare-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-table-cells"></i> Compare Methods</div>
+      <h2 class="section-title reveal" id="compare-heading">Find the Right <span class="text-gradient">Print Method</span></h2>
+      <p class="section-desc reveal">Not sure which printing technique is right for you? Use this comparison chart to decide.</p>
+    </div>
+    <div style="overflow-x:auto;" class="reveal">
+      <table class="comparison-table" aria-label="Print method comparison">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>DTG Printing</th>
+            <th>Screen Print</th>
+            <th>Embroidery</th>
+            <th>Sublimation</th>
+            <th>Heat Transfer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Photo/Complex Art</td><td class="check-yes">&#10003; Excellent</td><td class="check-limited">Limited</td><td class="check-no">No</td><td class="check-yes">&#10003; Good</td><td class="check-limited">Limited</td></tr>
+          <tr><td>Unlimited Colors</td><td class="check-yes">&#10003; Yes</td><td class="check-no">Up to 12</td><td class="check-yes">&#10003; Yes</td><td class="check-yes">&#10003; Yes</td><td class="check-yes">&#10003; Yes</td></tr>
+          <tr><td>Best for Bulk</td><td class="check-limited">Moderate</td><td class="check-yes">&#10003; Excellent</td><td class="check-limited">Moderate</td><td class="check-yes">&#10003; Good</td><td class="check-limited">Moderate</td></tr>
+          <tr><td>No Minimums</td><td class="check-yes">&#10003; Yes</td><td class="check-no">12+ pcs</td><td class="check-yes">&#10003; Yes</td><td class="check-no">12+ pcs</td><td class="check-yes">&#10003; Yes</td></tr>
+          <tr><td>Premium Feel</td><td class="check-limited">Soft-hand</td><td class="check-limited">Raised feel</td><td class="check-yes">&#10003; Luxury</td><td class="check-yes">&#10003; Smooth</td><td class="check-limited">Moderate</td></tr>
+          <tr><td>Best Fabric</td><td>Cotton</td><td>All</td><td>All</td><td>Polyester</td><td>All</td></tr>
+          <tr><td>Wash Durability</td><td class="check-yes">&#10003; Excellent</td><td class="check-yes">&#10003; Excellent</td><td class="check-yes">&#10003; Superior</td><td class="check-yes">&#10003; Excellent</td><td class="check-limited">Good</td></tr>
+          <tr><td>Eco-Friendly</td><td class="check-yes">&#10003; Water-based</td><td class="check-limited">Moderate</td><td class="check-yes">&#10003; Yes</td><td class="check-yes">&#10003; Yes</td><td class="check-limited">Moderate</td></tr>
+          <tr><td>Starting Price</td><td>$12/pc</td><td>$6/pc (12+)</td><td>$14/pc</td><td>$18/pc</td><td>$8/pc</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 4: PROCESS ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="services-process-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-route"></i> Our Process</div>
+      <h2 class="section-title reveal" id="services-process-heading">How We <span class="text-gradient">Bring Your Design to Life</span></h2>
+    </div>
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="process-step-num">01</div>
+        <div class="process-step-title">Art Preparation</div>
+        <div class="process-step-desc">Our prepress team reviews your artwork, optimizes colors, and prepares files for the selected print method. We catch issues before they reach production.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">02</div>
+        <div class="process-step-title">Production</div>
+        <div class="process-step-desc">Your order enters production with our state-of-the-art equipment. Each technology is operated by specialists with years of experience in that method.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">03</div>
+        <div class="process-step-title">Quality Inspection</div>
+        <div class="process-step-desc">Every piece is inspected by our QC team against your approved proof. We check color accuracy, placement, and print integrity on 100% of orders.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">04</div>
+        <div class="process-step-title">Pack &amp; Ship</div>
+        <div class="process-step-desc">Orders are carefully packaged and shipped with tracking. You receive real-time updates from production to your front door.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 5: APPAREL CATALOG ====== -->
+<section class="section-py" aria-labelledby="apparel-catalog-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-shirt"></i> Apparel Catalog</div>
+      <h2 class="section-title reveal" id="apparel-catalog-heading">200+ Blank Styles<br><span class="text-gradient">Ready for Your Design</span></h2>
+    </div>
+    <div class="catalog-grid">
+      <div class="catalog-card reveal" data-delay="0">
+        <div class="catalog-card-img">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80" alt="Classic ringspun cotton crew neck t-shirt" loading="lazy" />
+          <div class="catalog-badge"><span class="badge badge-primary">Best Seller</span></div>
+          <div class="catalog-overlay">
+            <a href="design-studio.html" class="btn btn-white btn-sm" id="design-tee-btn">Design This</a>
+          </div>
+        </div>
+        <div class="catalog-card-body">
+          <div class="catalog-title">Classic Crew Tee</div>
+          <div class="catalog-subtitle">Ringspun Cotton · S–4XL · 20+ Colors</div>
+          <div class="catalog-price-row">
+            <div class="catalog-price">$8.99 <span>$12.99</span></div>
+            <a href="design-studio.html" class="catalog-arrow" aria-label="Design Classic Crew Tee"><i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="catalog-card reveal" data-delay="100">
+        <div class="catalog-card-img">
+          <img src="https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?w=400&q=80" alt="Premium fleece pullover hoodie for custom printing" loading="lazy" />
+          <div class="catalog-overlay">
+            <a href="design-studio.html" class="btn btn-white btn-sm" id="design-hoodie-btn">Design This</a>
+          </div>
+        </div>
+        <div class="catalog-card-body">
+          <div class="catalog-title">Premium Hoodie</div>
+          <div class="catalog-subtitle">80/20 Fleece · S–3XL · 15+ Colors</div>
+          <div class="catalog-price-row">
+            <div class="catalog-price">$24.99</div>
+            <a href="design-studio.html" class="catalog-arrow" aria-label="Design Premium Hoodie"><i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="catalog-card reveal" data-delay="200">
+        <div class="catalog-card-img">
+          <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&q=80" alt="Performance polo shirt moisture-wicking" loading="lazy" />
+          <div class="catalog-badge"><span class="badge badge-accent" style="color:#000;">Corporate Pick</span></div>
+          <div class="catalog-overlay">
+            <a href="design-studio.html" class="btn btn-white btn-sm" id="design-polo-btn">Design This</a>
+          </div>
+        </div>
+        <div class="catalog-card-body">
+          <div class="catalog-title">Performance Polo</div>
+          <div class="catalog-subtitle">Moisture-Wick · S–4XL · 12+ Colors</div>
+          <div class="catalog-price-row">
+            <div class="catalog-price">$16.99</div>
+            <a href="design-studio.html" class="catalog-arrow" aria-label="Design Performance Polo"><i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="catalog-card reveal" data-delay="300">
+        <div class="catalog-card-img">
+          <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=400&q=80" alt="Ultra-soft tank top for custom sublimation printing" loading="lazy" />
+          <div class="catalog-overlay">
+            <a href="design-studio.html" class="btn btn-white btn-sm" id="design-tank-btn">Design This</a>
+          </div>
+        </div>
+        <div class="catalog-card-body">
+          <div class="catalog-title">Ultra Soft Tank</div>
+          <div class="catalog-subtitle">Ring-Spun Cotton · XS–2XL · 10+ Colors</div>
+          <div class="catalog-price-row">
+            <div class="catalog-price">$7.99</div>
+            <a href="design-studio.html" class="catalog-arrow" aria-label="Design Ultra Soft Tank"><i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:48px;" class="reveal">
+      <a href="design-studio.html" class="btn btn-primary btn-lg" id="view-all-apparel">Browse All 200+ Styles <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 6: FAQ + CTA ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="services-faq-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-circle-question"></i> FAQ</div>
+      <h2 class="section-title reveal" id="services-faq-heading">Common Questions<br><span class="text-gradient">About Our Services</span></h2>
+    </div>
+    <div style="max-width:800px;margin:0 auto;" class="reveal">
+      <div class="faq-item open">
+        <div class="faq-question">What file types do you accept for printing?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">We accept AI, EPS, PDF, SVG, PNG (300+ DPI), and JPG (300+ DPI). For best results, vector files (AI, EPS, SVG) are strongly recommended. Our prepress team will review every file and contact you with any quality issues before production begins.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I get a sample before my full order?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes! We offer printed samples for a small fee. For orders over 100 pieces, samples are available free of charge. We strongly recommend a sample for bulk orders to ensure color accuracy and placement are exactly right before mass production.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How do I know which print method is best for my design?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Use our comparison table above, or chat with our design consultants. As a general guide: complex artwork → DTG; bulk bold designs → Screen Printing; logos on corporate wear → Embroidery; all-over patterns → Sublimation.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Do you offer Pantone color matching?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes! We offer Pantone Matching System (PMS) color matching for screen printing and embroidery at no additional charge. For DTG, we do our best to match your specified colors using CMYK calibration.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What is your return and reprint policy?<div class="faq-icon">+</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">We offer free reprints on any order with manufacturing defects, print errors, or color deviations from the approved proof. Contact us within 30 days of delivery. We don't charge for our mistakes — period.</div></div>
+      </div>
+    </div>
+    
+    <div style="text-align:center;margin-top:64px;" class="reveal">
+      <h3 style="font-family:var(--font-heading);font-size:32px;font-weight:800;color:var(--text-primary);margin-bottom:16px;">Ready to Print Something <span class="text-gradient">Amazing?</span></h3>
+      <p style="color:var(--text-muted);margin-bottom:32px;font-size:17px;">Start your custom order today. No minimums. No setup fees. Just incredible prints.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="design-studio.html" class="btn btn-primary btn-lg" id="services-cta-design"><i class="fa-solid fa-wand-magic-sparkles"></i> Start Designing Free</a>
+        <a href="contact.html" class="btn btn-outline btn-lg" id="services-cta-contact"><i class="fa-solid fa-headset"></i> Talk to an Expert</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="container-pc">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="PRINTCRAFT Studio"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+        <p>Premium custom T-shirt printing &amp; design studio. Helping brands, teams, and creators wear their stories since 2018.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="service-detail.html">DTG Printing</a></li><li><a href="service-detail.html">Screen Printing</a></li><li><a href="service-detail.html">Embroidery</a></li><li><a href="service-detail.html">Sublimation</a></li><li><a href="service-detail.html">Heat Transfer</a></li><li><a href="bulk-orders.html">Bulk Orders</a></li></ul></div>
+      <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact Us</h4><ul class="footer-links"><li><a href="tel:+18005551234"><i class="fa-solid fa-phone"></i> +1 (800) 555-1234</a></li><li><a href="mailto:hello@printcraft.studio"><i class="fa-solid fa-envelope"></i> hello@printcraft.studio</a></li><li><a href="#"><i class="fa-solid fa-location-dot"></i> 123 Print Ave, NY 10001</a></li></ul>
+        <div style="margin-top:20px;">
+          <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:white;margin-bottom:10px;">Newsletter</div>
+          <div style="display:flex;gap:8px;">
+            <input type="email" placeholder="your@email.com" class="form-control" style="border-radius:8px;padding:10px 12px;font-size:13px;" aria-label="Newsletter email" />
+            <button class="btn btn-primary btn-sm" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2026 PRINTCRAFT Studio. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div><p style="font-size:12px;color:#5A5A5A;">Secure Payments: Visa · Mastercard · PayPal · Apple Pay</p></div>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

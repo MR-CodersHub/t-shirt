@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>404 – Page Not Found | PRINTCRAFT Studio</title>
+  <meta name="description" content="The page you're looking for has gone out of stock. Return to PRINTCRAFT Studio to find what you need." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    body { min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:var(--pc-black);overflow:hidden; }
+    .error-bg { position:fixed;inset:0;z-index:0; }
+    .error-orb-1 { position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(255,59,48,0.15) 0%,transparent 70%);top:-200px;left:-150px;animation:float 8s ease-in-out infinite; }
+    .error-orb-2 { position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,214,10,0.1) 0%,transparent 70%);bottom:-150px;right:-100px;animation:float 10s ease-in-out infinite reverse; }
+    @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-30px);} }
+    .error-content { position:relative;z-index:1;text-align:center;padding:40px 20px;max-width:740px;margin:0 auto; }
+    .error-shirt { font-size:clamp(80px,15vw,160px);margin-bottom:0;animation:wobble 3s ease-in-out infinite;display:block;line-height:1; }
+    @keyframes wobble { 0%,100%{transform:rotate(-5deg) scale(1);} 50%{transform:rotate(5deg) scale(1.05);} }
+    .error-number { font-family:var(--font-display);font-size:clamp(120px,25vw,240px);color:transparent;-webkit-text-stroke:2px rgba(255,59,48,0.4);line-height:0.85;letter-spacing:-0.02em;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;user-select:none; }
+    .error-hero-wrap { position:relative;display:inline-block;margin-bottom:32px;min-height:clamp(140px,25vw,240px);min-width:280px;display:flex;align-items:center;justify-content:center; }
+    .error-title { font-family:var(--font-heading);font-size:clamp(24px,4vw,40px);font-weight:900;color:white;margin-bottom:14px;line-height:1.2; }
+    .error-desc { font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,0.5);line-height:1.7;max-width:480px;margin:0 auto 36px; }
+    .error-actions { display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:48px; }
+    .error-search { display:flex;gap:0;max-width:420px;margin:0 auto 48px;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-full);overflow:hidden;background:rgba(255,255,255,0.06); }
+    .error-search input { flex:1;padding:12px 20px;background:transparent;border:none;color:white;font-size:14px;outline:none; }
+    .error-search input::placeholder { color:rgba(255,255,255,0.3); }
+    .error-search button { padding:12px 20px;background:var(--pc-primary);border:none;color:white;cursor:pointer;font-size:14px;transition:background var(--transition-fast); }
+    .error-search button:hover { background:var(--pc-primary-dark); }
+    .error-quick-links { display:flex;gap:10px;justify-content:center;flex-wrap:wrap; }
+    .error-quick-link { padding:8px 18px;border:1px solid rgba(255,255,255,0.12);border-radius:999px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);transition:all var(--transition-fast); }
+    .error-quick-link:hover { border-color:var(--pc-primary);color:white;background:rgba(255,59,48,0.1); }
+    .error-code-badge { display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid rgba(255,59,48,0.3);border-radius:999px;font-size:12px;font-weight:700;color:var(--pc-primary);margin-bottom:20px;text-transform:uppercase;letter-spacing:0.1em; }
+  </style>
+</head>
+<body>
+<!-- Background -->
+<div class="error-bg" aria-hidden="true">
+  <div class="error-orb-1"></div>
+  <div class="error-orb-2"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,0.95),rgba(26,10,10,0.8));"></div>
+</div>
+
+<main class="error-content" role="main" aria-label="404 Error page">
+  <div class="error-code-badge"><i class="fa-solid fa-triangle-exclamation"></i> Error 404</div>
+  
+  <div class="error-hero-wrap" aria-hidden="true">
+    <span class="error-number">404</span>
+    <span class="error-shirt" role="img" aria-label="T-shirt icon"><i class="fa-solid fa-shirt"></i></span>
+  </div>
+
+  <h1 class="error-title">This Page Has Gone<br><span style="color:var(--pc-primary);">Out of Stock</span></h1>
+  <p class="error-desc">Sorry, the page you're looking for doesn't exist, has been moved, or got lost in the print queue. Let's get you back on track.</p>
+
+  <!-- Search -->
+  <div class="error-search" role="search">
+    <input type="search" placeholder="Search for services, designs, posts..." aria-label="Search the website" id="error-search-input" />
+    <button type="submit" aria-label="Submit search" id="error-search-btn"><i class="fa-solid fa-search" aria-hidden="true"></i></button>
+  </div>
+
+  <!-- Actions -->
+  <div class="error-actions">
+    <a href="index.html" class="btn btn-primary btn-lg" id="error-home-btn"><i class="fa-solid fa-house"></i> Return Home</a>
+    <a href="design-studio.html" class="btn btn-white btn-lg" id="error-design-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Start Designing</a>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="error-quick-links" aria-label="Helpful navigation links">
+    <a href="index.html" class="error-quick-link" id="ql-home">Home</a>
+    <a href="home2.html" class="error-quick-link" id="ql-home2">Home2</a>
+    <a href="about.html" class="error-quick-link" id="ql-about">About</a>
+    <a href="services.html" class="error-quick-link" id="ql-services">Services</a>
+    <a href="pricing.html" class="error-quick-link" id="ql-pricing">Pricing</a>
+    <a href="blog.html" class="error-quick-link" id="ql-blog">Blog</a>
+    <a href="contact.html" class="error-quick-link" id="ql-contact">Contact</a>
+  </div>
+</main>
+
+<script src="assets/js/main.js"></script>
+<script>
+// Auto-redirect countdown (optional UX enhancement)
+let countdown = 30;
+const interval = setInterval(() => {
+  countdown--;
+  if (countdown <= 0) { clearInterval(interval); }
+}, 1000);
+
+// Search functionality
+document.getElementById('error-search-btn')?.addEventListener('click', () => {
+  const query = document.getElementById('error-search-input')?.value;
+  if (query) {
+    showToast(`Searching for "${query}"...`, 'info');
+    setTimeout(() => location.href = 'index.html', 1000);
+  }
+});
+document.getElementById('error-search-input')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('error-search-btn')?.click();
+});
+</script>
+</body>
+</html>

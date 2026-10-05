@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>Admin Dashboard – Manage Store & Orders | PRINTCRAFT</title>
+  <meta name="description" content="PRINTCRAFT admin dashboard — manage orders, products, customers, revenue and store settings from one place." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    body { background:var(--bg-secondary); }
+    .dashboard-layout { display:grid; grid-template-columns:260px minmax(0,1fr); gap:0; min-height:100vh; padding-top:72px; overflow-x:clip; }
+    .dashboard-sidebar, .dashboard-main { min-width:0; min-height:0; }
+    @media(max-width:1024px){ .dashboard-layout{ grid-template-columns:1fr; } .dashboard-sidebar{ display:none; } .dashboard-sidebar.open{ display:flex; } }
+    [id^="asec-"] { scroll-margin-top:88px; }
+    .dash-menu-btn { display:none; align-items:center; gap:8px; padding:10px 18px; margin-bottom:20px; border:1.5px solid var(--border-color); border-radius:var(--radius-full); background:var(--bg-card); color:var(--text-primary); font-family:var(--font-heading); font-size:13px; font-weight:700; cursor:pointer; }
+    .dash-backdrop { display:none; }
+    @media(max-width:1024px){
+      .dash-menu-btn{ display:inline-flex; }
+      .dashboard-sidebar.open{ position:fixed; left:0; top:72px; bottom:0; width:min(280px,85vw); max-width:85vw; z-index:300; box-shadow:var(--shadow-xl); }
+      .dash-backdrop.show{ display:block; position:fixed; inset:0; top:72px; background:rgba(0,0,0,0.5); z-index:250; }
+      html[dir="rtl"] .dashboard-sidebar.open{ left:auto; right:0; }
+      /* While the drawer is open nothing may paint over it */
+      body.drawer-open{ overflow:hidden; }
+      body.drawer-open .back-to-top, body.drawer-open .scroll-progress{ opacity:0; pointer-events:none; }
+      .dash-profile-grid{ grid-template-columns:1fr !important; }
+    }
+    .dashboard-sidebar { background:var(--bg-card); border-right:1px solid var(--border-color); display:flex; flex-direction:column; position:sticky; top:72px; height:calc(100vh - 72px); overflow-y:auto; }
+    .dash-sidebar-header { padding:24px 20px; border-bottom:1px solid var(--border-color); }
+    .dash-user-avatar { width:52px; height:52px; border-radius:50%; object-fit:cover; margin-bottom:12px; }
+    .dash-user-name { font-family:var(--font-heading);font-size:16px;font-weight:800;color:var(--text-primary); }
+    .dash-user-email { font-size:12px;color:var(--text-muted); }
+    .dash-user-tier { display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;background:rgba(255,59,48,0.12);color:var(--pc-primary);margin-top:6px; }
+    .dash-nav { padding:16px 0; flex:1; }
+    .dash-nav-section { font-family:var(--font-heading);font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;padding:8px 20px;margin-top:8px; }
+    .dash-nav-item { display:flex;align-items:center;gap:12px;padding:11px 20px;font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-muted);cursor:pointer;transition:all var(--transition-fast);border-left:3px solid transparent; }
+    .dash-nav-item:hover { background:var(--bg-secondary);color:var(--text-primary); }
+    .dash-nav-item.active { background:rgba(255,59,48,0.06);color:var(--pc-primary);border-left-color:var(--pc-primary); }
+    .dash-nav-item i { width:18px;text-align:center;font-size:14px; }
+    .dash-nav-item .badge-count { margin-left:auto;background:var(--pc-primary);color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:999px; }
+    .dashboard-main { padding:32px; min-width:0; overflow-x:clip; }
+    @media(max-width:640px){ .dashboard-main{padding:20px;} }
+    .dash-greeting { margin-bottom:32px; }
+    .dash-greeting h1 { font-family:var(--font-heading);font-size:clamp(22px,5.5vw,28px);font-weight:900;color:var(--text-primary);margin-bottom:4px;overflow-wrap:break-word; }
+    .dash-greeting p { font-size:14px;color:var(--text-muted); }
+    .dash-stats { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px; }
+    @media(max-width:1024px){ .dash-stats{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:480px){ .dash-stats{grid-template-columns:1fr 1fr;} }
+    .dash-stat-card { background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:20px;min-width:0;transition:all var(--transition-base); }
+    .dash-stat-card:hover { box-shadow:var(--shadow-md);transform:translateY(-2px); }
+    .dash-stat-icon { font-size:24px;margin-bottom:10px; }
+    .dash-stat-val { font-family:var(--font-display);font-size:clamp(28px,7vw,36px);color:var(--text-primary);line-height:1;margin-bottom:4px;overflow-wrap:break-word; }
+    .dash-stat-label { font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.04em; }
+    .dash-stat-change { font-size:11px;color:var(--pc-green);font-weight:600;margin-top:4px; }
+    .dash-section-title { font-family:var(--font-heading);font-size:18px;font-weight:800;color:var(--text-primary);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color); }
+    /* Section header rows (title + action button) must wrap on narrow screens */
+    .dashboard-main [id^="sec-"] > div:first-child, .dashboard-main [id^="asec-"] > div:first-child { flex-wrap:wrap; gap:12px; row-gap:12px; }
+    .orders-table { width:100%;min-width:620px;border-collapse:collapse;background:var(--bg-card);border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--border-color); }
+    .orders-table th, .orders-table td { white-space:nowrap; }
+    .orders-table th { padding:14px 16px;background:var(--bg-secondary);font-family:var(--font-heading);font-size:11px;font-weight:700;color:var(--text-muted);text-align:left;text-transform:uppercase;letter-spacing:0.06em; }
+    .orders-table td { padding:14px 16px;border-top:1px solid var(--border-color);font-size:13px;color:var(--text-secondary);vertical-align:middle; }
+    .orders-table tr:hover td { background:var(--bg-secondary); }
+    .order-id { font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-primary); }
+    .order-status { display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700; }
+    .status-production { background:rgba(255,214,10,0.12);color:#B45309; }
+    .status-shipped { background:rgba(8,145,178,0.12);color:#0891B2; }
+    .status-delivered { background:rgba(16,185,129,0.12);color:var(--pc-green); }
+    .status-processing { background:rgba(124,58,237,0.12);color:var(--pc-purple); }
+    .admin-action-btn { padding:6px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-card);font-family:var(--font-heading);font-size:12px;font-weight:700;color:var(--text-secondary);cursor:pointer;transition:all var(--transition-fast); }
+    .admin-action-btn:hover { border-color:var(--pc-primary);color:var(--pc-primary); }
+    .admin-action-btn.approve { background:var(--pc-primary);border-color:var(--pc-primary);color:white; }
+    .admin-action-btn.approve:hover { background:var(--pc-primary-dark); }
+    .notification-item { display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border-color); }
+    .notification-item:last-child { border-bottom:none; }
+    .notification-dot { width:8px;height:8px;border-radius:50%;background:var(--pc-primary);flex-shrink:0;margin-top:5px; }
+    .notification-text { font-size:13px;color:var(--text-secondary);line-height:1.6; }
+    .notification-time { font-size:11px;color:var(--text-muted);margin-top:2px; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar (logo + theme only) -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+    </div>
+  </div>
+</nav>
+
+<div class="dashboard-layout">
+  <!-- Sidebar -->
+  <aside class="dashboard-sidebar" aria-label="Admin navigation">
+    <div class="dash-sidebar-header">
+      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=104&q=70" alt="Admin profile photo" class="dash-user-avatar" loading="lazy" />
+      <div class="dash-user-name">Store Admin</div>
+      <div class="dash-user-email">admin@printcraft.studio</div>
+      <div class="dash-user-tier"><i class="fa-solid fa-shield-halved"></i>Administrator</div>
+    </div>
+    <nav class="dash-nav" aria-label="Admin sections">
+      <div class="dash-nav-section">Manage</div>
+      <div class="dash-nav-item active" id="nav-overview" role="button" tabindex="0" data-target="asec-overview"><i class="fa-solid fa-gauge" aria-hidden="true"></i> Overview</div>
+      <div class="dash-nav-item" id="nav-orders" role="button" tabindex="0" data-target="asec-orders"><i class="fa-solid fa-box" aria-hidden="true"></i> All Orders<span class="badge-count">18</span></div>
+      <div class="dash-nav-item" id="nav-products" role="button" tabindex="0" data-target="asec-products"><i class="fa-solid fa-shirt" aria-hidden="true"></i> Products</div>
+      <div class="dash-nav-item" id="nav-customers" role="button" tabindex="0" data-target="asec-customers"><i class="fa-solid fa-users" aria-hidden="true"></i> Customers</div>
+      <div class="dash-nav-section">Store</div>
+      <div class="dash-nav-item" id="nav-inventory" role="button" tabindex="0" data-target="asec-inventory"><i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i> Inventory<span class="badge-count">4</span></div>
+      <div class="dash-nav-item" id="nav-reports" role="button" tabindex="0" data-target="asec-reports"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Reports</div>
+      <div class="dash-nav-item" id="nav-settings" role="button" tabindex="0" data-target="asec-settings"><i class="fa-solid fa-gear" aria-hidden="true"></i> Settings</div>
+      <div class="dash-nav-section">Account</div>
+      <div class="dash-nav-item" id="nav-store" role="button" tabindex="0" onclick="location.href='index.html'"><i class="fa-solid fa-store" aria-hidden="true"></i> View Store</div>
+      <div class="dash-nav-item" id="nav-signout" role="button" tabindex="0" onclick="location.href='login.html'"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Sign Out</div>
+    </nav>
+  </aside>
+  <div class="dash-backdrop" id="dash-backdrop"></div>
+
+  <!-- Main Content -->
+  <main class="dashboard-main" aria-label="Admin main content">
+    <button class="dash-menu-btn" id="dash-menu-btn" aria-label="Open admin menu"><i class="fa-solid fa-bars"></i> Menu</button>
+    <!-- Greeting -->
+    <div class="dash-greeting" id="asec-overview">
+      <h1>Store overview</h1>
+      <p>Here's what's happening across PRINTCRAFT today.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="dash-stats">
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+        <div class="dash-stat-val">$48.2K</div>
+        <div class="dash-stat-label">Revenue (30d)</div>
+        <div class="dash-stat-change">↑ 18% vs last month</div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon"><i class="fa-solid fa-box"></i></div>
+        <div class="dash-stat-val">342</div>
+        <div class="dash-stat-label">Total Orders</div>
+        <div class="dash-stat-change">↑ 24 this week</div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon"><i class="fa-solid fa-users"></i></div>
+        <div class="dash-stat-val">1,208</div>
+        <div class="dash-stat-label">Customers</div>
+        <div class="dash-stat-change">↑ 56 new</div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+        <div class="dash-stat-val">18</div>
+        <div class="dash-stat-label">Pending Approval</div>
+        <div class="dash-stat-change" style="color:var(--pc-accent);">Needs review</div>
+      </div>
+    </div>
+
+    <!-- Pending Orders -->
+    <div id="asec-orders" style="margin-bottom:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+        <h2 class="dash-section-title" style="border:none;padding:0;margin:0;">Orders Needing Action</h2>
+        <button class="btn btn-sm btn-outline" id="view-all-admin-orders">View All</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="orders-table" aria-label="Orders needing action">
+          <thead>
+            <tr><th>Order ID</th><th>Customer</th><th>Qty</th><th>Total</th><th>Status</th><th>Date</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="order-id">#PC-2026-0093</span></td>
+              <td>Sarah Lee · DTG × 30</td><td>30</td><td>$259.70</td>
+              <td><span class="order-status status-processing">● Proof Review</span></td>
+              <td>Oct 3, 2026</td>
+              <td style="white-space:nowrap;"><button class="admin-action-btn approve" onclick="showToast('Proof approved!','success')">Approve</button> <button class="admin-action-btn" onclick="showToast('Order details opened','info')">View</button></td>
+            </tr>
+            <tr>
+              <td><span class="order-id">#PC-2026-0091</span></td>
+              <td>TechFlow Inc · Screen × 200</td><td>200</td><td>$1,198.00</td>
+              <td><span class="order-status status-production">● Production</span></td>
+              <td>Oct 2, 2026</td>
+              <td style="white-space:nowrap;"><button class="admin-action-btn" onclick="showToast('Order details opened','info')">View</button></td>
+            </tr>
+            <tr>
+              <td><span class="order-id">#PC-2026-0089</span></td>
+              <td>John Smith · DTG × 50</td><td>50</td><td>$399.50</td>
+              <td><span class="order-status status-production">● Production</span></td>
+              <td>Sep 28, 2026</td>
+              <td style="white-space:nowrap;"><button class="admin-action-btn" onclick="showToast('Order details opened','info')">View</button></td>
+            </tr>
+            <tr>
+              <td><span class="order-id">#PC-2026-0087</span></td>
+              <td>Voltage Threads · Screen × 120</td><td>120</td><td>$838.80</td>
+              <td><span class="order-status status-shipped">● Shipped</span></td>
+              <td>Sep 25, 2026</td>
+              <td style="white-space:nowrap;"><button class="admin-action-btn" onclick="showToast('Order details opened','info')">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Products -->
+    <div id="asec-products" style="margin-bottom:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+        <h2 class="dash-section-title" style="border:none;padding:0;margin:0;">Products</h2>
+        <button class="btn btn-sm btn-primary" id="product-add-btn" onclick="showToast('Product editor opened!','success')"><i class="fa-solid fa-plus"></i> Add Product</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="orders-table" aria-label="Store products">
+          <thead>
+            <tr><th>Product</th><th>Base Price</th><th>In Stock</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="order-id">Classic Crew Tee</span></td><td>$8.99</td><td>2,340</td><td><span class="order-status status-delivered">&#9679; Active</span></td></tr>
+            <tr><td><span class="order-id">Premium Hoodie</span></td><td>$24.99</td><td>864</td><td><span class="order-status status-delivered">&#9679; Active</span></td></tr>
+            <tr><td><span class="order-id">Performance Polo</span></td><td>$16.99</td><td>1,120</td><td><span class="order-status status-delivered">&#9679; Active</span></td></tr>
+            <tr><td><span class="order-id">Ultra Soft Tank</span></td><td>$7.99</td><td>640</td><td><span class="order-status status-delivered">&#9679; Active</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Customers -->
+    <div id="asec-customers" style="margin-bottom:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+        <h2 class="dash-section-title" style="border:none;padding:0;margin:0;">Top Customers</h2>
+        <button class="btn btn-sm btn-outline" id="customer-view-btn" onclick="showToast('Opening full customer list!','info')">View All</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="orders-table" aria-label="Top customers">
+          <thead>
+            <tr><th>Customer</th><th>Orders</th><th>Total Spent</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="order-id">TechFlow Inc</span></td><td>18</td><td>$12,480</td><td><span class="order-status status-delivered">&#9679; Active</span></td></tr>
+            <tr><td><span class="order-id">Voltage Threads</span></td><td>12</td><td>$8,940</td><td><span class="order-status status-delivered">&#9679; Active</span></td></tr>
+            <tr><td><span class="order-id">Sarah Lee</span></td><td>9</td><td>$3,210</td><td><span class="order-status status-delivered">&#9679; Active</span></td></tr>
+            <tr><td><span class="order-id">John Smith</span></td><td>7</td><td>$1,240</td><td><span class="order-status status-delivered">&#9679; Active</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Inventory + Activity -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;" class="dash-bottom-grid">
+      <div id="asec-inventory" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+          <h2 style="font-family:var(--font-heading);font-size:16px;font-weight:800;color:var(--text-primary);margin:0;">Low Stock Alerts</h2>
+          <span class="badge badge-primary" style="font-size:11px;">4 Items</span>
+        </div>
+        <div class="notification-item">
+          <div class="notification-dot" style="background:var(--pc-primary);"></div>
+          <div><div class="notification-text"><strong>Classic Black Tee – XL</strong> only 12 left in stock.</div><div class="notification-time">Reorder suggested</div></div>
+        </div>
+        <div class="notification-item">
+          <div class="notification-dot" style="background:var(--pc-accent);"></div>
+          <div><div class="notification-text"><strong>Premium Hoodie – Navy</strong> only 8 left in stock.</div><div class="notification-time">Reorder suggested</div></div>
+        </div>
+        <div class="notification-item">
+          <div class="notification-dot" style="background:var(--pc-green);"></div>
+          <div><div class="notification-text"><strong>Bulk order #PC-2026-0091</strong> completed production — ready to ship.</div><div class="notification-time">1 hour ago</div></div>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:24px;">
+        <h2 style="font-family:var(--font-heading);font-size:16px;font-weight:800;color:var(--text-primary);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">Quick Actions</h2>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <button class="btn btn-primary" style="justify-content:flex-start;" id="qa-add-product" onclick="showToast('Product editor opened!','success')"><i class="fa-solid fa-plus" style="width:20px;"></i> Add New Product</button>
+          <button class="btn btn-outline" style="justify-content:flex-start;" id="qa-manage-orders" onclick="showToast('Opening order queue!','info')"><i class="fa-solid fa-boxes-stacked" style="width:20px;"></i> Manage Order Queue</button>
+          <button class="btn btn-outline" style="justify-content:flex-start;" id="qa-view-reports" onclick="showToast('Opening reports!','info')"><i class="fa-solid fa-chart-line" style="width:20px;"></i> View Sales Reports</button>
+          <a href="index.html" class="btn btn-outline" style="justify-content:flex-start;" id="qa-view-store"><i class="fa-solid fa-store" style="width:20px;"></i> View Storefront</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reports -->
+    <div id="asec-reports" style="margin-top:32px;margin-bottom:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+        <h2 class="dash-section-title" style="border:none;padding:0;margin:0;">Reports</h2>
+        <button class="btn btn-sm btn-outline" id="report-export-btn" onclick="showToast('Sales report exported!','success')"><i class="fa-solid fa-download"></i> Export</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;" class="dash-profile-grid">
+        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:20px;text-align:center;">
+          <div style="font-size:24px;color:var(--pc-primary);margin-bottom:8px;"><i class="fa-solid fa-sack-dollar"></i></div>
+          <div style="font-family:var(--font-heading);font-size:22px;font-weight:800;color:var(--text-primary);">$48.2K</div>
+          <div style="font-size:12px;color:var(--text-muted);">Revenue · Last 30 days</div>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:20px;text-align:center;">
+          <div style="font-size:24px;color:var(--pc-primary);margin-bottom:8px;"><i class="fa-solid fa-box"></i></div>
+          <div style="font-family:var(--font-heading);font-size:22px;font-weight:800;color:var(--text-primary);">342</div>
+          <div style="font-size:12px;color:var(--text-muted);">Orders · Last 30 days</div>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:20px;text-align:center;">
+          <div style="font-size:24px;color:var(--pc-primary);margin-bottom:8px;"><i class="fa-solid fa-users"></i></div>
+          <div style="font-family:var(--font-heading);font-size:22px;font-weight:800;color:var(--text-primary);">1,208</div>
+          <div style="font-size:12px;color:var(--text-muted);">Active customers</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div id="asec-settings" style="margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);">
+        <h2 class="dash-section-title" style="border:none;padding:0;margin:0;">Settings</h2>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:24px;display:flex;flex-direction:column;gap:14px;">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+          <input type="checkbox" style="accent-color:var(--pc-primary);" id="set-order-alerts" checked /> Email me for every new order
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+          <input type="checkbox" style="accent-color:var(--pc-primary);" id="set-lowstock-alerts" checked /> Low-stock alerts
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
+          <input type="checkbox" style="accent-color:var(--pc-primary);" id="set-maintenance" /> Maintenance mode (hide storefront)
+        </label>
+        <div>
+          <button class="btn btn-primary btn-sm" id="settings-save-btn" onclick="showToast('Settings saved successfully!','success')"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+// Admin sidebar nav: scroll to section + scroll-spy + mobile drawer
+(function () {
+  var sidebar = document.querySelector('.dashboard-sidebar');
+  var backdrop = document.getElementById('dash-backdrop');
+  var menuBtn = document.getElementById('dash-menu-btn');
+  function setActive(item) {
+    document.querySelectorAll('.dash-nav-item').forEach(i => i.classList.remove('active'));
+    if (item) item.classList.add('active');
+  }
+  function setDrawer(open) {
+    if (sidebar) sidebar.classList.toggle('open', open);
+    if (backdrop) backdrop.classList.toggle('show', open);
+    document.body.classList.toggle('drawer-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  function closeDrawer() {
+    setDrawer(false);
+  }
+  document.querySelectorAll('.dash-nav-item[data-target]').forEach(item => {
+    var go = function () {
+      var sec = document.getElementById(item.dataset.target);
+      if (sec) sec.scrollIntoView({behavior: 'smooth', block: 'start'});
+      setActive(item);
+      closeDrawer();
+    };
+    item.addEventListener('click', go);
+    item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  });
+  if (menuBtn) menuBtn.addEventListener('click', function () {
+    setDrawer(!(sidebar && sidebar.classList.contains('open')));
+  });
+  if (backdrop) backdrop.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) setDrawer(false);
+  });
+  // Scroll-spy: highlight nav item for section in view
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          var link = document.querySelector('.dash-nav-item[data-target="' + en.target.id + '"]');
+          if (link) setActive(link);
+        }
+      });
+    }, {rootMargin: '-40% 0px -55% 0px'});
+    document.querySelectorAll('[id^="asec-"]').forEach(s => spy.observe(s));
+  }
+})();
+</script>
+<style>
+@media(max-width:768px){
+  .dash-bottom-grid{ grid-template-columns:1fr !important; }
+  /* Sync fixed offsets with the 64px mobile navbar */
+  .dashboard-layout{ padding-top:64px; }
+  .dashboard-sidebar.open{ top:64px; }
+  .dash-backdrop.show{ top:64px; }
+}
+@media(max-width:480px){
+  .dash-stat-card{ padding:14px; }
+  .dash-stat-val{ font-size:28px; }
+  .dash-greeting{ margin-bottom:24px; }
+}
+@media(max-width:360px){
+  .dash-stat-val{ font-size:26px; }
+  .orders-table th, .orders-table td{ padding:10px 12px; font-size:12px; }
+}
+/* Sidebar vendam — content full width on all screens */
+.dashboard-layout{ grid-template-columns:1fr; }
+.dashboard-sidebar{ display:none !important; }
+.dash-menu-btn{ display:none !important; }
+.dash-backdrop{ display:none !important; }
+</style>
+</body>
+</html>

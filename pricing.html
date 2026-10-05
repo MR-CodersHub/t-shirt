@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <title>Pricing Guide – Transparent Custom T-Shirt Printing Prices | PRINTCRAFT</title>
+  <meta name="description" content="Transparent pricing for all custom printing services — DTG, screen printing, embroidery, sublimation. No hidden fees. Bulk discounts up to 60%." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .pricing-tabs { display:flex; gap:6px; background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-full); padding:6px; width:fit-content; max-width:100%; margin:0 auto 48px; overflow-x:auto; }
+    .pricing-tab-btn { padding:10px 24px; border-radius:var(--radius-full); font-family:var(--font-heading); font-size:13px; font-weight:700; color:var(--text-muted); cursor:pointer; transition:all var(--transition-fast); white-space:nowrap; }
+    .pricing-tab-btn.active { background:var(--pc-primary); color:white; }
+    .pricing-panel { display:none; }
+    .pricing-panel.active { display:block; }
+    .apparel-price-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    @media(max-width:1024px){ .apparel-price-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:640px){ .apparel-price-grid{grid-template-columns:1fr;} }
+    .apparel-price-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); overflow:hidden; transition:all var(--transition-base); }
+    .apparel-price-card:hover { box-shadow:var(--shadow-xl); transform:translateY(-4px); }
+    .apparel-price-img { height:220px; overflow:hidden; }
+    .apparel-price-img img { width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease; }
+    .apparel-price-card:hover .apparel-price-img img { transform:scale(1.05); }
+    .apparel-price-body { padding:24px; }
+    .apparel-price-name { font-family:var(--font-heading);font-size:18px;font-weight:800;color:var(--text-primary);margin-bottom:4px; }
+    .apparel-price-sub { font-size:12px;color:var(--text-muted);margin-bottom:16px; }
+    .apparel-price-table { width:100%;border-collapse:collapse;font-size:13px; }
+    .apparel-price-table td { padding:6px 0;border-bottom:1px solid var(--border-color);color:var(--text-secondary); }
+    .apparel-price-table td:last-child { text-align:right;font-weight:600;color:var(--text-primary); }
+    .apparel-price-table tr:last-child td { border-bottom:none; }
+    .pricing-addons { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    @media(max-width:640px){ .pricing-addons{grid-template-columns:1fr;} }
+    .addon-item { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); }
+    .addon-left { display:flex; align-items:center; gap:12px; }
+    .addon-icon { font-size:22px;color:var(--pc-primary);width:28px;text-align:center;flex-shrink:0; }
+    .addon-name { font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--text-primary); }
+    .addon-desc { font-size:12px;color:var(--text-muted); }
+    .addon-price { font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--pc-primary); }
+    .price-calculator { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:48px; }
+    @media(max-width:640px){ .price-calculator{padding:24px;} }
+    .calc-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
+    @media(max-width:768px){ .calc-row{grid-template-columns:1fr 1fr;} }
+    @media(max-width:480px){ .calc-row{grid-template-columns:1fr;} }
+    .calc-result { background:linear-gradient(135deg,var(--pc-black),#1A0A0A); border-radius:var(--radius-xl); padding:32px; margin-top:32px; display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+    @media(max-width:768px){ .calc-result{grid-template-columns:1fr 1fr;} }
+    @media(max-width:480px){ .calc-result{grid-template-columns:1fr;} }
+    .calc-result-item { text-align:center; }
+    .calc-result-val { font-family:var(--font-display);font-size:40px;color:white;line-height:1; }
+    .calc-result-label { font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-top:6px; }
+    .shipping-table { width:100%;border-collapse:collapse;background:var(--bg-card);border-radius:var(--radius-xl);overflow:hidden; }
+    .shipping-table th { padding:16px 20px;background:var(--bg-secondary);font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--text-primary);text-align:left; }
+    .shipping-table td { padding:14px 20px;border-bottom:1px solid var(--border-color);font-size:14px;color:var(--text-secondary); }
+    .shipping-table tr:last-child td { border-bottom:none; }
+    .free-badge { display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:999px;font-size:11px;font-weight:700;color:var(--pc-green); }
+    @media(max-width:360px){
+      .pricing-tabs{ margin-bottom:32px; padding:4px; }
+      .pricing-tab-btn{ padding:8px 16px; font-size:12px; }
+      .apparel-price-img{ height:180px; }
+      .apparel-price-body{ padding:16px; }
+      .apparel-price-name{ font-size:16px; }
+      .price-calculator{ padding:20px !important; }
+      .calc-result{ padding:20px !important; gap:16px !important; }
+      .calc-result-val{ font-size:32px; }
+      .addon-item{ padding:12px 14px; gap:8px; }
+      .addon-icon{ font-size:18px; width:24px; }
+      .addon-name{ font-size:13px; }
+      .addon-desc{ font-size:11px; }
+      .addon-price{ flex-shrink:0; font-size:13px; }
+      .shipping-table th{ padding:12px 10px; font-size:12px; white-space:nowrap; }
+      .shipping-table td{ padding:12px 10px; font-size:12px; }
+      div[style*="padding:48px"]{ padding:20px !important; }
+      div[style*="padding:32px"]{ padding:20px !important; }
+    }
+    @media(max-width:320px){
+      .pricing-tab-btn{ padding:7px 12px; font-size:11px; }
+      .apparel-price-img{ height:160px; }
+      .apparel-price-body{ padding:14px; }
+      .price-calculator{ padding:16px !important; }
+      .calc-result{ padding:16px !important; gap:12px !important; }
+      .calc-result-val{ font-size:28px; }
+      .calc-result-label{ font-size:10px; }
+      .addon-item{ padding:10px 12px; }
+      .shipping-table th{ padding:10px 8px; font-size:11px; }
+      .shipping-table td{ padding:10px 8px; font-size:11px; }
+      div[style*="padding:48px"]{ padding:16px !important; }
+      div[style*="padding:32px"]{ padding:16px !important; }
+    }
+  </style>
+</head>
+<body>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html" class="active">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+      <button class="rtl-toggle" aria-label="Switch to right-to-left (RTL)" aria-pressed="false" title="Switch to RTL">RTL</button>
+      <div class="profile-dropdown">
+        <button class="profile-btn" aria-label="Account menu" aria-expanded="false" aria-haspopup="true"><i class="fa-regular fa-circle-user"></i></button>
+        <div class="profile-menu" role="menu">
+          <a href="login.html" role="menuitem"><i class="fa-solid fa-right-to-bracket"></i><span>Login / Sign Up<small>Access your account</small></span></a>
+          <div class="profile-menu-divider"></div>
+          <a href="dashboard.html" role="menuitem"><i class="fa-solid fa-gauge"></i><span>User Dashboard<small>Orders, designs &amp; tracking</small></span></a>
+          <a href="admin.html" role="menuitem"><i class="fa-solid fa-user-shield"></i><span>Admin Dashboard<small>Manage store &amp; orders</small></span></a>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li><li><a href="design-studio.html">Design Studio</a></li>
+    <li><a href="bulk-orders.html">Bulk Orders</a></li><li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero" aria-labelledby="pricing-hero-heading" style="--page-hero-bg: url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1600&q=80');">
+  <div class="page-hero-bg-text" aria-hidden="true">PRICE</div>
+  <div class="container-pc page-hero-content">
+    <h1 class="page-hero-title" id="pricing-hero-heading">TRANSPARENT<br><span style="color:var(--pc-primary);">PRICING</span></h1>
+    <p class="page-hero-desc">No hidden fees. No setup charges. What you see is exactly what you pay. Compare our service pricing and calculate your order cost instantly.</p>
+  </div>
+</section>
+
+<!-- ====== SECTION 1: PLAN CARDS ====== -->
+<section class="section-py" aria-labelledby="plans-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-layer-group"></i> Service Plans</div>
+      <h2 class="section-title reveal" id="plans-heading">Choose Your<br><span class="text-gradient">Printing Plan</span></h2>
+    </div>
+    <div class="grid-4">
+      <div class="pricing-card reveal" data-delay="0">
+        <div class="pricing-icon"><i class="fa-solid fa-user"></i></div>
+        <div class="pricing-title">Solo</div>
+        <div class="pricing-desc">For individuals &amp; small orders</div>
+        <div class="pricing-price"><sup>$</sup>12</div>
+        <div class="pricing-per">per piece · DTG Printing</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><div class="icon">&#10003;</div> 1 piece minimum</li>
+          <li><div class="icon">&#10003;</div> All colors included</li>
+          <li><div class="icon">&#10003;</div> Free digital proof</li>
+          <li><div class="icon">&#10003;</div> 3–5 day production</li>
+          <li><div class="icon no">&#10007;</div> No bulk discount</li>
+          <li><div class="icon no">&#10007;</div> Standard support</li>
+        </ul>
+        <a href="design-studio.html" class="btn btn-primary w-full" style="justify-content:center;" id="plan-solo-btn">Start Now</a>
+      </div>
+      <div class="pricing-card reveal" data-delay="100">
+        <div class="pricing-badge">Best Value</div>
+        <div class="pricing-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></div>
+        <div class="pricing-title">Growth</div>
+        <div class="pricing-desc">For teams &amp; small events</div>
+        <div class="pricing-price"><sup>$</sup>7<span style="font-size:18px;font-weight:400;">.99</span></div>
+        <div class="pricing-per">per piece · 50–99 pcs</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><div class="icon">&#10003;</div> 50 piece minimum</li>
+          <li><div class="icon">&#10003;</div> 38% bulk discount</li>
+          <li><div class="icon">&#10003;</div> Priority production</li>
+          <li><div class="icon">&#10003;</div> Free shipping</li>
+          <li><div class="icon">&#10003;</div> Mix sizes freely</li>
+          <li><div class="icon">&#10003;</div> Priority support</li>
+        </ul>
+        <a href="design-studio.html" class="btn btn-primary w-full" style="justify-content:center;" id="plan-growth-btn">Order Now</a>
+      </div>
+      <div class="pricing-card reveal" data-delay="200">
+        <div class="pricing-icon"><i class="fa-solid fa-rocket" aria-hidden="true"></i></div>
+        <div class="pricing-title">Scale</div>
+        <div class="pricing-desc">For events &amp; large campaigns</div>
+        <div class="pricing-price"><sup>$</sup>5<span style="font-size:18px;font-weight:400;">.49</span></div>
+        <div class="pricing-per">per piece · 500–999 pcs</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><div class="icon">&#10003;</div> 500 piece minimum</li>
+          <li><div class="icon">&#10003;</div> 58% bulk discount</li>
+          <li><div class="icon">&#10003;</div> Dedicated rep</li>
+          <li><div class="icon">&#10003;</div> Express shipping</li>
+          <li><div class="icon">&#10003;</div> Printed sample first</li>
+          <li><div class="icon">&#10003;</div> 24/7 support</li>
+        </ul>
+        <a href="bulk-orders.html" class="btn btn-primary w-full" style="justify-content:center;" id="plan-scale-btn">Get Quote</a>
+      </div>
+      <div class="pricing-card reveal" data-delay="300">
+        <div class="pricing-icon"><i class="fa-solid fa-trophy" aria-hidden="true"></i></div>
+        <div class="pricing-title">Enterprise</div>
+        <div class="pricing-desc">For brands &amp; corporations</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-per">call for volume pricing</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><div class="icon">&#10003;</div> 1,000+ pieces</li>
+          <li><div class="icon">&#10003;</div> Up to 60% off</li>
+          <li><div class="icon">&#10003;</div> White-label option</li>
+          <li><div class="icon">&#10003;</div> Net-30 invoicing</li>
+          <li><div class="icon">&#10003;</div> Multi-location ship</li>
+          <li><div class="icon">&#10003;</div> Full account team</li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary w-full" style="justify-content:center;" id="plan-enterprise-btn">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 2: APPAREL PRICING TABLE ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="apparel-pricing-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-shirt"></i> Apparel Pricing</div>
+      <h2 class="section-title reveal" id="apparel-pricing-heading">Pricing by<br><span class="text-gradient">Apparel Type</span></h2>
+    </div>
+    
+    <!-- Tab Navigation -->
+    <div class="pricing-tabs reveal" role="tablist" aria-label="Pricing by print method">
+      <button class="pricing-tab-btn active" role="tab" aria-selected="true" data-pricing-tab="dtg" id="tab-dtg">DTG Printing</button>
+      <button class="pricing-tab-btn" role="tab" aria-selected="false" data-pricing-tab="screen" id="tab-screen">Screen Printing</button>
+      <button class="pricing-tab-btn" role="tab" aria-selected="false" data-pricing-tab="embroidery" id="tab-embroidery">Embroidery</button>
+      <button class="pricing-tab-btn" role="tab" aria-selected="false" data-pricing-tab="sublimation" id="tab-sublimation">Sublimation</button>
+    </div>
+    
+    <!-- DTG Panel -->
+    <div class="pricing-panel active" data-pricing-panel="dtg">
+      <div class="apparel-price-grid">
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80" alt="Classic crew neck tee" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">Classic Crew Tee</div>
+            <div class="apparel-price-sub">Ringspun Cotton · S–4XL</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>1–11 pcs</td><td>$12.99/pc</td></tr>
+              <tr><td>12–49 pcs</td><td>$9.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$7.99/pc</td></tr>
+              <tr><td>100–499 pcs</td><td>$6.49/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?w=400&q=80" alt="Premium hoodie" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">Premium Hoodie</div>
+            <div class="apparel-price-sub">80/20 Fleece · S–3XL</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>1–11 pcs</td><td>$28.99/pc</td></tr>
+              <tr><td>12–49 pcs</td><td>$22.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$18.99/pc</td></tr>
+              <tr><td>100–499 pcs</td><td>$15.99/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&q=80" alt="Performance polo" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">Performance Polo</div>
+            <div class="apparel-price-sub">Moisture-Wick · S–4XL</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>1–11 pcs</td><td>$19.99/pc</td></tr>
+              <tr><td>12–49 pcs</td><td>$15.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$12.99/pc</td></tr>
+              <tr><td>100–499 pcs</td><td>$10.49/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Screen Panel -->
+    <div class="pricing-panel" data-pricing-panel="screen">
+      <div class="apparel-price-grid">
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=400&q=80" alt="Screen printed tee" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">Classic Crew Tee</div>
+            <div class="apparel-price-sub">1–4 colors · Minimum 12 pcs</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>12–49 pcs</td><td>$9.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$6.99/pc</td></tr>
+              <tr><td>100–499 pcs</td><td>$5.49/pc</td></tr>
+              <tr><td>500+ pcs</td><td>$4.49/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?w=400&q=80" alt="Screen printed hoodie" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">Premium Hoodie</div>
+            <div class="apparel-price-sub">1–4 colors · Minimum 12 pcs</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>12–49 pcs</td><td>$22.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$17.99/pc</td></tr>
+              <tr><td>100–499 pcs</td><td>$14.49/pc</td></tr>
+              <tr><td>500+ pcs</td><td>$11.99/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=400&q=80" alt="Screen printed tank" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">Tank Top</div>
+            <div class="apparel-price-sub">1–4 colors · Minimum 12 pcs</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>12–49 pcs</td><td>$7.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$5.99/pc</td></tr>
+              <tr><td>100–499 pcs</td><td>$4.49/pc</td></tr>
+              <tr><td>500+ pcs</td><td>$3.49/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Embroidery Panel -->
+    <div class="pricing-panel" data-pricing-panel="embroidery">
+      <div class="apparel-price-grid">
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&q=80" alt="Embroidered polo" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">Performance Polo</div>
+            <div class="apparel-price-sub">Up to 15,000 stitches</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>1–11 pcs</td><td>$24.99/pc</td></tr>
+              <tr><td>12–49 pcs</td><td>$19.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$15.99/pc</td></tr>
+              <tr><td>100+ pcs</td><td>$12.99/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80" alt="Embroidered cap" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">Structured Cap</div>
+            <div class="apparel-price-sub">Front &amp; side logos</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>1–11 pcs</td><td>$18.99/pc</td></tr>
+              <tr><td>12–49 pcs</td><td>$14.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$11.99/pc</td></tr>
+              <tr><td>100+ pcs</td><td>$9.49/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&q=80" alt="Embroidered jacket" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">Softshell Jacket</div>
+            <div class="apparel-price-sub">Chest + back logo</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>1–11 pcs</td><td>$48.99/pc</td></tr>
+              <tr><td>12–49 pcs</td><td>$39.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$34.99/pc</td></tr>
+              <tr><td>100+ pcs</td><td>$28.99/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Sublimation Panel -->
+    <div class="pricing-panel" data-pricing-panel="sublimation">
+      <div class="apparel-price-grid">
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=400&q=80" alt="All-over sublimation sports jersey" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">Sports Jersey</div>
+            <div class="apparel-price-sub">All-over · Polyester · Custom numbered</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>12–49 pcs</td><td>$24.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$19.99/pc</td></tr>
+              <tr><td>100–499 pcs</td><td>$15.99/pc</td></tr>
+              <tr><td>500+ pcs</td><td>$12.99/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=400&q=80" alt="Sublimation performance tee" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">Performance Tee</div>
+            <div class="apparel-price-sub">All-over · Moisture-wick Polyester</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>12–49 pcs</td><td>$18.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$14.99/pc</td></tr>
+              <tr><td>100–499 pcs</td><td>$11.99/pc</td></tr>
+              <tr><td>500+ pcs</td><td>$9.49/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="apparel-price-card">
+          <div class="apparel-price-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="All-over sublimated hoodie" loading="lazy" /></div>
+          <div class="apparel-price-body">
+            <div class="apparel-price-name">All-Over Hoodie</div>
+            <div class="apparel-price-sub">Polyester Fleece · AOP</div>
+            <table class="apparel-price-table"><tbody>
+              <tr><td>12–49 pcs</td><td>$44.99/pc</td></tr>
+              <tr><td>50–99 pcs</td><td>$36.99/pc</td></tr>
+              <tr><td>100–499 pcs</td><td>$29.99/pc</td></tr>
+              <tr><td>500+ pcs</td><td>$24.99/pc</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 3: PRICE CALCULATOR ====== -->
+<section class="section-py" aria-labelledby="calculator-heading">
+  <div class="container-pc" style="max-width:900px;">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-calculator"></i> Instant Quote</div>
+      <h2 class="section-title reveal" id="calculator-heading">Calculate Your<br><span class="text-gradient">Order Cost</span></h2>
+      <p class="section-desc reveal">Get an instant estimate for your custom order. No signup required.</p>
+    </div>
+    <div class="price-calculator reveal-scale">
+      <div class="calc-row">
+        <div class="form-group">
+          <label class="form-label" for="calc-apparel">Apparel Type</label>
+          <select class="form-control" id="calc-apparel" oninput="calcPrice()" aria-label="Select apparel type">
+            <option value="8.99">Classic Tee ($8.99 base)</option>
+            <option value="24.99">Premium Hoodie ($24.99 base)</option>
+            <option value="16.99">Performance Polo ($16.99 base)</option>
+            <option value="7.99">Tank Top ($7.99 base)</option>
+            <option value="18.99">Sports Jersey ($18.99 base)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="calc-method">Print Method</label>
+          <select class="form-control" id="calc-method" oninput="calcPrice()" aria-label="Select print method">
+            <option value="0">DTG Printing (+$0)</option>
+            <option value="2">Screen Printing (+$2/pc)</option>
+            <option value="6">Embroidery (+$6/pc)</option>
+            <option value="5">Sublimation (+$5/pc)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="calc-qty">Quantity</label>
+          <input type="number" class="form-control" id="calc-qty" value="50" min="1" max="10000" oninput="calcPrice()" aria-label="Enter quantity" />
+        </div>
+      </div>
+      <div class="calc-row" style="margin-top:16px;">
+        <div class="form-group">
+          <label class="form-label" for="calc-sides">Print Sides</label>
+          <select class="form-control" id="calc-sides" oninput="calcPrice()" aria-label="Select number of print sides">
+            <option value="0">Front Only (+$0)</option>
+            <option value="3">Front &amp; Back (+$3/pc)</option>
+            <option value="2">Back Only (+$2/pc)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="calc-rush">Production Speed</label>
+          <select class="form-control" id="calc-rush" oninput="calcPrice()" aria-label="Select production speed">
+            <option value="0">Standard 5–7 days (FREE)</option>
+            <option value="25">Express 3 days (+$25)</option>
+            <option value="50">Rush 48 hours (+$50)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="calc-addons">Special Finish</label>
+          <select class="form-control" id="calc-addons" oninput="calcPrice()" aria-label="Select optional add-on">
+            <option value="0">No Finish</option>
+            <option value="3">UV Gloss (+$3/pc)</option>
+            <option value="5">Metallic Foil (+$5/pc)</option>
+            <option value="4">Puff Ink (+$4/pc)</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="calc-result" id="calc-result">
+        <div class="calc-result-item">
+          <div class="calc-result-val" id="result-per-piece">$8.99</div>
+          <div class="calc-result-label">Per Piece</div>
+        </div>
+        <div class="calc-result-item">
+          <div class="calc-result-val" id="result-discount" style="color:var(--pc-green);">38%</div>
+          <div class="calc-result-label">Bulk Discount</div>
+        </div>
+        <div class="calc-result-item">
+          <div class="calc-result-val" id="result-subtotal">$449.50</div>
+          <div class="calc-result-label">Subtotal</div>
+        </div>
+        <div class="calc-result-item">
+          <div class="calc-result-val" id="result-total" style="color:var(--pc-primary);">$449.50</div>
+          <div class="calc-result-label">Total Est.</div>
+        </div>
+      </div>
+      
+      <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="design-studio.html" class="btn btn-primary btn-lg" id="calc-order-btn"><i class="fa-solid fa-cart-plus"></i> Start This Order</a>
+        <a href="contact.html" class="btn btn-outline btn-lg" id="calc-quote-btn"><i class="fa-solid fa-envelope"></i> Request Formal Quote</a>
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:12px;">* Prices are estimates. Final pricing confirmed at checkout. Shipping calculated separately.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 4: ADD-ONS ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="addons-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-plus"></i> Optional Add-Ons</div>
+      <h2 class="section-title reveal" id="addons-heading">Elevate Your Order with<br><span class="text-gradient">Premium Add-Ons</span></h2>
+    </div>
+    <div class="pricing-addons reveal">
+      <div class="addon-item"><div class="addon-left"><div class="addon-icon"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i></div><div><div class="addon-name">UV Gloss Coat</div><div class="addon-desc">Adds a shiny protective gloss finish over the print</div></div></div><div class="addon-price">+$3/pc</div></div>
+      <div class="addon-item"><div class="addon-left"><div class="addon-icon"><i class="fa-solid fa-medal" aria-hidden="true"></i></div><div><div class="addon-name">Metallic Foil</div><div class="addon-desc">Gold, silver or holographic foil over selected areas</div></div></div><div class="addon-price">+$5/pc</div></div>
+      <div class="addon-item"><div class="addon-left"><div class="addon-icon"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></div><div><div class="addon-name">Puff Ink</div><div class="addon-desc">3D raised puff effect for textured, dimensional design</div></div></div><div class="addon-price">+$4/pc</div></div>
+      <div class="addon-item"><div class="addon-left"><div class="addon-icon"><i class="fa-solid fa-moon" aria-hidden="true"></i></div><div><div class="addon-name">Glow-in-Dark Ink</div><div class="addon-desc">Phosphorescent ink that glows in low-light conditions</div></div></div><div class="addon-price">+$4/pc</div></div>
+      <div class="addon-item"><div class="addon-left"><div class="addon-icon"><i class="fa-solid fa-tag" aria-hidden="true"></i></div><div><div class="addon-name">Custom Hang Tag</div><div class="addon-desc">Branded paper hang tag with your logo and info</div></div></div><div class="addon-price">+$1.50/pc</div></div>
+      <div class="addon-item"><div class="addon-left"><div class="addon-icon"><i class="fa-solid fa-box" aria-hidden="true"></i></div><div><div class="addon-name">Branded Polybag</div><div class="addon-desc">Custom-printed polybag with your brand name</div></div></div><div class="addon-price">+$2/pc</div></div>
+      <div class="addon-item"><div class="addon-left"><div class="addon-icon"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i></div><div><div class="addon-name">Inside Label Printing</div><div class="addon-desc">Print your brand details on the inside neck label</div></div></div><div class="addon-price">+$2/pc</div></div>
+      <div class="addon-item"><div class="addon-left"><div class="addon-icon"><i class="fa-solid fa-gift" aria-hidden="true"></i></div><div><div class="addon-name">Gift Box Packaging</div><div class="addon-desc">Premium gift-ready box for retail or gifting</div></div></div><div class="addon-price">+$4/pc</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 5: SHIPPING ====== -->
+<section class="section-py" aria-labelledby="shipping-heading">
+  <div class="container-pc">
+    <div class="section-header">
+      <div class="section-label reveal"><i class="fa-solid fa-truck"></i> Shipping &amp; Delivery</div>
+      <h2 class="section-title reveal" id="shipping-heading">Shipping <span class="text-gradient">Options</span></h2>
+    </div>
+    <div style="overflow-x:auto;" class="reveal">
+      <table class="shipping-table" aria-label="Shipping options and rates">
+        <thead>
+          <tr><th>Service</th><th>Delivery Time</th><th>Order Under $100</th><th>Order $100–$200</th><th>Order Over $200</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Standard Ground</td><td>5–7 business days</td><td>$9.99</td><td>$6.99</td><td><span class="free-badge">&#10003; FREE</span></td></tr>
+          <tr><td>Priority Mail</td><td>3–4 business days</td><td>$16.99</td><td>$12.99</td><td>$8.99</td></tr>
+          <tr><td>Express 2-Day</td><td>2 business days</td><td>$29.99</td><td>$24.99</td><td>$19.99</td></tr>
+          <tr><td>Overnight</td><td>Next business day</td><td>$49.99</td><td>$44.99</td><td>$39.99</td></tr>
+          <tr><td>International</td><td>7–14 business days</td><td>$24.99</td><td>$19.99</td><td>$14.99</td></tr>
+          <tr><td>Event Delivery</td><td>Coordinated with event</td><td colspan="3" style="text-align:center;"><a href="contact.html" style="color:var(--pc-primary);font-weight:600;">Contact for custom arrangement</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SECTION 6: FAQ + CTA ====== -->
+<section class="section-py" style="background:var(--bg-secondary);" aria-labelledby="pricing-faq-heading">
+  <div class="container-pc">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;" class="responsive-2col">
+      <div class="reveal-left">
+        <div class="section-label" style="display:inline-flex;"><i class="fa-solid fa-circle-question"></i>Pricing FAQ</div>
+        <h2 id="pricing-faq-heading" class="section-title" style="text-align:left;margin:16px 0 32px;">Common Pricing<br><span class="text-gradient">Questions</span></h2>
+        <div class="faq-item open">
+          <div class="faq-question">Are there any setup fees?<div class="faq-icon">+</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Zero setup fees on all DTG orders. Screen printing setup fees are waived for orders of 24+ pieces. Embroidery digitizing is included free with every order.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do prices include the cost of the blank garment?<div class="faq-icon">+</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes! All our pricing is all-inclusive — it includes the blank garment, printing, and quality inspection. The only additional cost is shipping and any optional add-ons you choose.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I mix sizes in a bulk order?<div class="faq-icon">+</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Absolutely. You can mix any combination of sizes (XS–5XL) within a single order and still qualify for the full bulk discount based on your total piece count.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do you offer payment plans for large orders?<div class="faq-icon">+</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes! Orders over $2,000 qualify for 50% deposit on order placement, balance due on shipping. Corporate accounts can apply for Net-30 invoicing terms.</div></div>
+        </div>
+      </div>
+      <div class="reveal-right" style="display:flex;flex-direction:column;justify-content:center;">
+        <div style="background:linear-gradient(135deg,var(--pc-primary),var(--pc-orange));border-radius:var(--radius-xl);padding:48px;text-align:center;color:white;">
+          <div style="font-size:48px;margin-bottom:16px;color:white;"><i class="fa-solid fa-trophy" aria-hidden="true"></i></div>
+          <h3 style="font-family:var(--font-heading);font-size:26px;font-weight:800;margin-bottom:16px;">Price Match Guarantee</h3>
+          <p style="font-size:15px;opacity:0.9;line-height:1.7;margin-bottom:28px;">Found a lower price from a competitor for the same quality? We'll beat it by 10%. No exceptions.</p>
+          <a href="contact.html" class="btn btn-white" id="price-match-btn"><i class="fa-solid fa-shield-halved"></i> Submit Price Match</a>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:32px;margin-top:20px;text-align:center;">
+          <div style="font-size:36px;margin-bottom:12px;color:var(--pc-primary);"><i class="fa-solid fa-phone" aria-hidden="true"></i></div>
+          <h3 style="font-family:var(--font-heading);font-size:18px;font-weight:800;color:var(--text-primary);margin-bottom:8px;">Need a Custom Quote?</h3>
+          <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">Large or unusual orders? Talk to our pricing team directly — we'll find the best solution for you.</p>
+          <a href="contact.html" class="btn btn-primary" id="custom-quote-pricing-btn"><i class="fa-solid fa-headset"></i> Talk to Our Team</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="container-pc">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="PRINTCRAFT Studio"><div class="nav-logo-icon"><i class="fa-solid fa-shirt"></i></div>PRINT<span>CRAFT</span></a>
+        <p>Premium custom T-shirt printing &amp; design studio. Helping brands, teams, and creators wear their stories since 2018.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="footer-social-btn" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="service-detail.html">DTG Printing</a></li><li><a href="service-detail.html">Screen Printing</a></li><li><a href="service-detail.html">Embroidery</a></li><li><a href="service-detail.html">Sublimation</a></li><li><a href="service-detail.html">Heat Transfer</a></li><li><a href="bulk-orders.html">Bulk Orders</a></li></ul></div>
+      <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="home2.html">Home2</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact Us</h4><ul class="footer-links"><li><a href="tel:+18005551234"><i class="fa-solid fa-phone"></i> +1 (800) 555-1234</a></li><li><a href="mailto:hello@printcraft.studio"><i class="fa-solid fa-envelope"></i> hello@printcraft.studio</a></li><li><a href="#"><i class="fa-solid fa-location-dot"></i> 123 Print Ave, NY 10001</a></li></ul>
+        <div style="margin-top:20px;">
+          <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:white;margin-bottom:10px;">Newsletter</div>
+          <div style="display:flex;gap:8px;">
+            <input type="email" placeholder="your@email.com" class="form-control" style="border-radius:8px;padding:10px 12px;font-size:13px;" aria-label="Newsletter email" />
+            <button class="btn btn-primary btn-sm" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2026 PRINTCRAFT Studio. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div><p style="font-size:12px;color:#5A5A5A;">Secure Payments: Visa · Mastercard · PayPal · Apple Pay</p></div>
+  </div>
+</footer>
+<button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="assets/js/main.js"></script>
+<script>
+// Pricing tabs
+document.querySelectorAll('[data-pricing-tab]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-pricing-tab]').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+    document.querySelectorAll('[data-pricing-panel]').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected','true');
+    const panel = document.querySelector(`[data-pricing-panel="${btn.dataset.pricingTab}"]`);
+    if (panel) panel.classList.add('active');
+  });
+});
+
+// Calculator
+function calcPrice() {
+  const basePrice = parseFloat(document.getElementById('calc-apparel').value);
+  const method = parseFloat(document.getElementById('calc-method').value);
+  const qty = parseInt(document.getElementById('calc-qty').value) || 1;
+  const sides = parseFloat(document.getElementById('calc-sides').value);
+  const rush = parseFloat(document.getElementById('calc-rush').value);
+  const addon = parseFloat(document.getElementById('calc-addons').value);
+
+  let discount = 0;
+  if (qty >= 500) discount = 0.58;
+  else if (qty >= 100) discount = 0.50;
+  else if (qty >= 50) discount = 0.38;
+  else if (qty >= 12) discount = 0.23;
+
+  const unitPrice = ((basePrice + method + sides + addon) * (1 - discount));
+  const subtotal = unitPrice * qty + rush;
+
+  document.getElementById('result-per-piece').textContent = '$' + unitPrice.toFixed(2);
+  document.getElementById('result-discount').textContent = Math.round(discount * 100) + '%';
+  document.getElementById('result-subtotal').textContent = '$' + (unitPrice * qty).toFixed(2);
+  document.getElementById('result-total').textContent = '$' + subtotal.toFixed(2);
+}
+calcPrice();
+</script>
+<style>
+@media(max-width:768px){ .responsive-2col{ grid-template-columns:1fr !important; gap:40px !important; } }
+</style>
+</body>
+</html>
